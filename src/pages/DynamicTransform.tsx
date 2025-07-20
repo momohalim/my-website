@@ -25,8 +25,16 @@ const DynamicTransform = () => {
 
   if (!content) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Unable to load content. Please try again later.</p>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{
+          background:
+            "linear-gradient(to bottom right, #F8F3ED, #EFE2D5, #EADCC4)",
+        }}
+      >
+        <p className="text-[#2C2824]">
+          Unable to load content. Please try again later.
+        </p>
       </div>
     );
   }
