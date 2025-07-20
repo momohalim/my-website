@@ -330,10 +330,17 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     scroll-behavior: smooth;
     font-family: "Roboto Slab", serif;
-    background-color: var(--bg-cream-lightest);
+    background: linear-gradient(
+      to bottom right,
+      #f8f3ed,
+      #efe2d5,
+      #eadcc4
+    ) !important;
+    background-attachment: fixed;
+    min-height: 100vh;
     color: var(--text-medium);
     line-height: 1.7;
   }
