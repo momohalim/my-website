@@ -1,59 +1,68 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes:wght@400&family=Raleway:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* High Agency Collective Color System (Light Theme) */
-  /* Background: Creamy gradient – light ivory to pale peach */
-  --bg-cream-light: #faf5ef; /* Light ivory */
-  --bg-cream-mid: #fbeae3; /* Pale peach */
-  --bg-cream-dark: #eed6c4; /* Deeper cream */
-  --bg-rose-dust: #f5c8c4; /* Rose-beige */
+  /* Psychiatric & Mental Health Nurse Practitioner Color System */
+  /* Very light creamy background tone */
+  --bg-cream-lightest: hsl(38, 60%, 95%); /* #F8F4EE - Very light creamy tone */
+  --bg-cream-light: #eadcc4; /* Light warm cream */
+  --bg-cream-mid: #dcc5a8; /* Medium warm cream */
+  --bg-cream-dark: #cbb79a; /* Darker cream for cards */
 
-  /* Cards: Soft warm beige or rose-beige */
-  --card-beige: #eed6c4;
-  --card-rose-beige: #f5c8c4;
+  /* Card backgrounds - slightly darker creamy tones */
+  --card-cream-light: #dcc5a8;
+  --card-cream-dark: #cbb79a;
+  --card-cream-darker: #b8a082;
 
-  /* Accents: Muted rose-pink, soft terracotta */
-  --brand-pink: #d39fa0; /* Muted rose-pink */
-  --brand-brown: #b47a5a; /* Soft terracotta */
+  /* Accent colors - warm cream variants (no pink/red) */
+  --accent-cream: #c4a678; /* Warm accent cream */
+  --accent-gold: #b8985a; /* Soft gold accent */
+  --accent-brown: #8b7355; /* Warm brown accent */
 
-  /* Shadows: Soft brown or muted gold */
-  --shadow-brown: rgba(180, 122, 90, 0.3);
-  --shadow-gold: rgba(218, 165, 32, 0.2);
+  /* Shadows - soft warm tones */
+  --shadow-cream: rgba(203, 183, 154, 0.3);
+  --shadow-warm: rgba(184, 152, 90, 0.2);
 
-  /* Text: Almost black or muted charcoal */
-  --text-dark: #1a1a1a; /* Almost black */
-  --text-soft: #444444; /* Muted charcoal */
-  --text-light: #f8f4ef; /* Light text for dark backgrounds */
+  /* Text colors */
+  --text-dark: #2c2824; /* Dark warm brown */
+  --text-medium: #4a453f; /* Medium brown */
+  --text-soft: #6b645c; /* Soft brown */
+  --text-light: #f8f4ee; /* Light cream for dark backgrounds */
 
   /* Utility */
-  --overlay-dark: rgba(0, 0, 0, 0.5);
+  --overlay-dark: rgba(44, 40, 36, 0.6);
+  --overlay-light: rgba(248, 244, 238, 0.9);
 }
 
 @layer base {
-  /* High Agency Collective Typography System */
-  /* Main headings: "Playfair Display" */
-  h1,
-  h2 {
+  /* Typography System for Psychiatric & Mental Health Practice */
+  /* Main headings: "Playfair Display" or "Great Vibes" */
+  h1 {
     font-family: "Playfair Display", serif;
     font-weight: 700;
     color: var(--text-dark);
   }
 
-  /* Subheadings: "Raleway" */
+  h2 {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  /* Subheadings: "Raleway" or "Quicksand" */
   h3,
   h4,
   h5,
   h6 {
     font-family: "Raleway", sans-serif;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--accent-brown);
   }
 
-  /* Body & paragraphs: "Roboto Slab" (or fallback Roboto) */
+  /* Body text: "Roboto Slab" or "Open Sans" */
   body,
   p,
   span,
@@ -61,13 +70,13 @@
   button,
   input,
   textarea {
-    font-family: "Roboto Slab", "Roboto", serif;
-    color: var(--text-dark);
+    font-family: "Roboto Slab", serif;
+    color: var(--text-medium);
   }
 
   /* Default sizes */
   h1 {
-    @apply text-5xl md:text-6xl lg:text-7xl font-bold leading-tight;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
   }
 
   h2 {
@@ -86,60 +95,89 @@
     @apply text-base md:text-lg leading-relaxed;
   }
 
-  /* Body defaults with cream gradient background */
+  /* Body defaults with very light creamy background */
   body {
-    background: linear-gradient(
-      135deg,
-      var(--bg-cream-light) 0%,
-      var(--bg-cream-mid) 100%
-    );
-    color: var(--text-dark);
+    background-color: var(--bg-cream-lightest);
+    color: var(--text-medium);
     font-weight: 400;
     line-height: 1.7;
   }
 }
 
 @layer components {
-  /* High Agency Collective Button Styles */
+  /* Button Styles - Creamy and Warm */
   .btn-primary {
     @apply px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105;
-    background-color: var(--brand-brown);
+    background-color: var(--accent-brown);
     color: var(--text-light);
     font-family: "Raleway", sans-serif;
-    box-shadow: 0 6px 20px var(--shadow-brown);
+    box-shadow: 0 6px 20px var(--shadow-cream);
   }
 
   .btn-primary:hover {
-    background-color: rgba(180, 122, 90, 0.9);
-    box-shadow: 0 8px 24px var(--shadow-brown);
+    background-color: var(--accent-gold);
+    box-shadow: 0 8px 24px var(--shadow-warm);
   }
 
   .btn-secondary {
     @apply px-6 py-3 border-2 rounded-full font-semibold transition-all duration-300;
-    border-color: var(--brand-brown);
-    color: var(--brand-brown);
+    border-color: var(--accent-brown);
+    color: var(--accent-brown);
     font-family: "Raleway", sans-serif;
+    background-color: transparent;
   }
 
   .btn-secondary:hover {
-    background-color: var(--brand-brown);
+    background-color: var(--accent-brown);
     color: var(--text-light);
     transform: translateY(-2px);
   }
 
-  /* Elegant Card Styles */
-  .card-elegant {
-    @apply rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
-    background-color: var(--card-beige);
-    border: 1px solid rgba(180, 122, 90, 0.2);
-    box-shadow: 0 6px 20px var(--shadow-brown);
+  .btn-start-journey {
+    @apply px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105;
+    background-color: var(--card-cream-dark);
+    color: var(--text-dark);
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0 6px 20px var(--shadow-cream);
+    border: 2px solid var(--accent-cream);
   }
 
-  .card-rose {
+  .btn-start-journey:hover {
+    background-color: var(--accent-cream);
+    box-shadow: 0 8px 24px var(--shadow-warm);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  /* Card Styles - Darker Creamy Cards with Soft Shadows */
+  .card-pillar {
+    @apply rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    background-color: var(--card-cream-dark);
+    border: 1px solid var(--accent-cream);
+    box-shadow: 0 8px 25px var(--shadow-cream);
+  }
+
+  .card-pillar:hover {
+    background-color: var(--card-cream-light);
+    box-shadow: 0 12px 35px var(--shadow-warm);
+  }
+
+  .card-testimonial {
+    @apply rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    background-color: var(--bg-cream-light);
+    border: 1px solid var(--accent-cream);
+    box-shadow: 0 6px 20px var(--shadow-cream);
+  }
+
+  .card-wellness {
     @apply rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
-    background-color: var(--card-rose-beige);
-    border: 1px solid rgba(180, 122, 90, 0.2);
-    box-shadow: 0 6px 20px var(--shadow-brown);
+    background-color: var(--card-cream-light);
+    border: 1px solid var(--accent-cream);
+    box-shadow: 0 8px 25px var(--shadow-cream);
+  }
+
+  .card-wellness:hover {
+    background-color: var(--bg-cream-light);
+    box-shadow: 0 12px 35px var(--shadow-warm);
   }
 
   /* Section spacing */
@@ -151,117 +189,136 @@
     @apply py-12 md:py-16 px-4 sm:px-6 lg:px-8;
   }
 
-  /* Typography classes */
-  .heading-primary {
+  /* Background gradients */
+  .bg-gradient-cream-light {
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-lightest) 0%,
+      var(--bg-cream-light) 100%
+    );
+  }
+
+  .bg-gradient-cream-warm {
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-light) 0%,
+      var(--bg-cream-mid) 100%
+    );
+  }
+
+  .bg-gradient-cream-rich {
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-mid) 0%,
+      var(--card-cream-dark) 100%
+    );
+  }
+
+  /* Typography utility classes */
+  .heading-hero {
     font-family: "Playfair Display", serif;
     font-weight: 700;
     color: var(--text-dark);
   }
 
-  .heading-secondary {
-    font-family: "Raleway", sans-serif;
+  .heading-elegant {
+    font-family: "Great Vibes", cursive;
+    font-weight: 400;
+    color: var(--accent-brown);
+  }
+
+  .heading-section {
+    font-family: "Playfair Display", serif;
     font-weight: 600;
-    color: var(--brand-brown);
+    color: var(--text-dark);
+  }
+
+  .subheading-clean {
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    color: var(--accent-brown);
+  }
+
+  .subheading-soft {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    color: var(--text-medium);
   }
 
   .body-text {
-    font-family: "Roboto Slab", "Roboto", serif;
-    color: var(--text-soft);
+    font-family: "Roboto Slab", serif;
+    color: var(--text-medium);
     line-height: 1.7;
+  }
+
+  .body-text-alt {
+    font-family: "Open Sans", sans-serif;
+    color: var(--text-medium);
+    line-height: 1.6;
+  }
+
+  /* Portrait frame */
+  .portrait-frame {
+    @apply rounded-2xl overflow-hidden;
+    box-shadow: 0 12px 35px var(--shadow-warm);
+    border: 3px solid var(--accent-cream);
   }
 }
 
-/* Import Google Fonts */
-
-/* Updated Design System with New Color Palette */
-
+/* Tailwind CSS overrides for consistency */
 @layer base {
   :root {
-    /* New Color Palette */
-    --color-bg-light: #e2cdb3;
-    --color-bg-gradient: linear-gradient(135deg, #b47a5a 0%, #dcc5a8 100%);
-    --color-bg-overlay-dark: rgba(0, 0, 0, 0.4);
+    --background: 38 60% 95%; /* Very light creamy tone */
+    --foreground: 26 10% 17%; /* Dark warm brown */
 
-    --color-text-main: #000000;
-    --color-text-light: #ffffff;
-    --color-text-muted: rgba(255, 255, 255, 0.8);
-    --color-text-highlight: #b47a5a;
+    --card: 38 40% 85%; /* Light warm cream */
+    --card-foreground: 26 10% 17%; /* Dark warm brown */
 
-    --color-button-bg: #b47a5a;
-    --color-button-text: #ffffff;
+    --popover: 38 60% 95%; /* Very light creamy tone */
+    --popover-foreground: 26 10% 17%; /* Dark warm brown */
 
-    --shadow-text: 0 4px 16px rgba(0, 0, 0, 0.7);
-    --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.1);
+    --primary: 35 30% 45%; /* Warm brown accent */
+    --primary-foreground: 38 60% 95%; /* Light cream */
 
-    /* Updated Tailwind Variables */
-    --background: 44 23% 82%; /* #E2CDB3 */
-    --foreground: 0 0% 0%; /* #000000 */
+    --secondary: 38 35% 75%; /* Medium cream */
+    --secondary-foreground: 26 10% 17%; /* Dark warm brown */
 
-    --card: 44 23% 82%; /* #E2CDB3 */
-    --card-foreground: 0 0% 0%; /* #000000 */
+    --muted: 38 30% 80%;
+    --muted-foreground: 26 10% 40%;
 
-    --popover: 44 23% 82%; /* #E2CDB3 */
-    --popover-foreground: 0 0% 0%; /* #000000 */
-
-    --primary: 20 45% 53%; /* #B47A5A */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF */
-
-    --secondary: 44 35% 85%; /* #DCC5A8 */
-    --secondary-foreground: 0 0% 0%; /* #000000 */
-
-    --muted: 44 23% 75%;
-    --muted-foreground: 0 0% 40%;
-
-    --accent: 20 45% 53%; /* #B47A5A */
-    --accent-foreground: 0 0% 100%; /* #FFFFFF */
+    --accent: 40 35% 65%; /* Warm accent cream */
+    --accent-foreground: 26 10% 17%; /* Dark warm brown */
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 38 60% 95%;
 
-    --border: 44 23% 75%;
-    --input: 44 23% 82%;
-    --ring: 20 45% 53%; /* #B47A5A */
+    --border: 38 30% 80%;
+    --input: 38 40% 85%;
+    --ring: 35 30% 45%; /* Warm brown accent */
 
     --radius: 1rem;
-
-    --sidebar-background: 44 23% 82%; /* #E2CDB3 */
-    --sidebar-foreground: 0 0% 0%; /* #000000 */
-    --sidebar-primary: 20 45% 53%; /* #B47A5A */
-    --sidebar-primary-foreground: 0 0% 100%; /* #FFFFFF */
-    --sidebar-accent: 44 35% 85%; /* #DCC5A8 */
-    --sidebar-accent-foreground: 0 0% 0%; /* #000000 */
-    --sidebar-border: 44 23% 75%;
-    --sidebar-ring: 20 45% 53%; /* #B47A5A */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --background: 26 10% 10%;
+    --foreground: 38 60% 95%;
+    --card: 26 10% 15%;
+    --card-foreground: 38 60% 95%;
+    --popover: 26 10% 10%;
+    --popover-foreground: 38 60% 95%;
+    --primary: 38 60% 95%;
+    --primary-foreground: 26 10% 10%;
+    --secondary: 26 10% 20%;
+    --secondary-foreground: 38 60% 95%;
+    --muted: 26 10% 20%;
+    --muted-foreground: 38 30% 70%;
+    --accent: 26 10% 20%;
+    --accent-foreground: 38 60% 95%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 94.1%;
-    --sidebar-primary-foreground: 220.9 39.3% 11%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 240 4.9% 83.9%;
+    --destructive-foreground: 38 60% 95%;
+    --border: 26 10% 20%;
+    --input: 26 10% 20%;
+    --ring: 38 30% 70%;
   }
 }
 
@@ -273,13 +330,9 @@
   body {
     @apply bg-background text-foreground;
     scroll-behavior: smooth;
-    font-family: "Roboto Slab", "Roboto", serif;
-    background: linear-gradient(
-      135deg,
-      var(--bg-cream-light) 0%,
-      var(--bg-cream-mid) 100%
-    );
-    color: var(--text-dark);
+    font-family: "Roboto Slab", serif;
+    background-color: var(--bg-cream-lightest);
+    color: var(--text-medium);
     line-height: 1.7;
   }
 
@@ -289,19 +342,18 @@
   h4,
   h5,
   h6 {
-    font-family: "Playfair Display", serif;
-    color: var(--brand-brown);
-    font-weight: 600;
-  }
-
-  h1 {
     color: var(--text-dark);
   }
 }
 
 @layer utilities {
+  /* Animations with subtle, pleasing effects */
   .animate-fade-in {
-    animation: fade-in 0.8s ease-out forwards;
+    animation: fade-in 1s ease-out forwards;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.8s ease-out forwards;
   }
 
   @keyframes fade-in {
@@ -315,66 +367,22 @@
     }
   }
 
-  .elegant-card {
-    background: var(--card-beige);
-    border: 1px solid rgba(180, 122, 90, 0.2);
-    border-radius: 1rem;
-    box-shadow: 0 6px 20px var(--shadow-brown);
-    transition: all 0.3s ease-in-out;
-  }
-
-  .elegant-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(180, 122, 90, 0.4);
-  }
-
-  .section-divider {
-    background: linear-gradient(
-      135deg,
-      var(--bg-cream-light) 0%,
-      var(--bg-cream-mid) 100%
-    );
-  }
-
-  .primary-button,
-  .cta-button {
-    @apply inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105;
-    background-color: var(--brand-brown);
-    color: var(--text-light);
-    font-family: "Raleway", sans-serif;
-    box-shadow: 0 6px 20px var(--shadow-brown);
-  }
-
-  .primary-button:hover,
-  .cta-button:hover {
-    background-color: rgba(180, 122, 90, 0.9);
-    box-shadow: 0 8px 24px var(--shadow-brown);
-  }
-
-  .text-heading {
-    color: var(--brand-brown);
-    font-family: "Playfair Display", serif;
-  }
-
-  .text-subheading {
-    color: var(--brand-brown);
-    font-family: "Raleway", sans-serif;
-  }
-
-  .text-body {
-    color: var(--text-soft);
-    font-family: "Roboto Slab", "Roboto", serif;
-  }
-
-  .text-muted {
-    color: var(--text-soft);
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   /* Accessibility and responsive design utilities */
   .focus-visible:focus {
-    outline: 2px solid var(--brand-brown);
+    outline: 3px solid var(--accent-brown);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 8px;
   }
 
   .sr-only {
@@ -393,8 +401,8 @@
   @media (prefers-contrast: high) {
     :root {
       --text-dark: #000000;
-      --text-soft: #000000;
-      --brand-brown: #8b4513;
+      --text-medium: #000000;
+      --accent-brown: #5d4e37;
     }
   }
 
@@ -408,5 +416,27 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+
+    .animate-fade-in,
+    .animate-slide-in {
+      animation: none !important;
+    }
+  }
+
+  /* Mobile-first responsive utilities */
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .grid-responsive {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8;
+  }
+
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  .heading-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
   }
 }
