@@ -471,7 +471,7 @@
   }
 
   .animate-scroll-slow {
-    animation: scroll-slow 30s linear infinite;
+    animation: scroll-slow 15s linear infinite;
   }
 
   /* Pause animation on hover for better UX */
