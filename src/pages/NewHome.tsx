@@ -6,8 +6,6 @@ import {
   Star,
   Play,
   Pause,
-  ChevronLeft,
-  ChevronRight,
   Calendar,
   Users,
   Award,
