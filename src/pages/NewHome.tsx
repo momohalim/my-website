@@ -28,19 +28,144 @@ const NewHome = () => {
   const { content, loading } = useContent("home");
   const [activeTransformation, setActiveTransformation] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const scrollToRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-scroll transformations every 8 seconds (as specified)
+  // Enhanced transformations data with 6 client cards
+  const transformations = content?.transformations?.stories || [
+    {
+      name: "Sarah M.",
+      image: "/assets/testimonial_sarah.jpg",
+      quote:
+        "The therapy sessions completely transformed my anxiety management. I feel empowered and confident again.",
+      role: "Executive Director",
+      rating: 5,
+    },
+    {
+      name: "Jennifer K.",
+      image: "/assets/testimonial_jennifer.jpg",
+      quote:
+        "Working with Dr. Smith helped me overcome years of depression. The medication management was life-changing.",
+      role: "Marketing Manager",
+      rating: 5,
+    },
+    {
+      name: "Maria L.",
+      image: "/assets/testimonial_maria.jpg",
+      quote:
+        "I finally understand my ADHD and have the tools to thrive. My productivity and focus have improved dramatically.",
+      role: "Creative Director",
+      rating: 5,
+    },
+    {
+      name: "Amanda R.",
+      image: "/assets/testimonial_amanda.jpg",
+      quote:
+        "The holistic approach to my bipolar disorder management has given me stability I never thought possible.",
+      role: "Software Engineer",
+      rating: 5,
+    },
+    {
+      name: "Lisa T.",
+      image: "/assets/testimonial_lisa.jpg",
+      quote:
+        "Trauma-informed care helped me heal from PTSD. I can finally sleep peacefully and enjoy life again.",
+      role: "Teacher",
+      rating: 5,
+    },
+    {
+      name: "Rachel D.",
+      image: "/assets/testimonial_rachel.jpg",
+      quote:
+        "The psychiatric evaluation and treatment plan addressed my eating disorder with compassion and expertise.",
+      role: "Nurse Practitioner",
+      rating: 5,
+    },
+  ];
+
+  // Auto-scroll functionality - slowly from right to left every 8 seconds
   useEffect(() => {
-    const transformations = content?.transformations?.stories || [];
-    if (transformations.length > 0) {
-      const timer = setInterval(() => {
-        setActiveTransformation((prev) => (prev + 1) % transformations.length);
-      }, 8000); // Changed from 4 to 8 seconds
-      return () => clearInterval(timer);
+    const startAutoScroll = () => {
+      autoScrollRef.current = setInterval(() => {
+        if (!isDragging) {
+          setActiveTransformation(
+            (prev) => (prev + 1) % transformations.length,
+          );
+        }
+      }, 8000); // 8 seconds as specified
+    };
+
+    startAutoScroll();
+
+    return () => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+      }
+    };
+  }, [transformations.length, isDragging]);
+
+  // Touch/mouse event handlers for mobile swiping and dragging
+  const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
+    setIsDragging(true);
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    setStartX(clientX);
+    setCurrentX(clientX);
+
+    // Pause auto-scroll when user interacts
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current);
     }
-  }, [content?.transformations?.stories]);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent | React.MouseEvent) => {
+    if (!isDragging) return;
+
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    setCurrentX(clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+
+    const deltaX = startX - currentX;
+    const threshold = 50; // Minimum distance for swipe
+
+    if (Math.abs(deltaX) > threshold) {
+      if (deltaX > 0) {
+        // Swipe left - go to next
+        setActiveTransformation((prev) => (prev + 1) % transformations.length);
+      } else {
+        // Swipe right - go to previous
+        setActiveTransformation(
+          (prev) =>
+            (prev - 1 + transformations.length) % transformations.length,
+        );
+      }
+    }
+
+    setIsDragging(false);
+    setStartX(0);
+    setCurrentX(0);
+
+    // Restart auto-scroll after user interaction
+    setTimeout(() => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+      }
+      autoScrollRef.current = setInterval(() => {
+        if (!isDragging) {
+          setActiveTransformation(
+            (prev) => (prev + 1) % transformations.length,
+          );
+        }
+      }, 8000);
+    }, 2000); // Wait 2 seconds before restarting auto-scroll
+  };
 
   const toggleVideo = () => {
     if (videoRef.current) {
@@ -65,52 +190,6 @@ const NewHome = () => {
     );
   }
 
-  // Default data for 6 client transformations with enhanced auto-slider
-  const transformations = content?.transformations?.stories || [
-    {
-      name: "Sarah M.",
-      image: "/assets/testimonial_sarah.jpg",
-      quote: "I finally feel like myself again",
-      role: "Executive Director",
-      rating: 5,
-    },
-    {
-      name: "Jennifer K.",
-      image: "/assets/testimonial_jennifer.jpg",
-      quote: "The transformation has been incredible",
-      role: "Business Owner",
-      rating: 5,
-    },
-    {
-      name: "Maria L.",
-      image: "/assets/testimonial_maria.jpg",
-      quote: "I'm living my authentic truth now",
-      role: "Creative Leader",
-      rating: 5,
-    },
-    {
-      name: "Amanda R.",
-      image: "/assets/testimonial_amanda.jpg",
-      quote: "Best decision I ever made",
-      role: "Entrepreneur",
-      rating: 5,
-    },
-    {
-      name: "Lisa T.",
-      image: "/assets/testimonial_lisa.jpg",
-      quote: "I found my inner strength",
-      role: "Coach & Consultant",
-      rating: 5,
-    },
-    {
-      name: "Rachel D.",
-      image: "/assets/testimonial_rachel.jpg",
-      quote: "Life-changing experience",
-      role: "Marketing Director",
-      rating: 5,
-    },
-  ];
-
   // 3 Pillars with elegant icons and descriptions
   const pillars = [
     {
@@ -133,7 +212,7 @@ const NewHome = () => {
     },
   ];
 
-  // New Wellness Resources section with 3 downloadable/embedded tools
+  // Wellness Resources section with 3 downloadable/embedded tools
   const wellnessResources = content?.wellnessResources || [
     {
       title: "Meditation Guide",
@@ -292,7 +371,7 @@ const NewHome = () => {
         </div>
       </section>
 
-      {/* Client Transformations Section - 6 testimonials, horizontal auto-slider (3 at a time, 8 seconds) */}
+      {/* Enhanced Client Transformations Section - 6 testimonials with improved slider */}
       <section className="section-padding bg-gradient-cream-warm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -306,80 +385,108 @@ const NewHome = () => {
           </div>
 
           <div className="relative overflow-hidden">
+            {/* Enhanced Slider Container */}
             <div
-              className="flex transition-transform duration-1000 ease-in-out gap-8"
+              ref={sliderRef}
+              className="flex transition-transform duration-1000 ease-in-out cursor-grab active:cursor-grabbing"
               style={{
-                transform: `translateX(-${Math.floor(activeTransformation / 3) * 100}%)`,
-                width: `${Math.ceil(transformations.length / 3) * 100}%`,
+                transform: `translateX(-${(activeTransformation * 100) / 3}%)`,
+                width: `${(transformations.length / 3) * 100}%`,
               }}
+              onMouseDown={handleTouchStart}
+              onMouseMove={handleTouchMove}
+              onMouseUp={handleTouchEnd}
+              onMouseLeave={handleTouchEnd}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
-              {Array.from({
-                length: Math.ceil(transformations.length / 3),
-              }).map((_, groupIndex) => (
-                <div
-                  key={groupIndex}
-                  className="w-full flex gap-8 flex-shrink-0"
-                >
-                  {transformations
-                    .slice(groupIndex * 3, (groupIndex + 1) * 3)
-                    .map((story, index) => (
-                      <div
-                        key={`${groupIndex}-${index}`}
-                        className="flex-1 card-testimonial hover:shadow-xl transition-all duration-300"
-                      >
-                        <div className="h-48 bg-gradient-cream-rich rounded-xl mb-4 overflow-hidden">
-                          {story.image && (
-                            <img
-                              src={story.image}
-                              alt={story.name}
-                              className="w-full h-full object-cover"
-                              loading="lazy"
-                            />
-                          )}
-                        </div>
-                        <div className="flex mb-3">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              size={16}
-                              className="fill-yellow-400 text-yellow-400"
-                            />
-                          ))}
-                        </div>
-                        <p className="body-text text-lg italic mb-4 leading-relaxed">
-                          "{story.quote}"
-                        </p>
-                        <div>
-                          <h4 className="subheading-clean font-semibold text-lg">
-                            {story.name}
-                          </h4>
-                          <p className="body-text-alt text-sm opacity-75">
-                            {story.role}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+              {transformations.map((story, index) => (
+                <div key={index} className="w-1/3 px-4 flex-shrink-0">
+                  <div className="card-testimonial hover:shadow-xl transition-all duration-300 h-full">
+                    <div className="h-48 bg-gradient-cream-rich rounded-xl mb-4 overflow-hidden">
+                      {story.image && (
+                        <img
+                          src={story.image}
+                          alt={story.name}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          draggable={false}
+                        />
+                      )}
+                    </div>
+
+                    {/* 5-star rating */}
+                    <div className="flex justify-center mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={18}
+                          className="fill-yellow-400 text-yellow-400 mx-0.5"
+                        />
+                      ))}
+                    </div>
+
+                    {/* Testimonial quote */}
+                    <p className="body-text text-lg italic mb-4 leading-relaxed text-center px-2">
+                      "{story.quote}"
+                    </p>
+
+                    {/* Client info */}
+                    <div className="text-center">
+                      <h4 className="subheading-clean font-semibold text-lg mb-1">
+                        {story.name}
+                      </h4>
+                      <p className="body-text-alt text-sm opacity-75">
+                        {story.role}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
+
+            {/* Navigation arrows */}
+            <button
+              onClick={() =>
+                setActiveTransformation(
+                  (prev) =>
+                    (prev - 1 + transformations.length) %
+                    transformations.length,
+                )
+              }
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[var(--accent-brown)] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={() =>
+                setActiveTransformation(
+                  (prev) => (prev + 1) % transformations.length,
+                )
+              }
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[var(--accent-brown)] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
 
-          {/* Navigation dots */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: Math.ceil(transformations.length / 3) }).map(
-              (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveTransformation(index * 3)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    Math.floor(activeTransformation / 3) === index
-                      ? "bg-[var(--accent-brown)]"
-                      : "bg-[var(--accent-cream)]"
-                  }`}
-                  aria-label={`Go to testimonial group ${index + 1}`}
-                />
-              ),
-            )}
+          {/* Enhanced Navigation dots */}
+          <div className="flex justify-center mt-8 space-x-3">
+            {transformations.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveTransformation(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  activeTransformation === index
+                    ? "bg-[var(--accent-brown)] scale-125"
+                    : "bg-[var(--accent-cream)] hover:bg-[var(--accent-brown)]/50"
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
