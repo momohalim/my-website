@@ -35,13 +35,13 @@ const Navigation = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* Logo */}
+          {/* Logo - Enlarged and rounded corners */}
           <Link to="/" className="flex items-center">
-            <div className="bg-[rgba(0,0,0,0.4)] rounded-xl p-1 shadow-lg">
+            <div className="bg-[var(--bg-cream-light)] rounded-2xl p-2 shadow-lg border border-[var(--accent-cream)]">
               <img
                 src="/assets/Gold HA negative background (1).svg"
-                alt="High Agency Collective"
-                className="w-[60px] h-[60px] rounded-xl object-contain"
+                alt="Psychiatric & Mental Health Nurse Practitioner"
+                className="w-[70px] h-[70px] rounded-xl object-contain"
               />
             </div>
           </Link>
