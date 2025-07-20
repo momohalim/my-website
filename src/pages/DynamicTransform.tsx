@@ -265,7 +265,7 @@ const DynamicTransform = () => {
             {/* Phase description */}
             <div className="mt-8 min-h-[80px]">
               {phases[activePhase] && (
-                <div className="bg-[#F8F4EF] p-6 rounded-2xl border border-[#E2CDB3]/30">
+                <div className="bg-white/85 backdrop-blur-sm p-6 rounded-2xl border border-[#E2CDB3]/30 shadow-lg">
                   <h4
                     className="text-xl font-semibold text-[#1A1A1A] mb-3"
                     style={{ fontFamily: "Cormorant Garamond, serif" }}
