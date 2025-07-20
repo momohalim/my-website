@@ -15,15 +15,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {/* Brand Section */}
           <div className="space-y-4">
-            <img
-              src="/assets/Gold HA negative background (1).svg"
-              alt="High Agency Logo"
-              className="w-20 h-20 rounded-xl object-contain"
-            />
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 w-fit">
+              <img
+                src="/assets/Gold HA negative background (1).svg"
+                alt="Psychiatric & Mental Health Nurse Practitioner"
+                className="w-28 h-28 object-contain"
+                style={{ transform: "scale(1.4)" }}
+              />
+            </div>
             <p
               className="text-sm leading-relaxed"
               style={{
-                fontFamily: "Cormorant Garamond, serif",
+                fontFamily: "Playfair Display, serif",
                 color: "#F8F4EF",
               }}
             >
