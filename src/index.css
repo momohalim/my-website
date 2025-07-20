@@ -275,7 +275,7 @@
 /* Tailwind CSS overrides for consistency */
 @layer base {
   :root {
-    --background: 38 60% 95%; /* Very light creamy tone */
+    --background: 38 45% 96%; /* #F8F3ED - Exact requested light cream */
     --foreground: 26 10% 17%; /* Dark warm brown */
 
     --card: 38 40% 85%; /* Light warm cream */
