@@ -170,7 +170,7 @@ export function ImageUpload({
                   {acceptedTypes === "image/*"
                     ? "PNG, JPG, GIF up to 10MB"
                     : acceptedTypes === "video/*"
-                      ? "MP4, MOV, AVI up to 10MB"
+                      ? "MP4, MOV, AVI up to 10MB maximum"
                       : acceptedTypes === ".pdf"
                         ? "PDF files up to 10MB"
                         : "Accepted files up to 10MB"}
