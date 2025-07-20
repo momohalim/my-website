@@ -355,6 +355,21 @@
     background: inherit !important;
   }
 
+  /* Background inheritance utility */
+  .bg-inherit {
+    background: inherit !important;
+  }
+
+  .bg-transparent-override {
+    background: transparent !important;
+  }
+
+  /* Ensure all page containers inherit the global gradient */
+  .page-container,
+  .min-h-screen {
+    background: inherit;
+  }
+
   /* Maintain proper contrast for text over images */
   .bg-overlay {
     position: relative;
