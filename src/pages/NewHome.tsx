@@ -385,7 +385,7 @@ const NewHome = () => {
           </div>
 
           <div className="relative overflow-hidden">
-            {/* Enhanced Slider Container */}
+            {/* Enhanced Slider Container - Responsive */}
             <div
               ref={sliderRef}
               className="flex transition-transform duration-1000 ease-in-out cursor-grab active:cursor-grabbing"
@@ -402,7 +402,10 @@ const NewHome = () => {
               onTouchEnd={handleTouchEnd}
             >
               {transformations.map((story, index) => (
-                <div key={index} className="w-1/3 px-4 flex-shrink-0">
+                <div
+                  key={index}
+                  className="w-full md:w-1/2 lg:w-1/3 px-2 md:px-4 flex-shrink-0"
+                >
                   <div className="card-testimonial hover:shadow-xl transition-all duration-300 h-full">
                     <div className="h-48 bg-gradient-cream-rich rounded-xl mb-4 overflow-hidden">
                       {story.image && (
