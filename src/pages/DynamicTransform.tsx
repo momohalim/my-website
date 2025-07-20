@@ -149,7 +149,7 @@ const DynamicTransform = () => {
             {questions.map((question, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-[#E2CDB3]/30 hover:shadow-md transition-shadow duration-300"
+                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-[#E2CDB3]/30 hover:shadow-xl transition-all duration-300"
               >
                 <p
                   className="text-base font-medium text-[#1A1A1A] leading-relaxed"
