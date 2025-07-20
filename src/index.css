@@ -448,4 +448,41 @@
   .heading-responsive {
     @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
   }
+
+  /* Testimonial slider responsive adjustments */
+  .testimonial-slider {
+    @apply overflow-hidden;
+  }
+
+  .testimonial-slide {
+    @apply w-full px-2;
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-slide {
+      @apply w-1/2 px-3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonial-slide {
+      @apply w-1/3 px-4;
+    }
+  }
+
+  /* Touch-friendly navigation */
+  .slider-nav-btn {
+    @apply absolute top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-[var(--accent-brown)] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-10;
+  }
+
+  .slider-nav-btn:focus-visible {
+    @apply outline-2 outline-[var(--accent-brown)] outline-offset-2;
+  }
+
+  /* Smooth scroll for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-slider * {
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
