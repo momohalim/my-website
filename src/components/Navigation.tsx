@@ -99,8 +99,8 @@ const Navigation = () => {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
-                  className={`text-base font-medium transition-colors duration-200 text-[var(--text-dark)] hover:text-[var(--brand-pink)] ${
-                    isActive(item.path) ? "text-[var(--brand-pink)]" : ""
+                  className={`text-base font-medium transition-colors duration-200 text-[var(--text-dark)] hover:text-[var(--accent-brown)] ${
+                    isActive(item.path) ? "text-[var(--accent-brown)]" : ""
                   }`}
                 >
                   {item.name}
