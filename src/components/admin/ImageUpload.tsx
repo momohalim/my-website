@@ -27,6 +27,16 @@ export function ImageUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { uploadImage, uploading } = useImageUpload();
 
+  // Auto-clear error messages after 5 seconds
+  useEffect(() => {
+    if (error) {
+      const timeoutId = setTimeout(() => {
+        setError(null);
+      }, 5000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [error]);
+
   const handleFileSelect = async (file: File) => {
     // Validate file type based on acceptedTypes
     const isValidType =
