@@ -286,7 +286,7 @@ const DynamicTransform = () => {
       </section>
 
       {/* Real Women, Real Change - Testimonials */}
-      <section className="py-12 bg-[#E2CDB3]/10">
+      <section className="py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2
