@@ -14,7 +14,15 @@ import {
 } from "../../components/ui/card";
 import { Alert, AlertDescription } from "../../components/ui/alert";
 import { Separator } from "../../components/ui/separator";
-import { Save, Loader2, Plus, Trash2 } from "lucide-react";
+import {
+  Save,
+  Loader2,
+  Plus,
+  Trash2,
+  FileText,
+  Music,
+  Video,
+} from "lucide-react";
 
 export function AdminHome() {
   const { content, loading } = useContent("home");
@@ -70,7 +78,7 @@ export function AdminHome() {
       name: "",
       image: "",
       quote: "",
-      title: "",
+      role: "",
       rating: 5,
     });
     updateFormField("transformations.stories", transformations);
@@ -80,6 +88,13 @@ export function AdminHome() {
     const transformations = formData.transformations?.stories || [];
     transformations.splice(index, 1);
     updateFormField("transformations.stories", transformations);
+  };
+
+  const updateWellnessResource = (index: number, field: string, value: any) => {
+    const resources = formData.wellnessResources || [];
+    if (!resources[index]) resources[index] = {};
+    resources[index][field] = value;
+    updateFormField("wellnessResources", resources);
   };
 
   if (loading) {
@@ -97,9 +112,12 @@ export function AdminHome() {
       <div className="space-y-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Home Page</h1>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Home Page - Psychiatric & Mental Health Practice
+            </h1>
             <p className="text-muted-foreground">
-              Manage your redesigned homepage content - "High Agency Collective"
+              Manage your homepage content with tagline "Own your Power. Shape
+              your Story."
             </p>
           </div>
           <Button onClick={handleSave} disabled={saving}>
@@ -118,12 +136,13 @@ export function AdminHome() {
           </Alert>
         )}
 
-        {/* 1️⃣ Hero Banner Section */}
+        {/* Hero Section */}
         <Card>
           <CardHeader>
-            <CardTitle>1️⃣ Hero Banner</CardTitle>
+            <CardTitle>Hero Section</CardTitle>
             <CardDescription>
-              Full-screen hero with tagline "Own your Power. Shape your Story."
+              Short, powerful introductory statement with "Start Your Journey"
+              button
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -140,14 +159,16 @@ export function AdminHome() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Subheading</label>
+              <label className="text-sm font-medium">
+                Subheading (Minimal Text)
+              </label>
               <Textarea
                 value={formData.hero?.subheading || ""}
                 onChange={(e) =>
                   updateFormField("hero.subheading", e.target.value)
                 }
-                placeholder="Transform your mental health journey with personalized psychiatric care designed for women ready to step into their power."
-                rows={3}
+                placeholder="Transform your mental health with compassionate, evidence-based psychiatric care."
+                rows={2}
               />
             </div>
             <div>
@@ -161,7 +182,13 @@ export function AdminHome() {
               />
             </div>
             <ImageUpload
-              label="Hero Background Image"
+              label="Hero Background Video"
+              currentImage={formData.hero?.videoUrl || ""}
+              onImageUpdate={(url) => updateFormField("hero.videoUrl", url)}
+              acceptedTypes="video/*"
+            />
+            <ImageUpload
+              label="Fallback Background Image"
               currentImage={formData.hero?.backgroundImage || ""}
               onImageUpdate={(url) =>
                 updateFormField("hero.backgroundImage", url)
@@ -170,75 +197,87 @@ export function AdminHome() {
           </CardContent>
         </Card>
 
-        {/* 2️⃣ Welcome & Vision Section */}
+        {/* The 3 Pillars Section */}
         <Card>
           <CardHeader>
-            <CardTitle>2️⃣ Welcome & Vision Section</CardTitle>
+            <CardTitle>The 3 Pillars of Mental Wellness</CardTitle>
             <CardDescription>
-              Brand intro with 3 vision points (icons + headlines)
+              Darker creamy cards with soft shadows, elegant icons, clear
+              descriptions
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <label className="text-sm font-medium">
-                Welcome Introduction
-              </label>
-              <Textarea
-                value={formData.welcomeIntro || ""}
-                onChange={(e) =>
-                  updateFormField("welcomeIntro", e.target.value)
+              <label className="text-sm font-medium">Section Title</label>
+              <Input
+                value={
+                  formData.pillarsTitle || "The 3 Pillars of Mental Wellness"
                 }
-                placeholder="At THE High Agency Collective, I help ambitious women stop playing small and step fully into elegant self-leadership..."
-                rows={4}
+                onChange={(e) =>
+                  updateFormField("pillarsTitle", e.target.value)
+                }
+                placeholder="The 3 Pillars of Mental Wellness"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium">Section Subtitle</label>
+              <Textarea
+                value={formData.pillarsSubtitle || ""}
+                onChange={(e) =>
+                  updateFormField("pillarsSubtitle", e.target.value)
+                }
+                placeholder="A comprehensive, evidence-based approach to psychiatric care that honors your whole being"
+                rows={2}
               />
             </div>
             <Separator />
-            <h4 className="font-semibold">Vision Points (3 items)</h4>
-            <p className="text-sm text-muted-foreground">
-              Note: Icons are hardcoded (Brain, Crown, Sparkles) - only titles
-              and descriptions are editable
-            </p>
 
-            {[1, 2, 3].map((num) => (
-              <div key={num} className="border rounded-lg p-4 space-y-4">
-                <h5 className="font-medium">Vision Point {num}</h5>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { key: "mindsetReset", title: "Mindset Reset", icon: "🧠" },
+              {
+                key: "strategicReinvention",
+                title: "Strategic Reinvention",
+                icon: "👑",
+              },
+              {
+                key: "lifestyleCuration",
+                title: "Lifestyle Curation",
+                icon: "✨",
+              },
+            ].map((pillar, index) => (
+              <div key={pillar.key} className="border rounded-lg p-4 space-y-4">
+                <h5 className="font-medium flex items-center gap-2">
+                  <span className="text-2xl">{pillar.icon}</span>
+                  Pillar {index + 1}: {pillar.title}
+                </h5>
+                <div className="grid grid-cols-1 gap-4">
                   <div>
                     <label className="text-sm font-medium">Title</label>
                     <Input
-                      value={formData.visionPoints?.[num - 1]?.title || ""}
-                      onChange={(e) => {
-                        const points = formData.visionPoints || [];
-                        points[num - 1] = {
-                          ...points[num - 1],
-                          title: e.target.value,
-                        };
-                        updateFormField("visionPoints", points);
-                      }}
-                      placeholder={
-                        num === 1
-                          ? "Heal subconscious patterns"
-                          : num === 2
-                            ? "Lead with elegant self-assurance"
-                            : "Embody intentional feminine power"
+                      value={
+                        formData.pillars?.[pillar.key]?.title || pillar.title
                       }
+                      onChange={(e) =>
+                        updateFormField(
+                          `pillars.${pillar.key}.title`,
+                          e.target.value,
+                        )
+                      }
+                      placeholder={pillar.title}
                     />
                   </div>
                   <div>
                     <label className="text-sm font-medium">Description</label>
-                    <Input
-                      value={
-                        formData.visionPoints?.[num - 1]?.description || ""
+                    <Textarea
+                      value={formData.pillars?.[pillar.key]?.description || ""}
+                      onChange={(e) =>
+                        updateFormField(
+                          `pillars.${pillar.key}.description`,
+                          e.target.value,
+                        )
                       }
-                      onChange={(e) => {
-                        const points = formData.visionPoints || [];
-                        points[num - 1] = {
-                          ...points[num - 1],
-                          description: e.target.value,
-                        };
-                        updateFormField("visionPoints", points);
-                      }}
-                      placeholder="Short description of this vision point"
+                      placeholder="Detailed description of this pillar in mental health treatment"
+                      rows={3}
                     />
                   </div>
                 </div>
@@ -247,20 +286,24 @@ export function AdminHome() {
           </CardContent>
         </Card>
 
-        {/* 3️⃣ Client Transformations Carousel */}
+        {/* Client Transformations Section */}
         <Card>
           <CardHeader>
-            <CardTitle>3️⃣ Client Transformations Carousel</CardTitle>
+            <CardTitle>Client Transformations</CardTitle>
             <CardDescription>
-              6 auto-scrolling cards with client photos, quotes, names & titles
+              6 testimonials with photos, quotes, names, roles, and 5-star
+              ratings. Displays in horizontal auto-slider (3 at a time, 8-second
+              intervals)
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex justify-between items-center">
-              <h4 className="font-semibold">Client Transformation Cards</h4>
+              <h4 className="font-semibold">
+                Client Testimonials (Target: 6 total)
+              </h4>
               <Button onClick={addTransformation} size="sm">
                 <Plus className="w-4 h-4 mr-2" />
-                Add Client
+                Add Testimonial
               </Button>
             </div>
 
@@ -268,7 +311,7 @@ export function AdminHome() {
               (story: any, index: number) => (
                 <div key={index} className="border rounded-lg p-4 space-y-4">
                   <div className="flex justify-between items-center">
-                    <h5 className="font-medium">Client {index + 1}</h5>
+                    <h5 className="font-medium">Testimonial {index + 1}</h5>
                     <Button
                       onClick={() => removeTransformation(index)}
                       size="sm"
@@ -289,11 +332,11 @@ export function AdminHome() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium">Title/Role</label>
+                      <label className="text-sm font-medium">Role/Title</label>
                       <Input
-                        value={story.title || ""}
+                        value={story.role || ""}
                         onChange={(e) =>
-                          updateTransformation(index, "title", e.target.value)
+                          updateTransformation(index, "role", e.target.value)
                         }
                         placeholder="Executive Director"
                       />
@@ -301,14 +344,15 @@ export function AdminHome() {
                   </div>
                   <div>
                     <label className="text-sm font-medium">
-                      One-line Quote
+                      Testimonial Quote
                     </label>
-                    <Input
+                    <Textarea
                       value={story.quote || ""}
                       onChange={(e) =>
                         updateTransformation(index, "quote", e.target.value)
                       }
                       placeholder="I finally feel like myself again"
+                      rows={2}
                     />
                   </div>
                   <ImageUpload
@@ -321,195 +365,176 @@ export function AdminHome() {
                 </div>
               ),
             )}
+
+            {(formData.transformations?.stories || []).length < 6 && (
+              <Alert>
+                <AlertDescription>
+                  For optimal slider display, aim for exactly 6 testimonials
+                  (currently: {(formData.transformations?.stories || []).length}
+                  )
+                </AlertDescription>
+              </Alert>
+            )}
           </CardContent>
         </Card>
 
-        {/* 4️⃣ Elegant Self-Leadership Framework */}
+        {/* NEW: Wellness Resources Section */}
         <Card>
           <CardHeader>
-            <CardTitle>4️⃣ Elegant Self-Leadership Framework</CardTitle>
+            <CardTitle>Wellness Resources</CardTitle>
             <CardDescription>
-              3 Pillars: Mindset Reset, Strategic Reinvention, Lifestyle
-              Curation
+              3 downloadable/embedded tools: Meditation Guide (PDF), Curated
+              Spotify Playlist, Breathing Exercise Video
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
               <label className="text-sm font-medium">Section Title</label>
               <Input
-                value={
-                  formData.pillarsTitle ||
-                  "The 3 Pillars of Elegant Self‑Leadership"
-                }
+                value={formData.wellnessSectionTitle || "Wellness Resources"}
                 onChange={(e) =>
-                  updateFormField("pillarsTitle", e.target.value)
+                  updateFormField("wellnessSectionTitle", e.target.value)
                 }
-                placeholder="The 3 Pillars of Elegant Self‑Leadership"
+                placeholder="Wellness Resources"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Section Description</label>
+              <label className="text-sm font-medium">Section Subtitle</label>
               <Textarea
-                value={formData.pillarsDescription || ""}
+                value={formData.wellnessSectionSubtitle || ""}
                 onChange={(e) =>
-                  updateFormField("pillarsDescription", e.target.value)
+                  updateFormField("wellnessSectionSubtitle", e.target.value)
                 }
-                placeholder="A comprehensive framework for transforming your relationship with yourself..."
+                placeholder="Complementary tools and resources to support your mental health journey"
                 rows={2}
               />
             </div>
             <Separator />
-            <h4 className="font-semibold">The 3 Pillars</h4>
-            <p className="text-sm text-muted-foreground">
-              Note: Icons are hardcoded (Brain, Crown, Sparkles) - only titles
-              and descriptions are editable
-            </p>
 
             {[
               {
-                key: "mindsetReset",
-                defaultTitle: "Mindset Reset",
-                defaultDesc:
-                  "Reprogram limiting beliefs and transform your inner narrative for lasting change and empowerment.",
+                key: 0,
+                title: "Meditation Guide",
+                type: "PDF",
+                icon: <FileText className="w-6 h-6" />,
+                action: "Download",
               },
               {
-                key: "strategicReinvention",
-                defaultTitle: "Strategic Reinvention",
-                defaultDesc:
-                  "Redesign your life with intention, aligning your choices with your authentic desires and values.",
+                key: 1,
+                title: "Curated Spotify Playlist",
+                type: "Playlist",
+                icon: <Music className="w-6 h-6" />,
+                action: "Listen",
               },
               {
-                key: "lifestyleCuration",
-                defaultTitle: "Lifestyle Curation",
-                defaultDesc:
-                  "Create daily rituals and practices that support your highest self and elegant way of being.",
+                key: 2,
+                title: "Breathing Exercise Video",
+                type: "Video",
+                icon: <Video className="w-6 h-6" />,
+                action: "Watch",
               },
-            ].map((pillar, index) => (
-              <div key={pillar.key} className="border rounded-lg p-4 space-y-4">
-                <h5 className="font-medium">
-                  Pillar {index + 1}: {pillar.defaultTitle}
+            ].map((resource) => (
+              <div
+                key={resource.key}
+                className="border rounded-lg p-4 space-y-4"
+              >
+                <h5 className="font-medium flex items-center gap-2">
+                  {resource.icon}
+                  {resource.title}
                 </h5>
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium">Title</label>
                     <Input
                       value={
-                        formData.pillars?.[pillar.key]?.title ||
-                        pillar.defaultTitle
+                        formData.wellnessResources?.[resource.key]?.title ||
+                        resource.title
                       }
                       onChange={(e) =>
-                        updateFormField(
-                          `pillars.${pillar.key}.title`,
+                        updateWellnessResource(
+                          resource.key,
+                          "title",
                           e.target.value,
                         )
                       }
-                      placeholder={pillar.defaultTitle}
+                      placeholder={resource.title}
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Description</label>
-                    <Textarea
-                      value={formData.pillars?.[pillar.key]?.description || ""}
+                    <label className="text-sm font-medium">
+                      Action Button Text
+                    </label>
+                    <Input
+                      value={
+                        formData.wellnessResources?.[resource.key]?.action ||
+                        resource.action
+                      }
                       onChange={(e) =>
-                        updateFormField(
-                          `pillars.${pillar.key}.description`,
+                        updateWellnessResource(
+                          resource.key,
+                          "action",
                           e.target.value,
                         )
                       }
-                      placeholder={pillar.defaultDesc}
-                      rows={3}
+                      placeholder={resource.action}
                     />
                   </div>
                 </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* 5️⃣ Micro-Shift & PDF Download */}
-        <Card>
-          <CardHeader>
-            <CardTitle>5️⃣ Micro-Shift & Free PDF Download</CardTitle>
-            <CardDescription>
-              3 small coaching techniques + free journal download
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <label className="text-sm font-medium">Section Title</label>
-              <Input
-                value={formData.microShift?.title || "Begin With a Micro Shift"}
-                onChange={(e) =>
-                  updateFormField("microShift.title", e.target.value)
-                }
-                placeholder="Begin With a Micro Shift"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Section Description</label>
-              <Textarea
-                value={formData.microShift?.description || ""}
-                onChange={(e) =>
-                  updateFormField("microShift.description", e.target.value)
-                }
-                placeholder="Transformation doesn't require dramatic gestures. Sometimes the most profound changes begin with the smallest, most intentional steps..."
-                rows={3}
-              />
-            </div>
-            <Separator />
-            <h4 className="font-semibold">3 Micro-Shift Techniques</h4>
-            {[1, 2, 3].map((num) => (
-              <div key={num}>
-                <label className="text-sm font-medium">Technique {num}</label>
-                <Input
-                  value={formData.microShift?.techniques?.[num - 1] || ""}
-                  onChange={(e) => {
-                    const techniques = formData.microShift?.techniques || [];
-                    techniques[num - 1] = e.target.value;
-                    updateFormField("microShift.techniques", techniques);
-                  }}
-                  placeholder={`Micro-shift technique ${num}`}
+                <div>
+                  <label className="text-sm font-medium">Description</label>
+                  <Textarea
+                    value={
+                      formData.wellnessResources?.[resource.key]?.description ||
+                      ""
+                    }
+                    onChange={(e) =>
+                      updateWellnessResource(
+                        resource.key,
+                        "description",
+                        e.target.value,
+                      )
+                    }
+                    placeholder="Description of this wellness resource and its benefits"
+                    rows={2}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">URL/Link</label>
+                  <Input
+                    value={
+                      formData.wellnessResources?.[resource.key]?.url || ""
+                    }
+                    onChange={(e) =>
+                      updateWellnessResource(
+                        resource.key,
+                        "url",
+                        e.target.value,
+                      )
+                    }
+                    placeholder={`Link to ${resource.type.toLowerCase()}`}
+                  />
+                </div>
+                <ImageUpload
+                  label={`${resource.title} Preview Image`}
+                  currentImage={
+                    formData.wellnessResources?.[resource.key]?.image || ""
+                  }
+                  onImageUpdate={(url) =>
+                    updateWellnessResource(resource.key, "image", url)
+                  }
                 />
               </div>
             ))}
-            <Separator />
-            <h4 className="font-semibold">Free PDF Download</h4>
-            <div>
-              <label className="text-sm font-medium">PDF Title</label>
-              <Input
-                value={formData.microShift?.pdfTitle || "Free Clarity Journal"}
-                onChange={(e) =>
-                  updateFormField("microShift.pdfTitle", e.target.value)
-                }
-                placeholder="Free Clarity Journal"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">PDF Description</label>
-              <Textarea
-                value={formData.microShift?.pdfDescription || ""}
-                onChange={(e) =>
-                  updateFormField("microShift.pdfDescription", e.target.value)
-                }
-                placeholder="Download your free guided journal to begin your transformation journey..."
-                rows={2}
-              />
-            </div>
-            <ImageUpload
-              label="PDF File Upload"
-              currentImage={formData.microShift?.pdfUrl || ""}
-              onImageUpdate={(url) => updateFormField("microShift.pdfUrl", url)}
-              acceptedTypes=".pdf"
-            />
           </CardContent>
         </Card>
 
-        {/* 6️⃣ About the Practitioner */}
+        {/* About the Practitioner Section */}
         <Card>
           <CardHeader>
-            <CardTitle>6️⃣ About the Practitioner</CardTitle>
+            <CardTitle>About the Practitioner</CardTitle>
             <CardDescription>
-              Bio section with credential reference
+              Rounded square portrait, short personal bio, "Book a Clarity
+              Session" button
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -524,15 +549,13 @@ export function AdminHome() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium">
-                Bio Content (Rich Text)
-              </label>
+              <label className="text-sm font-medium">Personal Bio</label>
               <Textarea
                 value={formData.practitioner?.bio || ""}
                 onChange={(e) =>
                   updateFormField("practitioner.bio", e.target.value)
                 }
-                placeholder="As a Psychiatric and Mental Health Nurse Practitioner, I combine clinical expertise with transformational coaching..."
+                placeholder="As a Board-Certified Psychiatric and Mental Health Nurse Practitioner, I bring clinical expertise and compassionate care..."
                 rows={6}
               />
             </div>
@@ -543,16 +566,43 @@ export function AdminHome() {
               <Input
                 value={
                   formData.practitioner?.credentials ||
-                  "Board-Certified Psychiatric & Mental Health Nurse Practitioner"
+                  "Board-Certified Psychiatric & Mental Health Nurse Practitioner (PMHNP-BC)"
                 }
                 onChange={(e) =>
                   updateFormField("practitioner.credentials", e.target.value)
                 }
-                placeholder="Board-Certified Psychiatric & Mental Health Nurse Practitioner"
+                placeholder="Board-Certified Psychiatric & Mental Health Nurse Practitioner (PMHNP-BC)"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium">
+                Credentials Description
+              </label>
+              <Input
+                value={formData.practitioner?.credentialsDescription || ""}
+                onChange={(e) =>
+                  updateFormField(
+                    "practitioner.credentialsDescription",
+                    e.target.value,
+                  )
+                }
+                placeholder="Licensed to provide comprehensive psychiatric care, medication management, and psychotherapy"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium">CTA Button Text</label>
+              <Input
+                value={
+                  formData.practitioner?.ctaText || "Book a Clarity Session"
+                }
+                onChange={(e) =>
+                  updateFormField("practitioner.ctaText", e.target.value)
+                }
+                placeholder="Book a Clarity Session"
               />
             </div>
             <ImageUpload
-              label="Practitioner Portrait"
+              label="Practitioner Portrait (Rounded Square Frame)"
               currentImage={formData.practitioner?.image || ""}
               onImageUpdate={(url) =>
                 updateFormField("practitioner.image", url)
@@ -561,12 +611,13 @@ export function AdminHome() {
           </CardContent>
         </Card>
 
-        {/* 7️⃣ Testimonials & Impact */}
+        {/* Booking CTA Section */}
         <Card>
           <CardHeader>
-            <CardTitle>7️⃣ Testimonials & Impact Section</CardTitle>
+            <CardTitle>Booking CTA Section</CardTitle>
             <CardDescription>
-              Impact stats + 3 testimonials with headshots
+              Final call-to-action with booking_bg_dark.jpg background, highly
+              readable text
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -574,182 +625,40 @@ export function AdminHome() {
               <label className="text-sm font-medium">Section Title</label>
               <Input
                 value={
-                  formData.impactSection?.title ||
-                  "Proven Impact & Client Stories"
+                  formData.finalCTA?.title ||
+                  "Take the First Step Toward Healing"
                 }
-                onChange={(e) =>
-                  updateFormField("impactSection.title", e.target.value)
-                }
-                placeholder="Proven Impact & Client Stories"
-              />
-            </div>
-            <Separator />
-            <h4 className="font-semibold">Impact Statistics</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium">Stat 1 Number</label>
-                <Input
-                  value={formData.impactStats?.stat1?.number || "1,000+"}
-                  onChange={(e) =>
-                    updateFormField("impactStats.stat1.number", e.target.value)
-                  }
-                  placeholder="1,000+"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium">Stat 1 Label</label>
-                <Input
-                  value={
-                    formData.impactStats?.stat1?.label ||
-                    "Transformation Sessions"
-                  }
-                  onChange={(e) =>
-                    updateFormField("impactStats.stat1.label", e.target.value)
-                  }
-                  placeholder="Transformation Sessions"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium">Stat 2 Number</label>
-                <Input
-                  value={formData.impactStats?.stat2?.number || "95%"}
-                  onChange={(e) =>
-                    updateFormField("impactStats.stat2.number", e.target.value)
-                  }
-                  placeholder="95%"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium">Stat 2 Label</label>
-                <Input
-                  value={
-                    formData.impactStats?.stat2?.label || "Client Success Rate"
-                  }
-                  onChange={(e) =>
-                    updateFormField("impactStats.stat2.label", e.target.value)
-                  }
-                  placeholder="Client Success Rate"
-                />
-              </div>
-            </div>
-            <Separator />
-            <h4 className="font-semibold">Testimonials (3 short quotes)</h4>
-            {[1, 2, 3].map((num) => (
-              <div key={num} className="border rounded-lg p-4 space-y-4">
-                <h5 className="font-medium">Testimonial {num}</h5>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium">Client Name</label>
-                    <Input
-                      value={formData.impactTestimonials?.[num - 1]?.name || ""}
-                      onChange={(e) => {
-                        const testimonials = formData.impactTestimonials || [];
-                        testimonials[num - 1] = {
-                          ...testimonials[num - 1],
-                          name: e.target.value,
-                        };
-                        updateFormField("impactTestimonials", testimonials);
-                      }}
-                      placeholder="Jessica Chen"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">Title</label>
-                    <Input
-                      value={
-                        formData.impactTestimonials?.[num - 1]?.title || ""
-                      }
-                      onChange={(e) => {
-                        const testimonials = formData.impactTestimonials || [];
-                        testimonials[num - 1] = {
-                          ...testimonials[num - 1],
-                          title: e.target.value,
-                        };
-                        updateFormField("impactTestimonials", testimonials);
-                      }}
-                      placeholder="Executive Director"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Quote</label>
-                  <Textarea
-                    value={formData.impactTestimonials?.[num - 1]?.quote || ""}
-                    onChange={(e) => {
-                      const testimonials = formData.impactTestimonials || [];
-                      testimonials[num - 1] = {
-                        ...testimonials[num - 1],
-                        quote: e.target.value,
-                      };
-                      updateFormField("impactTestimonials", testimonials);
-                    }}
-                    placeholder="Working with her completely transformed my relationship with myself..."
-                    rows={2}
-                  />
-                </div>
-                <ImageUpload
-                  label="Client Headshot"
-                  currentImage={
-                    formData.impactTestimonials?.[num - 1]?.image || ""
-                  }
-                  onImageUpdate={(url) => {
-                    const testimonials = formData.impactTestimonials || [];
-                    testimonials[num - 1] = {
-                      ...testimonials[num - 1],
-                      image: url,
-                    };
-                    updateFormField("impactTestimonials", testimonials);
-                  }}
-                />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* 8️⃣ CTA Banner */}
-        <Card>
-          <CardHeader>
-            <CardTitle>8️⃣ CTA Banner for Clarity Session</CardTitle>
-            <CardDescription>
-              Final call-to-action with Calendly link
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <label className="text-sm font-medium">CTA Title</label>
-              <Input
-                value={formData.finalCTA?.title || "Take the First Step"}
                 onChange={(e) =>
                   updateFormField("finalCTA.title", e.target.value)
                 }
-                placeholder="Take the First Step"
+                placeholder="Take the First Step Toward Healing"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">CTA Description</label>
+              <label className="text-sm font-medium">Description</label>
               <Textarea
                 value={formData.finalCTA?.description || ""}
                 onChange={(e) =>
                   updateFormField("finalCTA.description", e.target.value)
                 }
-                placeholder="Your transformation begins with a single conversation. Let's explore what's possible when you own your power and shape your story."
+                placeholder="Your mental health journey begins with compassionate, professional care. Let's explore how psychiatric treatment can help you own your power and shape your story."
                 rows={3}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Button Text</label>
+              <label className="text-sm font-medium">CTA Button Text</label>
               <Input
                 value={
-                  formData.finalCTA?.buttonText || "Book Your Clarity Session"
+                  formData.finalCTA?.buttonText || "Schedule Your Consultation"
                 }
                 onChange={(e) =>
                   updateFormField("finalCTA.buttonText", e.target.value)
                 }
-                placeholder="Book Your Clarity Session"
+                placeholder="Schedule Your Consultation"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Calendly Link</label>
+              <label className="text-sm font-medium">Calendly URL</label>
               <Input
                 value={
                   formData.finalCTA?.calendlyUrl ||
@@ -761,13 +670,72 @@ export function AdminHome() {
                 placeholder="https://calendly.com/tashaniyi/30min"
               />
             </div>
+            <div>
+              <label className="text-sm font-medium">
+                Credentials Footer Text
+              </label>
+              <Input
+                value={
+                  formData.finalCTA?.credentialsFooter ||
+                  "PMHNP-BC • Evidence-Based Care • Compassionate Treatment"
+                }
+                onChange={(e) =>
+                  updateFormField("finalCTA.credentialsFooter", e.target.value)
+                }
+                placeholder="PMHNP-BC • Evidence-Based Care • Compassionate Treatment"
+              />
+            </div>
             <ImageUpload
-              label="Background Image"
+              label="Background Image (booking_bg_dark.jpg)"
               currentImage={formData.finalCTA?.backgroundImage || ""}
               onImageUpdate={(url) =>
                 updateFormField("finalCTA.backgroundImage", url)
               }
             />
+          </CardContent>
+        </Card>
+
+        {/* SEO & Meta Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle>SEO & Meta Information</CardTitle>
+            <CardDescription>
+              Search engine optimization for the psychiatric practice
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <label className="text-sm font-medium">Page Title</label>
+              <Input
+                value={
+                  formData.seo?.title ||
+                  "Own your Power. Shape your Story. | Psychiatric & Mental Health Nurse Practitioner"
+                }
+                onChange={(e) => updateFormField("seo.title", e.target.value)}
+                placeholder="Page title for search engines"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium">Meta Description</label>
+              <Textarea
+                value={formData.seo?.description || ""}
+                onChange={(e) =>
+                  updateFormField("seo.description", e.target.value)
+                }
+                placeholder="Transform your mental health journey with compassionate, evidence-based psychiatric care..."
+                rows={3}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium">Keywords</label>
+              <Input
+                value={formData.seo?.keywords || ""}
+                onChange={(e) =>
+                  updateFormField("seo.keywords", e.target.value)
+                }
+                placeholder="psychiatric nurse practitioner, mental health care, anxiety treatment, depression therapy"
+              />
+            </div>
           </CardContent>
         </Card>
 
