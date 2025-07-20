@@ -95,9 +95,11 @@
     @apply text-base md:text-lg leading-relaxed;
   }
 
-  /* Body defaults with very light creamy background */
+  /* Body defaults with gradient cream background applied site-wide */
   body {
-    background-color: var(--bg-cream-lightest);
+    background: linear-gradient(to bottom right, #f8f3ed, #efe2d5, #eadcc4);
+    background-attachment: fixed;
+    min-height: 100vh;
     color: var(--text-medium);
     font-weight: 400;
     line-height: 1.7;
