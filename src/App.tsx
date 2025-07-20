@@ -123,7 +123,7 @@ const App = () => (
               <Route
                 path="/transform"
                 element={
-                  <div className="min-h-screen bg-background">
+                  <div className="min-h-screen">
                     <Navigation />
                     <Suspense fallback={<LoadingSpinner />}>
                       <DynamicTransform />
