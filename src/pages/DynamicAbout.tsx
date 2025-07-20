@@ -40,7 +40,7 @@ const DynamicAbout = () => {
       {/* Introduction Section */}
       <section className="pt-20 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-fadeIn">
+          <div className="animate-fade-in">
             <p
               className="text-xl md:text-2xl text-[#1A1A1A] leading-relaxed font-light"
               style={{ fontFamily: "Lora, serif" }}
@@ -413,23 +413,6 @@ const DynamicAbout = () => {
           </Link>
         </div>
       </section>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.8s ease-out;
-        }
-      `}</style>
     </div>
   );
 };

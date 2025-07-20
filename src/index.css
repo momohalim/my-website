@@ -1,42 +1,68 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;500;600&family=Lora:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&family=Roboto+Slab:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes:wght@400&family=Raleway:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Cream gradient background */
-  --bg-cream-light: #faf5ef;
-  --bg-cream-mid: #fbeae3;
-  --bg-cream-dark: #eed6c4;
-  --bg-rose-dust: #f5c8c4;
+  /* Psychiatric & Mental Health Nurse Practitioner Color System */
+  /* Very light creamy background tone */
+  --bg-cream-lightest: hsl(38, 60%, 95%); /* #F8F4EE - Very light creamy tone */
+  --bg-cream-light: #eadcc4; /* Light warm cream */
+  --bg-cream-mid: #dcc5a8; /* Medium warm cream */
+  --bg-cream-dark: #cbb79a; /* Darker cream for cards */
 
-  /* Brand accent */
-  --brand-pink: #d39fa0;
-  --brand-brown: #b47a5a;
+  /* Card backgrounds - slightly darker creamy tones */
+  --card-cream-light: #dcc5a8;
+  --card-cream-dark: #cbb79a;
+  --card-cream-darker: #b8a082;
 
-  /* Text */
-  --text-dark: #333333;
-  --text-soft: #444444;
-  --text-light: #f8f4ef;
+  /* Accent colors - warm cream variants (no pink/red) */
+  --accent-cream: #c4a678; /* Warm accent cream */
+  --accent-gold: #b8985a; /* Soft gold accent */
+  --accent-brown: #8b7355; /* Warm brown accent */
+
+  /* Shadows - soft warm tones */
+  --shadow-cream: rgba(203, 183, 154, 0.3);
+  --shadow-warm: rgba(184, 152, 90, 0.2);
+
+  /* Text colors */
+  --text-dark: #2c2824; /* Dark warm brown */
+  --text-medium: #4a453f; /* Medium brown */
+  --text-soft: #6b645c; /* Soft brown */
+  --text-light: #f8f4ee; /* Light cream for dark backgrounds */
 
   /* Utility */
-  --overlay-dark: rgba(0, 0, 0, 0.5);
+  --overlay-dark: rgba(44, 40, 36, 0.6);
+  --overlay-light: rgba(248, 244, 238, 0.9);
 }
 
 @layer base {
-  /* Typography System */
-  h1,
+  /* Typography System for Psychiatric & Mental Health Practice */
+  /* Main headings: "Playfair Display" or "Great Vibes" */
+  h1 {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
   h2 {
     font-family: "Playfair Display", serif;
+    font-weight: 600;
+    color: var(--text-dark);
   }
 
+  /* Subheadings: "Raleway" or "Quicksand" */
   h3,
-  h4 {
+  h4,
+  h5,
+  h6 {
     font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    color: var(--accent-brown);
   }
 
+  /* Body text: "Roboto Slab" or "Open Sans" */
   body,
   p,
   span,
@@ -45,167 +71,335 @@
   input,
   textarea {
     font-family: "Roboto Slab", serif;
+    color: var(--text-medium);
   }
 
   /* Default sizes */
   h1 {
-    @apply text-5xl md:text-6xl font-bold leading-tight;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl font-semibold leading-snug;
+    @apply text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug;
   }
 
   h3 {
-    @apply text-2xl font-semibold;
+    @apply text-2xl md:text-3xl font-semibold;
   }
 
   h4 {
-    @apply text-xl font-semibold;
+    @apply text-xl md:text-2xl font-semibold;
   }
 
   p {
     @apply text-base md:text-lg leading-relaxed;
   }
 
-  /* Body defaults */
+  /* Global soft creamy gradient background applied site-wide */
+  html {
+    background: linear-gradient(
+      to bottom right,
+      #f8f3ed,
+      #efe2d5,
+      #eadcc4
+    ) !important;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
   body {
-    background-color: var(--bg-cream-light);
-    color: var(--text-dark);
+    background: transparent;
+    color: var(--text-medium);
+    font-weight: 400;
+    line-height: 1.7;
+    min-height: 100vh;
   }
 }
 
 @layer components {
-  /* Brand button styles */
+  /* Button Styles - Creamy and Warm */
   .btn-primary {
-    @apply px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1;
-    background-color: var(--brand-pink);
+    @apply px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105;
+    background-color: var(--accent-brown);
     color: var(--text-light);
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0 6px 20px var(--shadow-cream);
   }
 
   .btn-primary:hover {
-    background-color: var(--brand-brown);
+    background-color: var(--accent-gold);
+    box-shadow: 0 8px 24px var(--shadow-warm);
   }
 
   .btn-secondary {
-    @apply px-6 py-3 border-2 rounded-xl font-semibold transition-all duration-300;
-    border-color: var(--brand-pink);
-    color: var(--brand-pink);
+    @apply px-6 py-3 border-2 rounded-full font-semibold transition-all duration-300;
+    border-color: var(--accent-brown);
+    color: var(--accent-brown);
+    font-family: "Raleway", sans-serif;
+    background-color: transparent;
   }
 
   .btn-secondary:hover {
-    background-color: var(--brand-pink);
+    background-color: var(--accent-brown);
     color: var(--text-light);
+    transform: translateY(-2px);
   }
 
-  /* Card styles */
-  .card-elegant {
-    @apply rounded-2xl p-6 shadow-lg border transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
-    background-color: var(--bg-cream-dark);
-    border-color: rgba(211, 159, 160, 0.2);
+  .btn-start-journey {
+    @apply px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105;
+    background-color: var(--card-cream-dark);
+    color: var(--text-dark);
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0 6px 20px var(--shadow-cream);
+    border: 2px solid var(--accent-cream);
+  }
+
+  .btn-start-journey:hover {
+    background-color: var(--accent-cream);
+    box-shadow: 0 8px 24px var(--shadow-warm);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  /* Card Styles - Darker Creamy Cards with Soft Shadows */
+  .card-pillar {
+    @apply rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    background-color: var(--card-cream-dark);
+    border: 1px solid var(--accent-cream);
+    box-shadow: 0 8px 25px var(--shadow-cream);
+  }
+
+  .card-pillar:hover {
+    background-color: var(--card-cream-light);
+    box-shadow: 0 12px 35px var(--shadow-warm);
+  }
+
+  .card-testimonial {
+    @apply rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    background-color: var(--bg-cream-light);
+    border: 1px solid var(--accent-cream);
+    box-shadow: 0 6px 20px var(--shadow-cream);
+  }
+
+  .card-wellness {
+    @apply rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    background-color: var(--card-cream-light);
+    border: 1px solid var(--accent-cream);
+    box-shadow: 0 8px 25px var(--shadow-cream);
+  }
+
+  .card-wellness:hover {
+    background-color: var(--bg-cream-light);
+    box-shadow: 0 12px 35px var(--shadow-warm);
   }
 
   /* Section spacing */
   .section-padding {
-    @apply py-12 md:py-16 px-4 sm:px-6 lg:px-8;
+    @apply py-16 md:py-20 px-4 sm:px-6 lg:px-8;
   }
 
   .section-padding-compact {
-    @apply py-8 md:py-12 px-4 sm:px-6 lg:px-8;
+    @apply py-12 md:py-16 px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Background gradients */
+  .bg-gradient-cream-light {
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-lightest) 0%,
+      var(--bg-cream-light) 100%
+    );
+  }
+
+  .bg-gradient-cream-warm {
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-light) 0%,
+      var(--bg-cream-mid) 100%
+    );
+  }
+
+  .bg-gradient-cream-rich {
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-mid) 0%,
+      var(--card-cream-dark) 100%
+    );
+  }
+
+  /* Typography utility classes */
+  .heading-hero {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .heading-elegant {
+    font-family: "Great Vibes", cursive;
+    font-weight: 400;
+    color: var(--accent-brown);
+  }
+
+  .heading-section {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .subheading-clean {
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    color: var(--accent-brown);
+  }
+
+  .subheading-soft {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    color: var(--text-medium);
+  }
+
+  .body-text {
+    font-family: "Roboto Slab", serif;
+    color: var(--text-medium);
+    line-height: 1.7;
+  }
+
+  .body-text-alt {
+    font-family: "Open Sans", sans-serif;
+    color: var(--text-medium);
+    line-height: 1.6;
+  }
+
+  /* Portrait frame */
+  .portrait-frame {
+    @apply rounded-2xl overflow-hidden;
+    box-shadow: 0 12px 35px var(--shadow-warm);
+    border: 3px solid var(--accent-cream);
   }
 }
 
-/* Import Google Fonts */
-
-/* Updated Design System with New Color Palette */
-
+/* Tailwind CSS overrides for consistency */
 @layer base {
   :root {
-    /* New Color Palette */
-    --color-bg-light: #e2cdb3;
-    --color-bg-gradient: linear-gradient(135deg, #b47a5a 0%, #dcc5a8 100%);
-    --color-bg-overlay-dark: rgba(0, 0, 0, 0.4);
+    --background: 38 45% 96%; /* #F8F3ED - Exact requested light cream */
+    --foreground: 26 10% 17%; /* Dark warm brown */
 
-    --color-text-main: #000000;
-    --color-text-light: #ffffff;
-    --color-text-muted: rgba(255, 255, 255, 0.8);
-    --color-text-highlight: #b47a5a;
+    --card: 38 40% 85%; /* Light warm cream */
+    --card-foreground: 26 10% 17%; /* Dark warm brown */
 
-    --color-button-bg: #b47a5a;
-    --color-button-text: #ffffff;
+    --popover: 38 60% 95%; /* Very light creamy tone */
+    --popover-foreground: 26 10% 17%; /* Dark warm brown */
 
-    --shadow-text: 0 4px 16px rgba(0, 0, 0, 0.7);
-    --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.1);
+    --primary: 35 30% 45%; /* Warm brown accent */
+    --primary-foreground: 38 60% 95%; /* Light cream */
 
-    /* Updated Tailwind Variables */
-    --background: 44 23% 82%; /* #E2CDB3 */
-    --foreground: 0 0% 0%; /* #000000 */
+    --secondary: 38 35% 75%; /* Medium cream */
+    --secondary-foreground: 26 10% 17%; /* Dark warm brown */
 
-    --card: 44 23% 82%; /* #E2CDB3 */
-    --card-foreground: 0 0% 0%; /* #000000 */
+    --muted: 38 30% 80%;
+    --muted-foreground: 26 10% 40%;
 
-    --popover: 44 23% 82%; /* #E2CDB3 */
-    --popover-foreground: 0 0% 0%; /* #000000 */
-
-    --primary: 20 45% 53%; /* #B47A5A */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF */
-
-    --secondary: 44 35% 85%; /* #DCC5A8 */
-    --secondary-foreground: 0 0% 0%; /* #000000 */
-
-    --muted: 44 23% 75%;
-    --muted-foreground: 0 0% 40%;
-
-    --accent: 20 45% 53%; /* #B47A5A */
-    --accent-foreground: 0 0% 100%; /* #FFFFFF */
+    --accent: 40 35% 65%; /* Warm accent cream */
+    --accent-foreground: 26 10% 17%; /* Dark warm brown */
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 38 60% 95%;
 
-    --border: 44 23% 75%;
-    --input: 44 23% 82%;
-    --ring: 20 45% 53%; /* #B47A5A */
+    --border: 38 30% 80%;
+    --input: 38 40% 85%;
+    --ring: 35 30% 45%; /* Warm brown accent */
 
     --radius: 1rem;
-
-    --sidebar-background: 44 23% 82%; /* #E2CDB3 */
-    --sidebar-foreground: 0 0% 0%; /* #000000 */
-    --sidebar-primary: 20 45% 53%; /* #B47A5A */
-    --sidebar-primary-foreground: 0 0% 100%; /* #FFFFFF */
-    --sidebar-accent: 44 35% 85%; /* #DCC5A8 */
-    --sidebar-accent-foreground: 0 0% 0%; /* #000000 */
-    --sidebar-border: 44 23% 75%;
-    --sidebar-ring: 20 45% 53%; /* #B47A5A */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --background: 26 10% 10%;
+    --foreground: 38 60% 95%;
+    --card: 26 10% 15%;
+    --card-foreground: 38 60% 95%;
+    --popover: 26 10% 10%;
+    --popover-foreground: 38 60% 95%;
+    --primary: 38 60% 95%;
+    --primary-foreground: 26 10% 10%;
+    --secondary: 26 10% 20%;
+    --secondary-foreground: 38 60% 95%;
+    --muted: 26 10% 20%;
+    --muted-foreground: 38 30% 70%;
+    --accent: 26 10% 20%;
+    --accent-foreground: 38 60% 95%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 94.1%;
-    --sidebar-primary-foreground: 220.9 39.3% 11%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 240 4.9% 83.9%;
+    --destructive-foreground: 38 60% 95%;
+    --border: 26 10% 20%;
+    --input: 26 10% 20%;
+    --ring: 38 30% 70%;
+  }
+
+  /* Dark mode gradient background */
+  .dark html {
+    background: linear-gradient(
+      to bottom right,
+      #2e2a26,
+      #3b342f,
+      #4a4038
+    ) !important;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* Ensure sections with custom backgrounds are not interfered with */
+  .custom-bg-section,
+  [style*="background-image"],
+  [style*="backgroundImage"],
+  section[style*="background"],
+  div[style*="background"] {
+    background-color: transparent !important;
+  }
+
+  /* Specific overrides for hero sections and image-based backgrounds */
+  .hero-section,
+  .cta-section,
+  .testimonial-bg,
+  .footer-bg,
+  footer[style*="background"],
+  section[class*="hero"],
+  section[class*="cta"],
+  .relative[style*="background"] {
+    background-color: inherit !important;
+  }
+
+  /* Background inheritance utility */
+  .bg-inherit {
+    background: inherit !important;
+  }
+
+  .bg-transparent-override {
+    background: transparent !important;
+  }
+
+  /* Ensure all page containers inherit the global gradient */
+  .page-container,
+  .min-h-screen {
+    background: inherit;
+  }
+
+  /* Maintain proper contrast for text over images */
+  .bg-overlay {
+    position: relative;
+  }
+
+  .bg-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
+  .bg-overlay > * {
+    position: relative;
+    z-index: 2;
   }
 }
 
@@ -215,12 +409,13 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     scroll-behavior: smooth;
-    font-family: "Lato", sans-serif;
-    background-color: var(--color-bg-light);
-    color: var(--color-text-main);
-    line-height: 1.6;
+    font-family: "Roboto Slab", serif;
+    background: transparent !important;
+    color: var(--text-medium);
+    line-height: 1.7;
+    min-height: 100vh;
   }
 
   h1,
@@ -229,19 +424,18 @@
   h4,
   h5,
   h6 {
-    font-family: "Cormorant Garamond", serif;
-    color: var(--color-text-highlight);
-    font-weight: 600;
-  }
-
-  h1 {
-    color: var(--color-text-highlight);
+    color: var(--text-dark);
   }
 }
 
 @layer utilities {
+  /* Animations with subtle, pleasing effects */
   .animate-fade-in {
-    animation: fade-in 0.8s ease-out forwards;
+    animation: fade-in 1s ease-out forwards;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.8s ease-out forwards;
   }
 
   @keyframes fade-in {
@@ -255,42 +449,173 @@
     }
   }
 
-  .elegant-card {
-    background: var(--color-bg-gradient);
-    border: 1px solid rgba(180, 122, 90, 0.2);
-    border-radius: 1rem;
-    box-shadow: var(--shadow-card);
-    transition: all 0.3s ease-in-out;
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
-  .elegant-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(180, 122, 90, 0.2);
+  /* Auto-scrolling carousel animation */
+  @keyframes scroll-slow {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
-  .section-divider {
-    background-color: var(--color-bg-light);
+  .animate-scroll-slow {
+    animation: scroll-slow 15s linear infinite;
   }
 
-  .primary-button,
-  .cta-button {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-full transition-all duration-300 transform hover:scale-105;
-    background-color: var(--color-button-bg);
-    color: var(--color-button-text);
-    box-shadow: 0 4px 15px rgba(180, 122, 90, 0.25);
+  /* Pause animation on hover for better UX */
+  .carousel-container:hover .animate-scroll-slow {
+    animation-play-state: paused;
   }
 
-  .primary-button:hover,
-  .cta-button:hover {
-    background-color: rgba(180, 122, 90, 0.9);
-    box-shadow: 0 6px 20px rgba(180, 122, 90, 0.35);
+  /* Accessibility and responsive design utilities */
+  .focus-visible:focus {
+    outline: 3px solid var(--accent-brown);
+    outline-offset: 2px;
+    border-radius: 8px;
   }
 
-  .text-heading {
-    color: var(--color-text-highlight);
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
-  .text-muted {
-    color: var(--color-text-muted);
+  /* Enhanced contrast for accessibility */
+  @media (prefers-contrast: high) {
+    :root {
+      --text-dark: #000000;
+      --text-medium: #000000;
+      --accent-brown: #5d4e37;
+    }
+
+    html {
+      background: linear-gradient(
+        to bottom right,
+        #ffffff,
+        #f5f5f5,
+        #eeeeee
+      ) !important;
+    }
+  }
+
+  /* High contrast text utilities */
+  .text-high-contrast {
+    color: #000000 !important;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .bg-high-contrast {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  /* Card contrast enhancements */
+  .card-cream-enhanced {
+    background: rgba(234, 220, 196, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(203, 183, 154, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Button contrast improvements */
+  .btn-contrast-safe {
+    background: var(--accent-brown);
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-contrast-safe:hover {
+    background: var(--accent-gold);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    .animate-fade-in,
+    .animate-slide-in {
+      animation: none !important;
+    }
+  }
+
+  /* Mobile-first responsive utilities */
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .grid-responsive {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8;
+  }
+
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  .heading-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  /* Testimonial slider responsive adjustments */
+  .testimonial-slider {
+    @apply overflow-hidden;
+  }
+
+  .testimonial-slide {
+    @apply w-full px-2;
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-slide {
+      @apply w-1/2 px-3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonial-slide {
+      @apply w-1/3 px-4;
+    }
+  }
+
+  /* Touch-friendly navigation */
+  .slider-nav-btn {
+    @apply absolute top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-[var(--accent-brown)] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-10;
+  }
+
+  .slider-nav-btn:focus-visible {
+    @apply outline-2 outline-[var(--accent-brown)] outline-offset-2;
+  }
+
+  /* Smooth scroll for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-slider * {
+      transition-duration: 0.01ms !important;
+    }
   }
 }

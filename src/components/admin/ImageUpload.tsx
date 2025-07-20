@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useImageUpload } from "../../hooks/useContent";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -27,6 +27,16 @@ export function ImageUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { uploadImage, uploading } = useImageUpload();
 
+  // Auto-clear error messages after 5 seconds
+  useEffect(() => {
+    if (error) {
+      const timeoutId = setTimeout(() => {
+        setError(null);
+      }, 5000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [error]);
+
   const handleFileSelect = async (file: File) => {
     // Validate file type based on acceptedTypes
     const isValidType =
@@ -45,9 +55,17 @@ export function ImageUpload({
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      // 10MB limit for videos/PDFs
-      setError("File size must be less than 10MB");
+    // File size validation with specific messages
+    const MAX_VIDEO_SIZE = 10 * 1024 * 1024; // 10 MB
+    if (file.size > MAX_VIDEO_SIZE) {
+      const isVideo = file.type.startsWith("video/");
+      if (isVideo) {
+        setError(
+          "Upload failed: File size must be less than 10MB. Please choose a smaller video file.",
+        );
+      } else {
+        setError("File size must be less than 10MB");
+      }
       return;
     }
 
@@ -152,7 +170,7 @@ export function ImageUpload({
                   {acceptedTypes === "image/*"
                     ? "PNG, JPG, GIF up to 10MB"
                     : acceptedTypes === "video/*"
-                      ? "MP4, MOV, AVI up to 10MB"
+                      ? "MP4, MOV, AVI up to 10MB maximum"
                       : acceptedTypes === ".pdf"
                         ? "PDF files up to 10MB"
                         : "Accepted files up to 10MB"}

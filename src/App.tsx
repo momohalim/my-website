@@ -75,7 +75,7 @@ const App = () => (
               <Route
                 path="/"
                 element={
-                  <div className="min-h-screen bg-background">
+                  <div className="min-h-screen">
                     <Navigation />
                     <Suspense fallback={<LoadingSpinner />}>
                       <NewHome />
@@ -87,7 +87,7 @@ const App = () => (
               <Route
                 path="/about"
                 element={
-                  <div className="min-h-screen bg-background">
+                  <div className="min-h-screen">
                     <Navigation />
                     <Suspense fallback={<LoadingSpinner />}>
                       <DynamicAbout />
@@ -99,7 +99,7 @@ const App = () => (
               <Route
                 path="/services"
                 element={
-                  <div className="min-h-screen bg-background">
+                  <div className="min-h-screen">
                     <Navigation />
                     <Suspense fallback={<LoadingSpinner />}>
                       <DynamicServices />
@@ -111,7 +111,7 @@ const App = () => (
               <Route
                 path="/contact"
                 element={
-                  <div className="min-h-screen bg-background">
+                  <div className="min-h-screen">
                     <Navigation />
                     <Suspense fallback={<LoadingSpinner />}>
                       <DynamicContact />
@@ -123,7 +123,7 @@ const App = () => (
               <Route
                 path="/transform"
                 element={
-                  <div className="min-h-screen bg-background">
+                  <div className="min-h-screen">
                     <Navigation />
                     <Suspense fallback={<LoadingSpinner />}>
                       <DynamicTransform />
