@@ -73,8 +73,8 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
               className={`transition-colors ${
                 isScrolled
-                  ? "text-[var(--text-dark)] hover:text-[var(--brand-pink)]"
-                  : "text-[var(--text-light)] hover:text-[var(--brand-pink)]"
+                  ? "text-[var(--text-dark)] hover:text-[var(--accent-brown)]"
+                  : "text-[var(--text-light)] hover:text-[var(--accent-cream)]"
               }`}
               aria-label={
                 isOpen ? "Close navigation menu" : "Open navigation menu"
