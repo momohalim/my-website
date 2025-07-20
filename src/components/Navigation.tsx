@@ -59,7 +59,7 @@ const Navigation = () => {
                 } ${isActive(item.path) ? "text-[var(--accent-brown)]" : ""}`}
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--brand-pink)] transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--accent-brown)] transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
             <Link to="/contact" className="btn-primary ml-4">
