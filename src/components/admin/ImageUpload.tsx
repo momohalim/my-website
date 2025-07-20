@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useImageUpload } from "../../hooks/useContent";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -45,9 +45,17 @@ export function ImageUpload({
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      // 10MB limit for videos/PDFs
-      setError("File size must be less than 10MB");
+    // File size validation with specific messages
+    const MAX_VIDEO_SIZE = 10 * 1024 * 1024; // 10 MB
+    if (file.size > MAX_VIDEO_SIZE) {
+      const isVideo = file.type.startsWith("video/");
+      if (isVideo) {
+        setError(
+          "Upload failed: File size must be less than 10MB. Please choose a smaller video file.",
+        );
+      } else {
+        setError("File size must be less than 10MB");
+      }
       return;
     }
 
