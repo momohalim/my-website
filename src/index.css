@@ -339,6 +339,42 @@
     background-attachment: fixed;
     min-height: 100vh;
   }
+
+  /* Ensure sections with custom backgrounds are not interfered with */
+  .custom-bg-section,
+  [style*="background-image"],
+  [style*="backgroundImage"] {
+    background-color: transparent !important;
+  }
+
+  /* Specific overrides for hero sections and image-based backgrounds */
+  .hero-section,
+  .cta-section,
+  .testimonial-bg,
+  .footer-bg {
+    background: inherit !important;
+  }
+
+  /* Maintain proper contrast for text over images */
+  .bg-overlay {
+    position: relative;
+  }
+
+  .bg-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
+  .bg-overlay > * {
+    position: relative;
+    z-index: 2;
+  }
 }
 
 @layer base {
