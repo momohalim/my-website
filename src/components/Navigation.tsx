@@ -63,7 +63,7 @@ const Navigation = () => {
               </Link>
             ))}
             <Link to="/contact" className="btn-primary ml-4">
-              Book Your Call
+              Schedule Consultation
             </Link>
           </div>
 
