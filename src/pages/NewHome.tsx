@@ -83,62 +83,6 @@ const NewHome = () => {
   ];
 
   // Touch/mouse event handlers for mobile swiping and dragging
-  const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
-    setIsDragging(true);
-    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    setStartX(clientX);
-    setCurrentX(clientX);
-
-    // Pause auto-scroll when user interacts
-    if (autoScrollRef.current) {
-      clearInterval(autoScrollRef.current);
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent | React.MouseEvent) => {
-    if (!isDragging) return;
-
-    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    setCurrentX(clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!isDragging) return;
-
-    const deltaX = startX - currentX;
-    const threshold = 50; // Minimum distance for swipe
-
-    if (Math.abs(deltaX) > threshold) {
-      if (deltaX > 0) {
-        // Swipe left - go to next
-        setActiveTransformation((prev) => (prev + 1) % transformations.length);
-      } else {
-        // Swipe right - go to previous
-        setActiveTransformation(
-          (prev) =>
-            (prev - 1 + transformations.length) % transformations.length,
-        );
-      }
-    }
-
-    setIsDragging(false);
-    setStartX(0);
-    setCurrentX(0);
-
-    // Restart auto-scroll after user interaction
-    setTimeout(() => {
-      if (autoScrollRef.current) {
-        clearInterval(autoScrollRef.current);
-      }
-      autoScrollRef.current = setInterval(() => {
-        if (!isDragging) {
-          setActiveTransformation(
-            (prev) => (prev + 1) % transformations.length,
-          );
-        }
-      }, 8000);
-    }, 2000); // Wait 2 seconds before restarting auto-scroll
-  };
 
   const toggleVideo = () => {
     if (videoRef.current) {
