@@ -57,6 +57,31 @@ export function AdminHome() {
     });
   };
 
+  const updateTransformation = (index: number, field: string, value: any) => {
+    const transformations = formData.transformations?.stories || [];
+    if (!transformations[index]) transformations[index] = {};
+    transformations[index][field] = value;
+    updateFormField("transformations.stories", transformations);
+  };
+
+  const addTransformation = () => {
+    const transformations = formData.transformations?.stories || [];
+    transformations.push({
+      name: "",
+      image: "",
+      quote: "",
+      title: "",
+      rating: 5,
+    });
+    updateFormField("transformations.stories", transformations);
+  };
+
+  const removeTransformation = (index: number) => {
+    const transformations = formData.transformations?.stories || [];
+    transformations.splice(index, 1);
+    updateFormField("transformations.stories", transformations);
+  };
+
   if (loading) {
     return (
       <AdminLayout>
@@ -74,7 +99,7 @@ export function AdminHome() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Home Page</h1>
             <p className="text-muted-foreground">
-              Manage your homepage content and layout
+              Manage your redesigned homepage content - "High Agency Collective"
             </p>
           </div>
           <Button onClick={handleSave} disabled={saving}>
@@ -93,62 +118,50 @@ export function AdminHome() {
           </Alert>
         )}
 
-        {/* Hero Section */}
+        {/* 1️⃣ Hero Banner Section */}
         <Card>
           <CardHeader>
-            <CardTitle>Hero Section</CardTitle>
+            <CardTitle>1️⃣ Hero Banner</CardTitle>
             <CardDescription>
-              Main banner with video background and call-to-action
+              Full-screen hero with tagline "Own your Power. Shape your Story."
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <label className="text-sm font-medium">Main Heading</label>
+              <label className="text-sm font-medium">Main Tagline</label>
               <Input
-                value={formData.hero?.title || ""}
-                onChange={(e) => updateFormField("hero.title", e.target.value)}
+                value={
+                  formData.hero?.headline || "Own your Power. Shape your Story."
+                }
+                onChange={(e) =>
+                  updateFormField("hero.headline", e.target.value)
+                }
                 placeholder="Own your Power. Shape your Story."
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Subtitle (optional)</label>
-              <Input
-                value={formData.hero?.subtitle || ""}
-                onChange={(e) =>
-                  updateFormField("hero.subtitle", e.target.value)
-                }
-                placeholder="Optional subtitle"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Description</label>
+              <label className="text-sm font-medium">Subheading</label>
               <Textarea
-                value={formData.hero?.description || ""}
+                value={formData.hero?.subheading || ""}
                 onChange={(e) =>
-                  updateFormField("hero.description", e.target.value)
+                  updateFormField("hero.subheading", e.target.value)
                 }
-                placeholder="At THE High Agency Collective, I help ambitious women..."
-                rows={4}
+                placeholder="Transform your mental health journey with personalized psychiatric care designed for women ready to step into their power."
+                rows={3}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Button Text</label>
+              <label className="text-sm font-medium">CTA Button Text</label>
               <Input
-                value={formData.hero?.buttonText || ""}
+                value={formData.hero?.ctaText || "Start Your Journey"}
                 onChange={(e) =>
-                  updateFormField("hero.buttonText", e.target.value)
+                  updateFormField("hero.ctaText", e.target.value)
                 }
-                placeholder="Book Your Clarity Session"
+                placeholder="Start Your Journey"
               />
             </div>
             <ImageUpload
-              label="Hero Video"
-              currentImage={formData.hero?.videoUrl || ""}
-              onImageUpdate={(url) => updateFormField("hero.videoUrl", url)}
-              acceptedTypes="video/*"
-            />
-            <ImageUpload
-              label="Fallback Background Image"
+              label="Hero Background Image"
               currentImage={formData.hero?.backgroundImage || ""}
               onImageUpdate={(url) =>
                 updateFormField("hero.backgroundImage", url)
@@ -157,403 +170,535 @@ export function AdminHome() {
           </CardContent>
         </Card>
 
-        {/* Meet Your Guide Section */}
+        {/* 2️⃣ Welcome & Vision Section */}
         <Card>
           <CardHeader>
-            <CardTitle>Meet Your Guide Section</CardTitle>
+            <CardTitle>2️⃣ Welcome & Vision Section</CardTitle>
             <CardDescription>
-              Introduction section about you and your expertise
+              Brand intro with 3 vision points (icons + headlines)
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <label className="text-sm font-medium">
+                Welcome Introduction
+              </label>
+              <Textarea
+                value={formData.welcomeIntro || ""}
+                onChange={(e) =>
+                  updateFormField("welcomeIntro", e.target.value)
+                }
+                placeholder="At THE High Agency Collective, I help ambitious women stop playing small and step fully into elegant self-leadership..."
+                rows={4}
+              />
+            </div>
+            <Separator />
+            <h4 className="font-semibold">Vision Points (3 items)</h4>
+            <p className="text-sm text-muted-foreground">
+              Note: Icons are hardcoded (Brain, Crown, Sparkles) - only titles
+              and descriptions are editable
+            </p>
+
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="border rounded-lg p-4 space-y-4">
+                <h5 className="font-medium">Vision Point {num}</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium">Title</label>
+                    <Input
+                      value={formData.visionPoints?.[num - 1]?.title || ""}
+                      onChange={(e) => {
+                        const points = formData.visionPoints || [];
+                        points[num - 1] = {
+                          ...points[num - 1],
+                          title: e.target.value,
+                        };
+                        updateFormField("visionPoints", points);
+                      }}
+                      placeholder={
+                        num === 1
+                          ? "Heal subconscious patterns"
+                          : num === 2
+                            ? "Lead with elegant self-assurance"
+                            : "Embody intentional feminine power"
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Description</label>
+                    <Input
+                      value={
+                        formData.visionPoints?.[num - 1]?.description || ""
+                      }
+                      onChange={(e) => {
+                        const points = formData.visionPoints || [];
+                        points[num - 1] = {
+                          ...points[num - 1],
+                          description: e.target.value,
+                        };
+                        updateFormField("visionPoints", points);
+                      }}
+                      placeholder="Short description of this vision point"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* 3️⃣ Client Transformations Carousel */}
+        <Card>
+          <CardHeader>
+            <CardTitle>3️⃣ Client Transformations Carousel</CardTitle>
+            <CardDescription>
+              6 auto-scrolling cards with client photos, quotes, names & titles
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h4 className="font-semibold">Client Transformation Cards</h4>
+              <Button onClick={addTransformation} size="sm">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Client
+              </Button>
+            </div>
+
+            {(formData.transformations?.stories || []).map(
+              (story: any, index: number) => (
+                <div key={index} className="border rounded-lg p-4 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h5 className="font-medium">Client {index + 1}</h5>
+                    <Button
+                      onClick={() => removeTransformation(index)}
+                      size="sm"
+                      variant="destructive"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium">Client Name</label>
+                      <Input
+                        value={story.name || ""}
+                        onChange={(e) =>
+                          updateTransformation(index, "name", e.target.value)
+                        }
+                        placeholder="Sarah M."
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Title/Role</label>
+                      <Input
+                        value={story.title || ""}
+                        onChange={(e) =>
+                          updateTransformation(index, "title", e.target.value)
+                        }
+                        placeholder="Executive Director"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">
+                      One-line Quote
+                    </label>
+                    <Input
+                      value={story.quote || ""}
+                      onChange={(e) =>
+                        updateTransformation(index, "quote", e.target.value)
+                      }
+                      placeholder="I finally feel like myself again"
+                    />
+                  </div>
+                  <ImageUpload
+                    label="Client Photo"
+                    currentImage={story.image || ""}
+                    onImageUpdate={(url) =>
+                      updateTransformation(index, "image", url)
+                    }
+                  />
+                </div>
+              ),
+            )}
+          </CardContent>
+        </Card>
+
+        {/* 4️⃣ Elegant Self-Leadership Framework */}
+        <Card>
+          <CardHeader>
+            <CardTitle>4️⃣ Elegant Self-Leadership Framework</CardTitle>
+            <CardDescription>
+              3 Pillars: Mindset Reset, Strategic Reinvention, Lifestyle
+              Curation
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
               <label className="text-sm font-medium">Section Title</label>
               <Input
-                value={formData.introduction?.title || ""}
-                onChange={(e) =>
-                  updateFormField("introduction.title", e.target.value)
+                value={
+                  formData.pillarsTitle ||
+                  "The 3 Pillars of Elegant Self‑Leadership"
                 }
-                placeholder="Meet Your Guide"
+                onChange={(e) =>
+                  updateFormField("pillarsTitle", e.target.value)
+                }
+                placeholder="The 3 Pillars of Elegant Self‑Leadership"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Content</label>
+              <label className="text-sm font-medium">Section Description</label>
               <Textarea
-                value={formData.introduction?.content || ""}
+                value={formData.pillarsDescription || ""}
                 onChange={(e) =>
-                  updateFormField("introduction.content", e.target.value)
+                  updateFormField("pillarsDescription", e.target.value)
                 }
-                placeholder="At THE High Agency Collective, I help ambitious women..."
-                rows={6}
+                placeholder="A comprehensive framework for transforming your relationship with yourself..."
+                rows={2}
               />
             </div>
-            <div>
-              <label className="text-sm font-medium">Button Text</label>
-              <Input
-                value={formData.introduction?.buttonText || ""}
-                onChange={(e) =>
-                  updateFormField("introduction.buttonText", e.target.value)
-                }
-                placeholder="Learn More About Me"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Button Link</label>
-              <Input
-                value={formData.introduction?.buttonLink || ""}
-                onChange={(e) =>
-                  updateFormField("introduction.buttonLink", e.target.value)
-                }
-                placeholder="/about"
-              />
-            </div>
-            <ImageUpload
-              label="Guide Portrait Image"
-              currentImage={formData.introduction?.image || ""}
-              onImageUpdate={(url) =>
-                updateFormField("introduction.image", url)
-              }
-            />
+            <Separator />
+            <h4 className="font-semibold">The 3 Pillars</h4>
+            <p className="text-sm text-muted-foreground">
+              Note: Icons are hardcoded (Brain, Crown, Sparkles) - only titles
+              and descriptions are editable
+            </p>
+
+            {[
+              {
+                key: "mindsetReset",
+                defaultTitle: "Mindset Reset",
+                defaultDesc:
+                  "Reprogram limiting beliefs and transform your inner narrative for lasting change and empowerment.",
+              },
+              {
+                key: "strategicReinvention",
+                defaultTitle: "Strategic Reinvention",
+                defaultDesc:
+                  "Redesign your life with intention, aligning your choices with your authentic desires and values.",
+              },
+              {
+                key: "lifestyleCuration",
+                defaultTitle: "Lifestyle Curation",
+                defaultDesc:
+                  "Create daily rituals and practices that support your highest self and elegant way of being.",
+              },
+            ].map((pillar, index) => (
+              <div key={pillar.key} className="border rounded-lg p-4 space-y-4">
+                <h5 className="font-medium">
+                  Pillar {index + 1}: {pillar.defaultTitle}
+                </h5>
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="text-sm font-medium">Title</label>
+                    <Input
+                      value={
+                        formData.pillars?.[pillar.key]?.title ||
+                        pillar.defaultTitle
+                      }
+                      onChange={(e) =>
+                        updateFormField(
+                          `pillars.${pillar.key}.title`,
+                          e.target.value,
+                        )
+                      }
+                      placeholder={pillar.defaultTitle}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Description</label>
+                    <Textarea
+                      value={formData.pillars?.[pillar.key]?.description || ""}
+                      onChange={(e) =>
+                        updateFormField(
+                          `pillars.${pillar.key}.description`,
+                          e.target.value,
+                        )
+                      }
+                      placeholder={pillar.defaultDesc}
+                      rows={3}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </CardContent>
         </Card>
 
-        {/* Core Services Section */}
+        {/* 5️⃣ Micro-Shift & PDF Download */}
         <Card>
           <CardHeader>
-            <CardTitle>Core Services Section</CardTitle>
-            <CardDescription>Three main services you offer</CardDescription>
+            <CardTitle>5️⃣ Micro-Shift & Free PDF Download</CardTitle>
+            <CardDescription>
+              3 small coaching techniques + free journal download
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
               <label className="text-sm font-medium">Section Title</label>
               <Input
-                value={formData.services?.title || ""}
+                value={formData.microShift?.title || "Begin With a Micro Shift"}
                 onChange={(e) =>
-                  updateFormField("services.title", e.target.value)
+                  updateFormField("microShift.title", e.target.value)
                 }
-                placeholder="Core Services"
+                placeholder="Begin With a Micro Shift"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Section Subtitle</label>
-              <Input
-                value={formData.services?.subtitle || ""}
-                onChange={(e) =>
-                  updateFormField("services.subtitle", e.target.value)
-                }
-                placeholder="Transform your life through evidence-based approaches..."
-              />
-            </div>
-
-            {/* Service 1 */}
-            <div className="border rounded-lg p-4 space-y-4">
-              <h4 className="font-semibold">Service 1</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Icon</label>
-                  <Input
-                    value={formData.services?.service1?.icon || ""}
-                    onChange={(e) =>
-                      updateFormField("services.service1.icon", e.target.value)
-                    }
-                    placeholder="🧠"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Title</label>
-                  <Input
-                    value={formData.services?.service1?.title || ""}
-                    onChange={(e) =>
-                      updateFormField("services.service1.title", e.target.value)
-                    }
-                    placeholder="Mindset Transformation"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Description</label>
-                  <Textarea
-                    value={formData.services?.service1?.description || ""}
-                    onChange={(e) =>
-                      updateFormField(
-                        "services.service1.description",
-                        e.target.value,
-                      )
-                    }
-                    placeholder="Break through limiting beliefs..."
-                    rows={3}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Service 2 */}
-            <div className="border rounded-lg p-4 space-y-4">
-              <h4 className="font-semibold">Service 2</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Icon</label>
-                  <Input
-                    value={formData.services?.service2?.icon || ""}
-                    onChange={(e) =>
-                      updateFormField("services.service2.icon", e.target.value)
-                    }
-                    placeholder="💫"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Title</label>
-                  <Input
-                    value={formData.services?.service2?.title || ""}
-                    onChange={(e) =>
-                      updateFormField("services.service2.title", e.target.value)
-                    }
-                    placeholder="Integrated Psychotherapy"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Description</label>
-                  <Textarea
-                    value={formData.services?.service2?.description || ""}
-                    onChange={(e) =>
-                      updateFormField(
-                        "services.service2.description",
-                        e.target.value,
-                      )
-                    }
-                    placeholder="Professional therapeutic support..."
-                    rows={3}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Service 3 */}
-            <div className="border rounded-lg p-4 space-y-4">
-              <h4 className="font-semibold">Service 3</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Icon</label>
-                  <Input
-                    value={formData.services?.service3?.icon || ""}
-                    onChange={(e) =>
-                      updateFormField("services.service3.icon", e.target.value)
-                    }
-                    placeholder="🌱"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Title</label>
-                  <Input
-                    value={formData.services?.service3?.title || ""}
-                    onChange={(e) =>
-                      updateFormField("services.service3.title", e.target.value)
-                    }
-                    placeholder="Life Reinvention"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Description</label>
-                  <Textarea
-                    value={formData.services?.service3?.description || ""}
-                    onChange={(e) =>
-                      updateFormField(
-                        "services.service3.description",
-                        e.target.value,
-                      )
-                    }
-                    placeholder="Redesign your life from the ground up..."
-                    rows={3}
-                  />
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Clarity Journal Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Clarity Journal Section</CardTitle>
-            <CardDescription>Free PDF download and description</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <label className="text-sm font-medium">Section Title</label>
-              <Input
-                value={formData.clarityJournal?.title || ""}
-                onChange={(e) =>
-                  updateFormField("clarityJournal.title", e.target.value)
-                }
-                placeholder="Clarity Journal"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Subtitle</label>
-              <Input
-                value={formData.clarityJournal?.subtitle || ""}
-                onChange={(e) =>
-                  updateFormField("clarityJournal.subtitle", e.target.value)
-                }
-                placeholder="Your Free Guide to Inner Transformation"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Description</label>
+              <label className="text-sm font-medium">Section Description</label>
               <Textarea
-                value={formData.clarityJournal?.description || ""}
+                value={formData.microShift?.description || ""}
                 onChange={(e) =>
-                  updateFormField("clarityJournal.description", e.target.value)
+                  updateFormField("microShift.description", e.target.value)
                 }
-                placeholder="Explore your inner world with this free guided journal..."
-                rows={4}
+                placeholder="Transformation doesn't require dramatic gestures. Sometimes the most profound changes begin with the smallest, most intentional steps..."
+                rows={3}
+              />
+            </div>
+            <Separator />
+            <h4 className="font-semibold">3 Micro-Shift Techniques</h4>
+            {[1, 2, 3].map((num) => (
+              <div key={num}>
+                <label className="text-sm font-medium">Technique {num}</label>
+                <Input
+                  value={formData.microShift?.techniques?.[num - 1] || ""}
+                  onChange={(e) => {
+                    const techniques = formData.microShift?.techniques || [];
+                    techniques[num - 1] = e.target.value;
+                    updateFormField("microShift.techniques", techniques);
+                  }}
+                  placeholder={`Micro-shift technique ${num}`}
+                />
+              </div>
+            ))}
+            <Separator />
+            <h4 className="font-semibold">Free PDF Download</h4>
+            <div>
+              <label className="text-sm font-medium">PDF Title</label>
+              <Input
+                value={formData.microShift?.pdfTitle || "Free Clarity Journal"}
+                onChange={(e) =>
+                  updateFormField("microShift.pdfTitle", e.target.value)
+                }
+                placeholder="Free Clarity Journal"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">
-                Download Button Text
-              </label>
-              <Input
-                value={formData.clarityJournal?.downloadText || ""}
+              <label className="text-sm font-medium">PDF Description</label>
+              <Textarea
+                value={formData.microShift?.pdfDescription || ""}
                 onChange={(e) =>
-                  updateFormField("clarityJournal.downloadText", e.target.value)
+                  updateFormField("microShift.pdfDescription", e.target.value)
                 }
-                placeholder="Download Your Free Journal"
+                placeholder="Download your free guided journal to begin your transformation journey..."
+                rows={2}
               />
             </div>
             <ImageUpload
-              label="Journal Preview Image"
-              currentImage={formData.clarityJournal?.image || ""}
-              onImageUpdate={(url) =>
-                updateFormField("clarityJournal.image", url)
-              }
-            />
-            <ImageUpload
-              label="PDF File"
-              currentImage={formData.clarityJournal?.pdfUrl || ""}
-              onImageUpdate={(url) =>
-                updateFormField("clarityJournal.pdfUrl", url)
-              }
+              label="PDF File Upload"
+              currentImage={formData.microShift?.pdfUrl || ""}
+              onImageUpdate={(url) => updateFormField("microShift.pdfUrl", url)}
               acceptedTypes=".pdf"
             />
           </CardContent>
         </Card>
 
-        {/* Testimonials Section */}
+        {/* 6️⃣ About the Practitioner */}
         <Card>
           <CardHeader>
-            <CardTitle>Testimonials Section</CardTitle>
+            <CardTitle>6️⃣ About the Practitioner</CardTitle>
             <CardDescription>
-              Client testimonials with photos and ratings
+              Bio section with credential reference
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
               <label className="text-sm font-medium">Section Title</label>
               <Input
-                value={formData.testimonials?.title || ""}
+                value={formData.practitioner?.title || "Meet Your Practitioner"}
                 onChange={(e) =>
-                  updateFormField("testimonials.title", e.target.value)
+                  updateFormField("practitioner.title", e.target.value)
                 }
-                placeholder="Client Transformations"
+                placeholder="Meet Your Practitioner"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Section Subtitle</label>
-              <Input
-                value={formData.testimonials?.subtitle || ""}
+              <label className="text-sm font-medium">
+                Bio Content (Rich Text)
+              </label>
+              <Textarea
+                value={formData.practitioner?.bio || ""}
                 onChange={(e) =>
-                  updateFormField("testimonials.subtitle", e.target.value)
+                  updateFormField("practitioner.bio", e.target.value)
                 }
-                placeholder="Real stories of profound change and empowerment."
+                placeholder="As a Psychiatric and Mental Health Nurse Practitioner, I combine clinical expertise with transformational coaching..."
+                rows={6}
               />
             </div>
+            <div>
+              <label className="text-sm font-medium">
+                Professional Credentials
+              </label>
+              <Input
+                value={
+                  formData.practitioner?.credentials ||
+                  "Board-Certified Psychiatric & Mental Health Nurse Practitioner"
+                }
+                onChange={(e) =>
+                  updateFormField("practitioner.credentials", e.target.value)
+                }
+                placeholder="Board-Certified Psychiatric & Mental Health Nurse Practitioner"
+              />
+            </div>
+            <ImageUpload
+              label="Practitioner Portrait"
+              currentImage={formData.practitioner?.image || ""}
+              onImageUpdate={(url) =>
+                updateFormField("practitioner.image", url)
+              }
+            />
+          </CardContent>
+        </Card>
 
+        {/* 7️⃣ Testimonials & Impact */}
+        <Card>
+          <CardHeader>
+            <CardTitle>7️⃣ Testimonials & Impact Section</CardTitle>
+            <CardDescription>
+              Impact stats + 3 testimonials with headshots
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <label className="text-sm font-medium">Section Title</label>
+              <Input
+                value={
+                  formData.impactSection?.title ||
+                  "Proven Impact & Client Stories"
+                }
+                onChange={(e) =>
+                  updateFormField("impactSection.title", e.target.value)
+                }
+                placeholder="Proven Impact & Client Stories"
+              />
+            </div>
+            <Separator />
+            <h4 className="font-semibold">Impact Statistics</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium">Stat 1 Number</label>
+                <Input
+                  value={formData.impactStats?.stat1?.number || "1,000+"}
+                  onChange={(e) =>
+                    updateFormField("impactStats.stat1.number", e.target.value)
+                  }
+                  placeholder="1,000+"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium">Stat 1 Label</label>
+                <Input
+                  value={
+                    formData.impactStats?.stat1?.label ||
+                    "Transformation Sessions"
+                  }
+                  onChange={(e) =>
+                    updateFormField("impactStats.stat1.label", e.target.value)
+                  }
+                  placeholder="Transformation Sessions"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium">Stat 2 Number</label>
+                <Input
+                  value={formData.impactStats?.stat2?.number || "95%"}
+                  onChange={(e) =>
+                    updateFormField("impactStats.stat2.number", e.target.value)
+                  }
+                  placeholder="95%"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium">Stat 2 Label</label>
+                <Input
+                  value={
+                    formData.impactStats?.stat2?.label || "Client Success Rate"
+                  }
+                  onChange={(e) =>
+                    updateFormField("impactStats.stat2.label", e.target.value)
+                  }
+                  placeholder="Client Success Rate"
+                />
+              </div>
+            </div>
+            <Separator />
+            <h4 className="font-semibold">Testimonials (3 short quotes)</h4>
             {[1, 2, 3].map((num) => (
               <div key={num} className="border rounded-lg p-4 space-y-4">
-                <h4 className="font-semibold">Testimonial {num}</h4>
+                <h5 className="font-medium">Testimonial {num}</h5>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium">Client Name</label>
                     <Input
-                      value={
-                        formData.testimonials?.testimonials?.[num - 1]?.name ||
-                        ""
-                      }
+                      value={formData.impactTestimonials?.[num - 1]?.name || ""}
                       onChange={(e) => {
-                        const testimonials =
-                          formData.testimonials?.testimonials || [];
+                        const testimonials = formData.impactTestimonials || [];
                         testimonials[num - 1] = {
                           ...testimonials[num - 1],
                           name: e.target.value,
                         };
-                        updateFormField(
-                          "testimonials.testimonials",
-                          testimonials,
-                        );
+                        updateFormField("impactTestimonials", testimonials);
                       }}
                       placeholder="Jessica Chen"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Role/Title</label>
+                    <label className="text-sm font-medium">Title</label>
                     <Input
                       value={
-                        formData.testimonials?.testimonials?.[num - 1]?.role ||
-                        ""
+                        formData.impactTestimonials?.[num - 1]?.title || ""
                       }
                       onChange={(e) => {
-                        const testimonials =
-                          formData.testimonials?.testimonials || [];
+                        const testimonials = formData.impactTestimonials || [];
                         testimonials[num - 1] = {
                           ...testimonials[num - 1],
-                          role: e.target.value,
+                          title: e.target.value,
                         };
-                        updateFormField(
-                          "testimonials.testimonials",
-                          testimonials,
-                        );
+                        updateFormField("impactTestimonials", testimonials);
                       }}
                       placeholder="Executive Director"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium">
-                    Testimonial Text
-                  </label>
+                  <label className="text-sm font-medium">Quote</label>
                   <Textarea
-                    value={
-                      formData.testimonials?.testimonials?.[num - 1]?.text || ""
-                    }
+                    value={formData.impactTestimonials?.[num - 1]?.quote || ""}
                     onChange={(e) => {
-                      const testimonials =
-                        formData.testimonials?.testimonials || [];
+                      const testimonials = formData.impactTestimonials || [];
                       testimonials[num - 1] = {
                         ...testimonials[num - 1],
-                        text: e.target.value,
+                        quote: e.target.value,
                       };
-                      updateFormField(
-                        "testimonials.testimonials",
-                        testimonials,
-                      );
+                      updateFormField("impactTestimonials", testimonials);
                     }}
                     placeholder="Working with her completely transformed my relationship with myself..."
-                    rows={3}
+                    rows={2}
                   />
                 </div>
                 <ImageUpload
-                  label={`Client Photo ${num}`}
+                  label="Client Headshot"
                   currentImage={
-                    formData.testimonials?.testimonials?.[num - 1]?.image || ""
+                    formData.impactTestimonials?.[num - 1]?.image || ""
                   }
                   onImageUpdate={(url) => {
-                    const testimonials =
-                      formData.testimonials?.testimonials || [];
+                    const testimonials = formData.impactTestimonials || [];
                     testimonials[num - 1] = {
                       ...testimonials[num - 1],
                       image: url,
                     };
-                    updateFormField("testimonials.testimonials", testimonials);
+                    updateFormField("impactTestimonials", testimonials);
                   }}
                 />
               </div>
@@ -561,130 +706,66 @@ export function AdminHome() {
           </CardContent>
         </Card>
 
-        {/* Clarity Questions Section */}
+        {/* 8️⃣ CTA Banner */}
         <Card>
           <CardHeader>
-            <CardTitle>Clarity Questions Section</CardTitle>
-            <CardDescription>Reflective questions for visitors</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <label className="text-sm font-medium">Section Title</label>
-              <Input
-                value={formData.clarityQuestions?.title || ""}
-                onChange={(e) =>
-                  updateFormField("clarityQuestions.title", e.target.value)
-                }
-                placeholder="Clarity Questions"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Subtitle</label>
-              <Input
-                value={formData.clarityQuestions?.subtitle || ""}
-                onChange={(e) =>
-                  updateFormField("clarityQuestions.subtitle", e.target.value)
-                }
-                placeholder="Take a moment to reflect on where you are..."
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Introduction</label>
-              <Textarea
-                value={formData.clarityQuestions?.introduction || ""}
-                onChange={(e) =>
-                  updateFormField(
-                    "clarityQuestions.introduction",
-                    e.target.value,
-                  )
-                }
-                placeholder="These questions are designed to help you gain clarity..."
-                rows={3}
-              />
-            </div>
-
-            {[1, 2, 3, 4, 5].map((num) => (
-              <div key={num}>
-                <label className="text-sm font-medium">Question {num}</label>
-                <Input
-                  value={formData.clarityQuestions?.questions?.[num - 1] || ""}
-                  onChange={(e) => {
-                    const questions =
-                      formData.clarityQuestions?.questions || [];
-                    questions[num - 1] = e.target.value;
-                    updateFormField("clarityQuestions.questions", questions);
-                  }}
-                  placeholder={`Question ${num}`}
-                />
-              </div>
-            ))}
-
-            <div>
-              <label className="text-sm font-medium">CTA Text</label>
-              <Input
-                value={formData.clarityQuestions?.ctaText || ""}
-                onChange={(e) =>
-                  updateFormField("clarityQuestions.ctaText", e.target.value)
-                }
-                placeholder="Ready to dive deeper? Book your clarity session."
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Button Text</label>
-              <Input
-                value={formData.clarityQuestions?.buttonText || ""}
-                onChange={(e) =>
-                  updateFormField("clarityQuestions.buttonText", e.target.value)
-                }
-                placeholder="Book Your Session"
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Call to Action Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Final Call to Action Section</CardTitle>
+            <CardTitle>8️⃣ CTA Banner for Clarity Session</CardTitle>
             <CardDescription>
-              The final CTA section with background image
+              Final call-to-action with Calendly link
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <label className="text-sm font-medium">Section Title</label>
+              <label className="text-sm font-medium">CTA Title</label>
               <Input
-                value={formData.cta?.title || ""}
-                onChange={(e) => updateFormField("cta.title", e.target.value)}
+                value={formData.finalCTA?.title || "Take the First Step"}
+                onChange={(e) =>
+                  updateFormField("finalCTA.title", e.target.value)
+                }
                 placeholder="Take the First Step"
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Description</label>
+              <label className="text-sm font-medium">CTA Description</label>
               <Textarea
-                value={formData.cta?.description || ""}
+                value={formData.finalCTA?.description || ""}
                 onChange={(e) =>
-                  updateFormField("cta.description", e.target.value)
+                  updateFormField("finalCTA.description", e.target.value)
                 }
-                placeholder="Your transformation begins with a single conversation..."
+                placeholder="Your transformation begins with a single conversation. Let's explore what's possible when you own your power and shape your story."
                 rows={3}
               />
             </div>
             <div>
               <label className="text-sm font-medium">Button Text</label>
               <Input
-                value={formData.cta?.buttonText || ""}
+                value={
+                  formData.finalCTA?.buttonText || "Book Your Clarity Session"
+                }
                 onChange={(e) =>
-                  updateFormField("cta.buttonText", e.target.value)
+                  updateFormField("finalCTA.buttonText", e.target.value)
                 }
                 placeholder="Book Your Clarity Session"
               />
             </div>
+            <div>
+              <label className="text-sm font-medium">Calendly Link</label>
+              <Input
+                value={
+                  formData.finalCTA?.calendlyUrl ||
+                  "https://calendly.com/tashaniyi/30min"
+                }
+                onChange={(e) =>
+                  updateFormField("finalCTA.calendlyUrl", e.target.value)
+                }
+                placeholder="https://calendly.com/tashaniyi/30min"
+              />
+            </div>
             <ImageUpload
               label="Background Image"
-              currentImage={formData.cta?.backgroundImage || ""}
+              currentImage={formData.finalCTA?.backgroundImage || ""}
               onImageUpdate={(url) =>
-                updateFormField("cta.backgroundImage", url)
+                updateFormField("finalCTA.backgroundImage", url)
               }
             />
           </CardContent>
