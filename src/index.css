@@ -97,7 +97,12 @@
 
   /* Global soft creamy gradient background applied site-wide */
   html {
-    background: linear-gradient(to bottom right, #f8f3ed, #efe2d5, #eadcc4);
+    background: linear-gradient(
+      to bottom right,
+      #f8f3ed,
+      #efe2d5,
+      #eadcc4
+    ) !important;
     background-attachment: fixed;
     min-height: 100vh;
   }
