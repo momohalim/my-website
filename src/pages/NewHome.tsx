@@ -9,6 +9,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Calendar,
+  Users,
+  Award,
+  Heart,
+  Brain,
+  Crown,
+  Sparkles,
 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Schema from "@/components/Schema";
@@ -42,155 +48,264 @@ const NewHome = () => {
     }
   };
 
-  const scrollToSection6 = () => {
+  const scrollToMicroShift = () => {
     scrollToRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--bg-cream-light)]">
-        <div className="w-8 h-8 border-4 border-[var(--brand-pink)] border-t-transparent rounded-full animate-spin" />
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{
+          background: "linear-gradient(135deg, #faf5ef 0%, #f5c8c4 100%)",
+        }}
+      >
+        <div className="w-8 h-8 border-4 border-[#B47A5A] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
-  const transformations = content?.transformations?.stories || [];
-  const experiences = content?.experiences || [
+  const transformations = content?.transformations?.stories || [
+    {
+      name: "Sarah M.",
+      image: "/assets/testimonial_sarah.jpg",
+      quote: "I finally feel like myself again",
+      title: "Executive Director",
+      rating: 5,
+    },
+    {
+      name: "Jennifer K.",
+      image: "/assets/testimonial_jennifer.jpg",
+      quote: "The transformation has been incredible",
+      title: "Business Owner",
+      rating: 5,
+    },
+    {
+      name: "Maria L.",
+      image: "/assets/testimonial_maria.jpg",
+      quote: "I'm living my authentic truth now",
+      title: "Creative Leader",
+      rating: 5,
+    },
+    {
+      name: "Amanda R.",
+      image: "/assets/testimonial_amanda.jpg",
+      quote: "Best decision I ever made",
+      title: "Entrepreneur",
+      rating: 5,
+    },
+    {
+      name: "Lisa T.",
+      image: "/assets/testimonial_lisa.jpg",
+      quote: "I found my inner strength",
+      title: "Coach",
+      rating: 5,
+    },
+    {
+      name: "Rachel D.",
+      image: "/assets/testimonial_rachel.jpg",
+      quote: "Life-changing experience",
+      title: "Consultant",
+      rating: 5,
+    },
+  ];
+
+  const visionPoints = [
+    {
+      title: "Heal subconscious patterns",
+      icon: <Brain className="w-8 h-8" />,
+      description: "Transform limiting beliefs at their root",
+    },
+    {
+      title: "Lead with elegant self-assurance",
+      icon: <Crown className="w-8 h-8" />,
+      description: "Embody confidence that feels natural and authentic",
+    },
+    {
+      title: "Embody intentional feminine power",
+      icon: <Sparkles className="w-8 h-8" />,
+      description: "Step into your power with grace and purpose",
+    },
+  ];
+
+  const pillars = [
     {
       title: "Mindset Reset",
-      description: "Transform limiting beliefs into empowering truths",
+      description:
+        "Reprogram limiting beliefs and transform your inner narrative for lasting change and empowerment.",
+      icon: <Brain className="w-12 h-12" />,
+      color: "bg-rose-100",
     },
     {
-      title: "Self-Leadership",
-      description: "Develop unshakeable confidence and clarity",
+      title: "Strategic Reinvention",
+      description:
+        "Redesign your life with intention, aligning your choices with your authentic desires and values.",
+      icon: <Crown className="w-12 h-12" />,
+      color: "bg-orange-100",
     },
     {
-      title: "Feminine Power",
-      description: "Embrace your authentic strength and wisdom",
+      title: "Lifestyle Curation",
+      description:
+        "Create daily rituals and practices that support your highest self and elegant way of being.",
+      icon: <Sparkles className="w-12 h-12" />,
+      color: "bg-amber-100",
     },
   ];
-  const tools = content?.tools || [
-    { name: "Cognitive Reframing", icon: "🧠" },
-    { name: "Mindfulness", icon: "🧘‍♀️" },
-    { name: "Lifestyle Redesign", icon: "✨" },
-    { name: "Trauma-Informed Reflection", icon: "💚" },
+
+  const microShiftTechniques = [
+    "Practice the 5-minute morning intention ritual",
+    "Reframe one limiting thought daily using cognitive restructuring",
+    "Implement elegant boundary-setting in one relationship",
   ];
-  const clarityPrompts = content?.clarityPrompts?.prompts || [
-    "What would you do if you knew you couldn't fail?",
-    "What story are you telling yourself that's keeping you small?",
-    "What would your most confident self do in this situation?",
+
+  const practitionerBio =
+    content?.practitioner?.bio ||
+    "As a Psychiatric and Mental Health Nurse Practitioner, I combine clinical expertise with transformational coaching to guide ambitious women into elegant self-leadership. My approach merges evidence-based psychiatric care with holistic feminine empowerment, creating lasting change that honors your whole being.";
+
+  const impactStats = [
+    { number: "1,000+", label: "Transformation Sessions" },
+    { number: "95%", label: "Client Success Rate" },
+  ];
+
+  const testimonialsList = [
+    {
+      name: "Jessica Chen",
+      image: "/assets/testimonial1.jpg",
+      quote:
+        "Working with her completely transformed my relationship with myself. I now lead with confidence and clarity I never knew I had.",
+      title: "Executive Director",
+    },
+    {
+      name: "Maria Rodriguez",
+      image: "/assets/testimonial2.jpg",
+      quote:
+        "The combination of clinical expertise and intuitive coaching helped me heal patterns I'd carried for decades.",
+      title: "Business Owner",
+    },
+    {
+      name: "Sarah Thompson",
+      image: "/assets/testimonial3.jpg",
+      quote:
+        "She helped me step into the leader I was meant to be. The mindset work was profound and transformational.",
+      title: "Creative Director",
+    },
   ];
 
   return (
     <div className="min-h-screen">
       <SEO
         title="High Agency Collective | Own your Power. Shape your Story."
-        description="Transform your mental health journey with personalized psychiatric care. Discover clarity, embrace reinvention, and step into your power."
+        description="At THE High Agency Collective, I help ambitious women stop playing small and step fully into elegant self-leadership through holistic mindset transformation and refined lifestyle curation."
         canonicalUrl="/"
-        keywords="psychiatric nurse practitioner, mental health transformation, women's empowerment, high agency living"
+        keywords="psychiatric nurse practitioner, mental health transformation, women's empowerment, elegant self-leadership, feminine power"
       />
       <Schema type="organization" />
       <Schema type="medicalBusiness" />
       <Schema type="website" />
 
-      {/* Section 1: Hero */}
+      {/* 1️⃣ Hero Banner */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
-        {content?.hero?.videoUrl ? (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            onLoadedData={() => setIsVideoPlaying(true)}
-          >
-            <source src={content.hero.videoUrl} type="video/mp4" />
-          </video>
-        ) : (
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-[var(--bg-cream-mid)]"
-            style={{
-              backgroundImage: content?.hero?.backgroundImage
-                ? `url('${content.hero.backgroundImage}')`
-                : "none",
-            }}
-          />
-        )}
-
-        {/* Overlay */}
+        {/* Background Image */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            background:
-              "linear-gradient(90deg, var(--overlay-dark) 0%, transparent 60%)",
+            backgroundImage: content?.hero?.backgroundImage
+              ? `url('${content.hero.backgroundImage}')`
+              : "url('/assets/hero_woman_spa.jpg')",
           }}
         />
 
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-left">
-          <h1 className="text-[var(--text-light)] mb-4 md:mb-6 leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-            {content?.hero?.headline || "Own your Power. Shape your Story."}
+          <h1
+            className="text-white mb-6 leading-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-lg"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              textShadow: "0 4px 16px rgba(0,0,0,0.7)",
+            }}
+          >
+            Own your Power. Shape your Story.
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-[var(--text-light)]/90 mb-6 md:mb-8 max-w-2xl leading-relaxed">
-            {content?.hero?.subheading ||
-              "Transform your mental health journey with personalized psychiatric care designed for women ready to step into their power."}
+          <p
+            className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-8 max-w-3xl leading-relaxed drop-shadow-md"
+            style={{ fontFamily: "'Roboto Slab', serif" }}
+          >
+            Transform your mental health journey with personalized psychiatric
+            care designed for women ready to step into their power.
           </p>
           <button
-            onClick={scrollToSection6}
-            className="btn-primary text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5"
+            onClick={scrollToMicroShift}
+            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            style={{
+              backgroundColor: "#B47A5A",
+              fontFamily: "'Raleway', sans-serif",
+              boxShadow: "0 6px 20px rgba(180, 122, 90, 0.4)",
+            }}
           >
-            {content?.hero?.ctaText || "Begin Your Transformation"}
+            Start Your Journey
           </button>
         </div>
-
-        {/* Video Controls */}
-        {content?.hero?.videoUrl && (
-          <button
-            onClick={toggleVideo}
-            className="absolute bottom-8 right-8 z-20 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all"
-            aria-label={isVideoPlaying ? "Pause video" : "Play video"}
-          >
-            {isVideoPlaying ? <Pause size={20} /> : <Play size={20} />}
-          </button>
-        )}
       </section>
 
-      {/* Section 2: Intro Statement */}
+      {/* 2️⃣ Welcome & Vision Section */}
       <section
-        className="py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8 text-center"
+        className="py-16 px-4 sm:px-6 lg:px-8"
         style={{
-          background:
-            "linear-gradient(135deg, var(--bg-cream-light) 0%, var(--bg-rose-dust) 100%)",
+          background: "linear-gradient(135deg, #faf5ef 0%, #f5c8c4 100%)",
         }}
       >
-        <div className="max-w-4xl mx-auto">
-          <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-[var(--text-dark)] italic leading-relaxed border-l-4 border-[var(--brand-pink)] pl-4 sm:pl-6 md:pl-8 py-4 sm:py-6 md:py-8 bg-white/60 rounded-2xl backdrop-blur-sm">
-            {content?.introStatement ||
-              "\"You deserve to live a life that feels as beautiful on the inside as it appears on the outside. Together, we'll unlock the woman who's been waiting to emerge.\""}
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Section 3: What You'll Experience */}
-      <section className="section-padding-compact bg-[var(--bg-cream-light)]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-[var(--text-dark)] mb-12">
-            What You'll Experience
-          </h2>
+          {/* Welcome Text */}
+          <div className="text-center mb-16">
+            <p
+              className="text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto mb-12"
+              style={{ color: "#1A1A1A", fontFamily: "'Roboto Slab', serif" }}
+            >
+              At THE High Agency Collective, I help ambitious women stop playing
+              small and step fully into elegant self-leadership. Through
+              holistic mindset transformation, strategic reinvention, and
+              refined lifestyle curation, I guide women in becoming the most
+              authentic, self-led version of themselves—inside and out.
+            </p>
+          </div>
+
+          {/* Vision Points */}
           <div className="grid md:grid-cols-3 gap-8">
-            {experiences.map((experience, index) => (
+            {visionPoints.map((point, index) => (
               <div
                 key={index}
-                className="card-elegant text-center transform hover:scale-105 transition-all duration-300"
-                style={{ boxShadow: "0 10px 30px rgba(213, 159, 160, 0.3)" }}
+                className="text-center p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+                style={{
+                  backgroundColor: "#eed6c4",
+                  border: "1px solid rgba(180, 122, 90, 0.2)",
+                }}
               >
-                <h3 className="text-[var(--brand-brown)] mb-4">
-                  {experience.title}
+                <div
+                  className="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: "#B47A5A", color: "white" }}
+                >
+                  {point.icon}
+                </div>
+                <h3
+                  className="text-xl font-semibold mb-4"
+                  style={{
+                    color: "#B47A5A",
+                    fontFamily: "'Raleway', sans-serif",
+                  }}
+                >
+                  {point.title}
                 </h3>
-                <p className="text-[var(--text-soft)]">
-                  {experience.description}
+                <p
+                  className="leading-relaxed"
+                  style={{
+                    color: "#444444",
+                    fontFamily: "'Roboto Slab', serif",
+                  }}
+                >
+                  {point.description}
                 </p>
               </div>
             ))}
@@ -198,221 +313,462 @@ const NewHome = () => {
         </div>
       </section>
 
-      {/* Section 4: Client Transformations */}
-      <section className="section-padding-compact bg-[var(--bg-cream-mid)]">
+      {/* 3️⃣ Client Transformations Carousel */}
+      <section
+        className="py-16 px-4 sm:px-6 lg:px-8"
+        style={{ backgroundColor: "#fbeae3" }}
+      >
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-center text-[var(--text-dark)] mb-12">
+          <h2
+            className="text-center mb-12 text-4xl md:text-5xl font-bold"
+            style={{
+              color: "#B47A5A",
+              fontFamily: "'Playfair Display', serif",
+            }}
+          >
             Client Transformations
           </h2>
 
-          {transformations.length > 0 && (
-            <div className="relative overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateX(-${activeTransformation * (200 + 32)}px)`,
-                }}
-              >
-                {transformations.map((story, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 w-[200px] h-[260px] mx-4 bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300"
-                  >
-                    <div className="h-32 bg-[var(--bg-cream-dark)]">
-                      {story.image && (
-                        <img
-                          src={story.image}
-                          alt={story.name}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
+          <div className="relative overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out gap-8"
+              style={{
+                transform: `translateX(-${activeTransformation * (280 + 32)}px)`,
+                width: `${transformations.length * (280 + 32)}px`,
+              }}
+            >
+              {transformations.map((story, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-[280px] rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300"
+                  style={{ backgroundColor: "#f5c8c4" }}
+                >
+                  <div className="h-48 bg-gradient-to-br from-rose-200 to-orange-200">
+                    {story.image && (
+                      <img
+                        src={story.image}
+                        alt={story.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <div className="flex mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={16}
+                          className="fill-yellow-400 text-yellow-400"
                         />
-                      )}
+                      ))}
                     </div>
-                    <div className="p-4">
-                      <h4 className="font-semibold text-[var(--text-dark)] mb-1">
+                    <p
+                      className="text-lg italic mb-4 leading-relaxed"
+                      style={{
+                        color: "#444444",
+                        fontFamily: "'Roboto Slab', serif",
+                      }}
+                    >
+                      "{story.quote}"
+                    </p>
+                    <div>
+                      <h4
+                        className="font-semibold text-lg"
+                        style={{
+                          color: "#1A1A1A",
+                          fontFamily: "'Raleway', sans-serif",
+                        }}
+                      >
                         {story.name}
                       </h4>
-                      <div className="flex mb-2">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={12}
-                            className="fill-yellow-400 text-yellow-400"
-                          />
-                        ))}
-                      </div>
-                      <p className="text-sm text-[var(--text-soft)] italic">
-                        "{story.quote}"
+                      <p
+                        className="text-sm"
+                        style={{
+                          color: "#666666",
+                          fontFamily: "'Roboto Slab', serif",
+                        }}
+                      >
+                        {story.title}
                       </p>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </section>
 
-      {/* Section 5: Awakening Her Power Framework */}
-      <section className="section-padding-compact bg-[var(--bg-cream-light)]">
+      {/* 4️⃣ Elegant Self-Leadership Framework (3 Pillars) */}
+      <section
+        className="py-16 px-4 sm:px-6 lg:px-8"
+        style={{ backgroundColor: "#f5c8c4" }}
+      >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-[var(--text-dark)] mb-12">
-            Awakening Her Power Framework
+          <h2
+            className="text-center mb-4 text-4xl md:text-5xl font-bold"
+            style={{
+              color: "#B47A5A",
+              fontFamily: "'Playfair Display', serif",
+            }}
+          >
+            The 3 Pillars of Elegant Self‑Leadership
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {tools.map((tool, index) => (
-              <div key={index} className="text-center">
+          <p
+            className="text-center text-xl mb-16 max-w-3xl mx-auto"
+            style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
+          >
+            A comprehensive framework for transforming your relationship with
+            yourself and stepping into authentic feminine power.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {pillars.map((pillar, index) => (
+              <div
+                key={index}
+                className={`p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${pillar.color}`}
+              >
                 <div
-                  className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center text-3xl"
-                  style={{ backgroundColor: "var(--bg-rose-dust)" }}
+                  className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: "#B47A5A", color: "white" }}
                 >
-                  {tool.icon}
+                  {pillar.icon}
                 </div>
-                <h4 className="text-[var(--text-dark)] font-medium">
-                  {tool.name}
-                </h4>
+                <h3
+                  className="text-2xl font-semibold mb-4 text-center"
+                  style={{
+                    color: "#B47A5A",
+                    fontFamily: "'Raleway', sans-serif",
+                  }}
+                >
+                  {pillar.title}
+                </h3>
+                <p
+                  className="text-center leading-relaxed"
+                  style={{
+                    color: "#444444",
+                    fontFamily: "'Roboto Slab', serif",
+                  }}
+                >
+                  {pillar.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Section 6: Let's Begin Together (Clarity Prompts) */}
+      {/* 5️⃣ Micro-Shift & Free PDF Download */}
       <section
         ref={scrollToRef}
-        className="section-padding bg-[var(--bg-cream-mid)]"
+        className="py-16 px-4 sm:px-6 lg:px-8"
+        style={{ backgroundColor: "#faf5ef" }}
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-[var(--text-dark)] mb-4">
-              Ready for your next chapter?
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-6"
+              style={{
+                color: "#B47A5A",
+                fontFamily: "'Playfair Display', serif",
+              }}
+            >
+              Begin With a Micro Shift
             </h2>
-            <p className="text-lg text-[var(--text-soft)] max-w-2xl mx-auto">
-              These powerful prompts will help you gain clarity on what's
-              holding you back and what's calling you forward.
+            <p
+              className="text-xl max-w-3xl mx-auto mb-8"
+              style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
+            >
+              Transformation doesn't require dramatic gestures. Sometimes the
+              most profound changes begin with the smallest, most intentional
+              steps. Start where you are, with what you have.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {clarityPrompts.map((prompt, index) => (
+            {microShiftTechniques.map((technique, index) => (
               <div
                 key={index}
-                className="card-elegant h-48 flex items-center justify-center text-center cursor-pointer group perspective-1000"
+                className="p-6 rounded-xl shadow-md"
+                style={{
+                  backgroundColor: "#eed6c4",
+                  border: "1px solid rgba(180, 122, 90, 0.2)",
+                }}
               >
-                <div className="relative w-full h-full">
-                  <div className="absolute inset-0 backface-hidden transition-transform duration-500 group-hover:rotate-y-180 flex items-center justify-center">
-                    <p className="text-lg font-medium text-[var(--text-dark)] px-4">
-                      Prompt {index + 1}
-                    </p>
-                  </div>
-                  <div className="absolute inset-0 backface-hidden rotate-y-180 transition-transform duration-500 group-hover:rotate-y-0 flex items-center justify-center bg-[var(--brand-pink)] text-white rounded-2xl">
-                    <p className="text-sm font-medium px-4">{prompt}</p>
-                  </div>
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto"
+                  style={{ backgroundColor: "#B47A5A", color: "white" }}
+                >
+                  <span className="text-xl font-bold">{index + 1}</span>
                 </div>
+                <p
+                  className="text-center font-medium"
+                  style={{
+                    color: "#444444",
+                    fontFamily: "'Roboto Slab', serif",
+                  }}
+                >
+                  {technique}
+                </p>
               </div>
             ))}
           </div>
 
           <div className="text-center">
-            <a
-              href="/assets/Clarity_Journal.pdf"
-              download
-              className="btn-secondary inline-flex items-center gap-3"
+            <div
+              className="inline-block p-8 rounded-2xl shadow-lg mb-8"
+              style={{ backgroundColor: "#f5c8c4" }}
             >
-              <Download size={20} />
-              Download Clarity Journal
-            </a>
+              <h3
+                className="text-2xl font-semibold mb-4"
+                style={{
+                  color: "#B47A5A",
+                  fontFamily: "'Raleway', sans-serif",
+                }}
+              >
+                Free Clarity Journal
+              </h3>
+              <p
+                className="mb-6 text-lg"
+                style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
+              >
+                Download your free guided journal to begin your transformation
+                journey with powerful reflection exercises and clarity prompts.
+              </p>
+              <a
+                href="/assets/Clarity_Journal.pdf"
+                download
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+                style={{
+                  backgroundColor: "#B47A5A",
+                  color: "white",
+                  fontFamily: "'Raleway', sans-serif",
+                  boxShadow: "0 6px 20px rgba(180, 122, 90, 0.3)",
+                }}
+              >
+                <Download size={20} />
+                Download Free Journal
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 7: Booking CTA */}
+      {/* 6️⃣ About the Practitioner */}
       <section
-        className="section-padding relative overflow-hidden"
+        className="py-16 px-4 sm:px-6 lg:px-8"
+        style={{ backgroundColor: "#fbeae3" }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <h2
+            className="text-center text-4xl md:text-5xl font-bold mb-12"
+            style={{
+              color: "#B47A5A",
+              fontFamily: "'Playfair Display', serif",
+            }}
+          >
+            Meet Your Practitioner
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div
+              className="rounded-2xl overflow-hidden shadow-lg"
+              style={{ backgroundColor: "#eed6c4" }}
+            >
+              <img
+                src="/assets/guide_portrait.jpg"
+                alt="Your Practitioner"
+                className="w-full h-96 object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            <div>
+              <p
+                className="text-lg leading-relaxed mb-6"
+                style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
+              >
+                {practitionerBio}
+              </p>
+              <div
+                className="p-6 rounded-xl"
+                style={{ backgroundColor: "#f5c8c4" }}
+              >
+                <h4
+                  className="text-xl font-semibold mb-3"
+                  style={{
+                    color: "#B47A5A",
+                    fontFamily: "'Raleway', sans-serif",
+                  }}
+                >
+                  Professional Credentials
+                </h4>
+                <p
+                  className="font-medium"
+                  style={{
+                    color: "#444444",
+                    fontFamily: "'Roboto Slab', serif",
+                  }}
+                >
+                  Board-Certified Psychiatric & Mental Health Nurse Practitioner
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7️⃣ Testimonials & Impact Section */}
+      <section
+        className="py-16 px-4 sm:px-6 lg:px-8"
+        style={{ backgroundColor: "#faf5ef" }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <h2
+            className="text-center text-4xl md:text-5xl font-bold mb-6"
+            style={{
+              color: "#B47A5A",
+              fontFamily: "'Playfair Display', serif",
+            }}
+          >
+            Proven Impact & Client Stories
+          </h2>
+
+          {/* Impact Stats */}
+          <div className="flex justify-center gap-16 mb-16">
+            {impactStats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div
+                  className="text-4xl md:text-5xl font-bold mb-2"
+                  style={{
+                    color: "#B47A5A",
+                    fontFamily: "'Playfair Display', serif",
+                  }}
+                >
+                  {stat.number}
+                </div>
+                <p
+                  className="text-lg font-medium"
+                  style={{
+                    color: "#444444",
+                    fontFamily: "'Raleway', sans-serif",
+                  }}
+                >
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Testimonials */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonialsList.map((testimonial, index) => (
+              <div
+                key={index}
+                className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                style={{ backgroundColor: "#eed6c4" }}
+              >
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className="fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
+                </div>
+                <p
+                  className="italic mb-6 leading-relaxed"
+                  style={{
+                    color: "#444444",
+                    fontFamily: "'Roboto Slab', serif",
+                  }}
+                >
+                  "{testimonial.quote}"
+                </p>
+                <div className="flex items-center gap-4">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full object-cover"
+                    loading="lazy"
+                  />
+                  <div>
+                    <p
+                      className="font-semibold"
+                      style={{
+                        color: "#1A1A1A",
+                        fontFamily: "'Raleway', sans-serif",
+                      }}
+                    >
+                      {testimonial.name}
+                    </p>
+                    <p
+                      className="text-sm"
+                      style={{
+                        color: "#666666",
+                        fontFamily: "'Roboto Slab', serif",
+                      }}
+                    >
+                      {testimonial.title}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8️⃣ CTA Banner for Clarity Session */}
+      <section
+        className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
         style={{
-          backgroundImage: content?.bookingCTA?.backgroundImage
-            ? `url('${content.bookingCTA.backgroundImage}')`
-            : "url(/assets/compare_sessions_bg.jpg)",
+          backgroundImage: "url('/assets/compare_sessions_bg.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div
-          className="absolute inset-0"
-          style={{ backgroundColor: "var(--overlay-dark)" }}
-        />
+        <div className="absolute inset-0 bg-black/50" />
+
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-[var(--text-light)] mb-6">
-            {content?.bookingCTA?.heading || "Take the First Step"}
+          <h2
+            className="text-white mb-6 text-4xl md:text-5xl font-bold"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              textShadow: "0 4px 16px rgba(0,0,0,0.7)",
+            }}
+          >
+            Take the First Step
           </h2>
-          <p className="text-xl text-[var(--text-light)]/90 mb-8 max-w-2xl mx-auto">
-            {content?.bookingCTA?.description ||
-              "Your transformation begins with a single conversation. Let's explore what's possible for you."}
+          <p
+            className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed"
+            style={{
+              fontFamily: "'Roboto Slab', serif",
+              textShadow: "0 2px 8px rgba(0,0,0,0.5)",
+            }}
+          >
+            Your transformation begins with a single conversation. Let's explore
+            what's possible when you own your power and shape your story.
           </p>
           <a
-            href={
-              content?.bookingCTA?.buttonUrl ||
-              "https://calendly.com/tashaniyi/30min?month=2025-07"
-            }
+            href="https://calendly.com/tashaniyi/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center gap-3 text-xl px-10 py-5"
+            className="inline-flex items-center gap-3 px-10 py-5 rounded-full font-semibold text-xl transition-all duration-300 transform hover:scale-105"
+            style={{
+              backgroundColor: "#B47A5A",
+              color: "white",
+              fontFamily: "'Raleway', sans-serif",
+              boxShadow: "0 8px 24px rgba(180, 122, 90, 0.4)",
+            }}
           >
             <Calendar size={24} />
-            {content?.bookingCTA?.buttonText ||
-              "Book Your Free 30-min Clarity Call"}
+            Book Your Clarity Session
           </a>
         </div>
       </section>
-
-      {/* Section 8: Testimonials (if kept) */}
-      {content?.testimonials?.testimonials &&
-        content.testimonials.testimonials.length > 0 && (
-          <section className="section-padding-compact bg-[var(--bg-cream-light)]">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-center text-[var(--text-dark)] mb-12">
-                What Clients Say
-              </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {content.testimonials.testimonials
-                  .slice(0, 3)
-                  .map((testimonial, index) => (
-                    <div key={index} className="card-elegant">
-                      <div className="flex mb-4">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={16}
-                            className="fill-yellow-400 text-yellow-400"
-                          />
-                        ))}
-                      </div>
-                      <p className="text-[var(--text-soft)] italic mb-4">
-                        "{testimonial.quote}"
-                      </p>
-                      <div className="flex items-center gap-3">
-                        {testimonial.image && (
-                          <img
-                            src={testimonial.image}
-                            alt={testimonial.name}
-                            className="w-12 h-12 rounded-full object-cover"
-                          />
-                        )}
-                        <div>
-                          <p className="font-semibold text-[var(--text-dark)]">
-                            {testimonial.name}
-                          </p>
-                          <p className="text-sm text-[var(--text-soft)]">
-                            {testimonial.role}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </section>
-        )}
     </div>
   );
 };
