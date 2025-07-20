@@ -334,10 +334,8 @@
     @apply border-border;
   }
 
-  body {
-    @apply text-foreground;
-    scroll-behavior: smooth;
-    font-family: "Roboto Slab", serif;
+  /* Global gradient background - applied to html for site-wide inheritance */
+  html {
     background: linear-gradient(
       to bottom right,
       #f8f3ed,
@@ -346,8 +344,16 @@
     ) !important;
     background-attachment: fixed;
     min-height: 100vh;
+  }
+
+  body {
+    @apply text-foreground;
+    scroll-behavior: smooth;
+    font-family: "Roboto Slab", serif;
+    background: transparent !important;
     color: var(--text-medium);
     line-height: 1.7;
+    min-height: 100vh;
   }
 
   h1,
