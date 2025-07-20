@@ -75,7 +75,7 @@ const App = () => (
               <Route
                 path="/"
                 element={
-                  <div className="min-h-screen bg-background">
+                  <div className="min-h-screen">
                     <Navigation />
                     <Suspense fallback={<LoadingSpinner />}>
                       <NewHome />
