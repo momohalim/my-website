@@ -308,7 +308,7 @@ const DynamicTransform = () => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-[#DCC5A8]/30 text-center hover:shadow-md transition-shadow duration-300"
+                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-[#DCC5A8]/30 text-center hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden shadow-sm border-2 border-[#E2CDB3]/30">
                   <img
