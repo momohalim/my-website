@@ -292,8 +292,9 @@ export function AdminHome() {
             <CardTitle>Client Transformations</CardTitle>
             <CardDescription>
               6 testimonials with photos, quotes, names, roles, and 5-star
-              ratings. Displays in horizontal auto-slider (3 at a time, 8-second
-              intervals)
+              ratings. Displays in auto-scrolling horizontal carousel (3 visible
+              at a time, continuously scrolling from right to left every ~5
+              seconds)
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
