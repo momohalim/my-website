@@ -327,6 +327,18 @@
     --input: 26 10% 20%;
     --ring: 38 30% 70%;
   }
+
+  /* Dark mode gradient background */
+  .dark html {
+    background: linear-gradient(
+      to bottom right,
+      #2e2a26,
+      #3b342f,
+      #4a4038
+    ) !important;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
 }
 
 @layer base {
