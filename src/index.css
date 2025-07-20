@@ -460,6 +460,25 @@
     }
   }
 
+  /* Auto-scrolling carousel animation */
+  @keyframes scroll-slow {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll-slow {
+    animation: scroll-slow 30s linear infinite;
+  }
+
+  /* Pause animation on hover for better UX */
+  .carousel-container:hover .animate-scroll-slow {
+    animation-play-state: paused;
+  }
+
   /* Accessibility and responsive design utilities */
   .focus-visible:focus {
     outline: 3px solid var(--accent-brown);
