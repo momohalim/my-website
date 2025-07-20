@@ -1,42 +1,59 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;500;600&family=Lora:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&family=Roboto+Slab:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Cream gradient background */
-  --bg-cream-light: #faf5ef;
-  --bg-cream-mid: #fbeae3;
-  --bg-cream-dark: #eed6c4;
-  --bg-rose-dust: #f5c8c4;
+  /* High Agency Collective Color System (Light Theme) */
+  /* Background: Creamy gradient – light ivory to pale peach */
+  --bg-cream-light: #faf5ef; /* Light ivory */
+  --bg-cream-mid: #fbeae3; /* Pale peach */
+  --bg-cream-dark: #eed6c4; /* Deeper cream */
+  --bg-rose-dust: #f5c8c4; /* Rose-beige */
 
-  /* Brand accent */
-  --brand-pink: #d39fa0;
-  --brand-brown: #b47a5a;
+  /* Cards: Soft warm beige or rose-beige */
+  --card-beige: #eed6c4;
+  --card-rose-beige: #f5c8c4;
 
-  /* Text */
-  --text-dark: #333333;
-  --text-soft: #444444;
-  --text-light: #f8f4ef;
+  /* Accents: Muted rose-pink, soft terracotta */
+  --brand-pink: #d39fa0; /* Muted rose-pink */
+  --brand-brown: #b47a5a; /* Soft terracotta */
+
+  /* Shadows: Soft brown or muted gold */
+  --shadow-brown: rgba(180, 122, 90, 0.3);
+  --shadow-gold: rgba(218, 165, 32, 0.2);
+
+  /* Text: Almost black or muted charcoal */
+  --text-dark: #1a1a1a; /* Almost black */
+  --text-soft: #444444; /* Muted charcoal */
+  --text-light: #f8f4ef; /* Light text for dark backgrounds */
 
   /* Utility */
   --overlay-dark: rgba(0, 0, 0, 0.5);
 }
 
 @layer base {
-  /* Typography System */
+  /* High Agency Collective Typography System */
+  /* Main headings: "Playfair Display" */
   h1,
   h2 {
     font-family: "Playfair Display", serif;
+    font-weight: 700;
+    color: var(--text-dark);
   }
 
+  /* Subheadings: "Raleway" */
   h3,
-  h4 {
+  h4,
+  h5,
+  h6 {
     font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    color: var(--text-dark);
   }
 
+  /* Body & paragraphs: "Roboto Slab" (or fallback Roboto) */
   body,
   p,
   span,
@@ -44,74 +61,113 @@
   button,
   input,
   textarea {
-    font-family: "Roboto Slab", serif;
+    font-family: "Roboto Slab", "Roboto", serif;
+    color: var(--text-dark);
   }
 
   /* Default sizes */
   h1 {
-    @apply text-5xl md:text-6xl font-bold leading-tight;
+    @apply text-5xl md:text-6xl lg:text-7xl font-bold leading-tight;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl font-semibold leading-snug;
+    @apply text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug;
   }
 
   h3 {
-    @apply text-2xl font-semibold;
+    @apply text-2xl md:text-3xl font-semibold;
   }
 
   h4 {
-    @apply text-xl font-semibold;
+    @apply text-xl md:text-2xl font-semibold;
   }
 
   p {
     @apply text-base md:text-lg leading-relaxed;
   }
 
-  /* Body defaults */
+  /* Body defaults with cream gradient background */
   body {
-    background-color: var(--bg-cream-light);
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-light) 0%,
+      var(--bg-cream-mid) 100%
+    );
     color: var(--text-dark);
+    font-weight: 400;
+    line-height: 1.7;
   }
 }
 
 @layer components {
-  /* Brand button styles */
+  /* High Agency Collective Button Styles */
   .btn-primary {
-    @apply px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1;
-    background-color: var(--brand-pink);
+    @apply px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105;
+    background-color: var(--brand-brown);
     color: var(--text-light);
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0 6px 20px var(--shadow-brown);
   }
 
   .btn-primary:hover {
-    background-color: var(--brand-brown);
+    background-color: rgba(180, 122, 90, 0.9);
+    box-shadow: 0 8px 24px var(--shadow-brown);
   }
 
   .btn-secondary {
-    @apply px-6 py-3 border-2 rounded-xl font-semibold transition-all duration-300;
-    border-color: var(--brand-pink);
-    color: var(--brand-pink);
+    @apply px-6 py-3 border-2 rounded-full font-semibold transition-all duration-300;
+    border-color: var(--brand-brown);
+    color: var(--brand-brown);
+    font-family: "Raleway", sans-serif;
   }
 
   .btn-secondary:hover {
-    background-color: var(--brand-pink);
+    background-color: var(--brand-brown);
     color: var(--text-light);
+    transform: translateY(-2px);
   }
 
-  /* Card styles */
+  /* Elegant Card Styles */
   .card-elegant {
-    @apply rounded-2xl p-6 shadow-lg border transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
-    background-color: var(--bg-cream-dark);
-    border-color: rgba(211, 159, 160, 0.2);
+    @apply rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    background-color: var(--card-beige);
+    border: 1px solid rgba(180, 122, 90, 0.2);
+    box-shadow: 0 6px 20px var(--shadow-brown);
+  }
+
+  .card-rose {
+    @apply rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    background-color: var(--card-rose-beige);
+    border: 1px solid rgba(180, 122, 90, 0.2);
+    box-shadow: 0 6px 20px var(--shadow-brown);
   }
 
   /* Section spacing */
   .section-padding {
-    @apply py-12 md:py-16 px-4 sm:px-6 lg:px-8;
+    @apply py-16 md:py-20 px-4 sm:px-6 lg:px-8;
   }
 
   .section-padding-compact {
-    @apply py-8 md:py-12 px-4 sm:px-6 lg:px-8;
+    @apply py-12 md:py-16 px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Typography classes */
+  .heading-primary {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .heading-secondary {
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    color: var(--brand-brown);
+  }
+
+  .body-text {
+    font-family: "Roboto Slab", "Roboto", serif;
+    color: var(--text-soft);
+    line-height: 1.7;
   }
 }
 
@@ -217,10 +273,14 @@
   body {
     @apply bg-background text-foreground;
     scroll-behavior: smooth;
-    font-family: "Lato", sans-serif;
-    background-color: var(--color-bg-light);
-    color: var(--color-text-main);
-    line-height: 1.6;
+    font-family: "Roboto Slab", "Roboto", serif;
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-light) 0%,
+      var(--bg-cream-mid) 100%
+    );
+    color: var(--text-dark);
+    line-height: 1.7;
   }
 
   h1,
@@ -229,13 +289,13 @@
   h4,
   h5,
   h6 {
-    font-family: "Cormorant Garamond", serif;
-    color: var(--color-text-highlight);
+    font-family: "Playfair Display", serif;
+    color: var(--brand-brown);
     font-weight: 600;
   }
 
   h1 {
-    color: var(--color-text-highlight);
+    color: var(--text-dark);
   }
 }
 
@@ -256,41 +316,97 @@
   }
 
   .elegant-card {
-    background: var(--color-bg-gradient);
+    background: var(--card-beige);
     border: 1px solid rgba(180, 122, 90, 0.2);
     border-radius: 1rem;
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 6px 20px var(--shadow-brown);
     transition: all 0.3s ease-in-out;
   }
 
   .elegant-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(180, 122, 90, 0.2);
+    box-shadow: 0 12px 30px rgba(180, 122, 90, 0.4);
   }
 
   .section-divider {
-    background-color: var(--color-bg-light);
+    background: linear-gradient(
+      135deg,
+      var(--bg-cream-light) 0%,
+      var(--bg-cream-mid) 100%
+    );
   }
 
   .primary-button,
   .cta-button {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-full transition-all duration-300 transform hover:scale-105;
-    background-color: var(--color-button-bg);
-    color: var(--color-button-text);
-    box-shadow: 0 4px 15px rgba(180, 122, 90, 0.25);
+    @apply inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105;
+    background-color: var(--brand-brown);
+    color: var(--text-light);
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0 6px 20px var(--shadow-brown);
   }
 
   .primary-button:hover,
   .cta-button:hover {
     background-color: rgba(180, 122, 90, 0.9);
-    box-shadow: 0 6px 20px rgba(180, 122, 90, 0.35);
+    box-shadow: 0 8px 24px var(--shadow-brown);
   }
 
   .text-heading {
-    color: var(--color-text-highlight);
+    color: var(--brand-brown);
+    font-family: "Playfair Display", serif;
+  }
+
+  .text-subheading {
+    color: var(--brand-brown);
+    font-family: "Raleway", sans-serif;
+  }
+
+  .text-body {
+    color: var(--text-soft);
+    font-family: "Roboto Slab", "Roboto", serif;
   }
 
   .text-muted {
-    color: var(--color-text-muted);
+    color: var(--text-soft);
+  }
+
+  /* Accessibility and responsive design utilities */
+  .focus-visible:focus {
+    outline: 2px solid var(--brand-brown);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Enhanced contrast for accessibility */
+  @media (prefers-contrast: high) {
+    :root {
+      --text-dark: #000000;
+      --text-soft: #000000;
+      --brand-brown: #8b4513;
+    }
+  }
+
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
