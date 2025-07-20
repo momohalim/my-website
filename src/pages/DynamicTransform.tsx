@@ -31,7 +31,13 @@ const DynamicTransform = () => {
   const questions = content.innerStruggle?.questions || [];
 
   return (
-    <div className="min-h-screen bg-[#F8F4EF]">
+    <div
+      className="min-h-screen w-full"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #F8F3ED, #EFE2D5, #EADCC4)",
+      }}
+    >
       <SEO
         title="Transform | High Agency Collective"
         description="Experience a powerful transformation journey. Discover the 5-phase timeline from awakening to agency and unlock your inner power to create lasting change."
