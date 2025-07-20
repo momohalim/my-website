@@ -11,8 +11,14 @@ const DynamicTransform = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{
+          background:
+            "linear-gradient(to bottom right, #F8F3ED, #EFE2D5, #EADCC4)",
+        }}
+      >
+        <Loader2 className="h-8 w-8 animate-spin text-[#8B7355]" />
       </div>
     );
   }
