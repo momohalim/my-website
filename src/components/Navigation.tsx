@@ -111,7 +111,7 @@ const Navigation = () => {
                 onClick={() => setIsOpen(false)}
                 className="btn-primary w-fit"
               >
-                Book Your Call
+                Schedule Consultation
               </Link>
             </div>
           </div>
