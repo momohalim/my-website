@@ -348,7 +348,9 @@
   /* Ensure sections with custom backgrounds are not interfered with */
   .custom-bg-section,
   [style*="background-image"],
-  [style*="backgroundImage"] {
+  [style*="backgroundImage"],
+  section[style*="background"],
+  div[style*="background"] {
     background-color: transparent !important;
   }
 
@@ -356,8 +358,12 @@
   .hero-section,
   .cta-section,
   .testimonial-bg,
-  .footer-bg {
-    background: inherit !important;
+  .footer-bg,
+  footer[style*="background"],
+  section[class*="hero"],
+  section[class*="cta"],
+  .relative[style*="background"] {
+    background-color: inherit !important;
   }
 
   /* Background inheritance utility */
