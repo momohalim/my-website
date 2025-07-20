@@ -26,15 +26,9 @@ import Schema from "@/components/Schema";
 
 const NewHome = () => {
   const { content, loading } = useContent("home");
-  const [activeTransformation, setActiveTransformation] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [currentX, setCurrentX] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const scrollToRef = useRef<HTMLDivElement>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
 
   // Enhanced transformations data with 6 client cards
   const transformations = content?.transformations?.stories || [
