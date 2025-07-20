@@ -390,8 +390,18 @@ const NewHome = () => {
               ref={sliderRef}
               className="flex transition-transform duration-1000 ease-in-out cursor-grab active:cursor-grabbing"
               style={{
-                transform: `translateX(-${(activeTransformation * 100) / 3}%)`,
-                width: `${(transformations.length / 3) * 100}%`,
+                transform:
+                  window.innerWidth >= 1024
+                    ? `translateX(-${(activeTransformation * 100) / 3}%)`
+                    : window.innerWidth >= 768
+                      ? `translateX(-${(activeTransformation * 100) / 2}%)`
+                      : `translateX(-${activeTransformation * 100}%)`,
+                width:
+                  window.innerWidth >= 1024
+                    ? `${(transformations.length / 3) * 100}%`
+                    : window.innerWidth >= 768
+                      ? `${(transformations.length / 2) * 100}%`
+                      : `${transformations.length * 100}%`,
               }}
               onMouseDown={handleTouchStart}
               onMouseMove={handleTouchMove}
