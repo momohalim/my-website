@@ -82,27 +82,6 @@ const NewHome = () => {
     },
   ];
 
-  // Auto-scroll functionality - slowly from right to left every 8 seconds
-  useEffect(() => {
-    const startAutoScroll = () => {
-      autoScrollRef.current = setInterval(() => {
-        if (!isDragging) {
-          setActiveTransformation(
-            (prev) => (prev + 1) % transformations.length,
-          );
-        }
-      }, 8000); // 8 seconds as specified
-    };
-
-    startAutoScroll();
-
-    return () => {
-      if (autoScrollRef.current) {
-        clearInterval(autoScrollRef.current);
-      }
-    };
-  }, [transformations.length, isDragging]);
-
   // Touch/mouse event handlers for mobile swiping and dragging
   const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
     setIsDragging(true);
