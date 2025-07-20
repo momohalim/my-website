@@ -15,6 +15,11 @@ import {
   Brain,
   Crown,
   Sparkles,
+  Music,
+  FileText,
+  Video,
+  Headphones,
+  PlayCircle,
 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Schema from "@/components/Schema";
@@ -26,13 +31,13 @@ const NewHome = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const scrollToRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll transformations every 4 seconds
+  // Auto-scroll transformations every 8 seconds (as specified)
   useEffect(() => {
     const transformations = content?.transformations?.stories || [];
     if (transformations.length > 0) {
       const timer = setInterval(() => {
         setActiveTransformation((prev) => (prev + 1) % transformations.length);
-      }, 4000);
+      }, 8000); // Changed from 4 to 8 seconds
       return () => clearInterval(timer);
     }
   }, [content?.transformations?.stories]);
@@ -48,409 +53,237 @@ const NewHome = () => {
     }
   };
 
-  const scrollToMicroShift = () => {
+  const scrollToStartJourney = () => {
     scrollToRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   if (loading) {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center"
-        style={{
-          background: "linear-gradient(135deg, #faf5ef 0%, #f5c8c4 100%)",
-        }}
-      >
-        <div className="w-8 h-8 border-4 border-[#B47A5A] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-cream-light">
+        <div className="w-8 h-8 border-4 border-[#8B7355] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
+  // Default data for 6 client transformations with enhanced auto-slider
   const transformations = content?.transformations?.stories || [
     {
       name: "Sarah M.",
       image: "/assets/testimonial_sarah.jpg",
       quote: "I finally feel like myself again",
-      title: "Executive Director",
+      role: "Executive Director",
       rating: 5,
     },
     {
       name: "Jennifer K.",
       image: "/assets/testimonial_jennifer.jpg",
       quote: "The transformation has been incredible",
-      title: "Business Owner",
+      role: "Business Owner",
       rating: 5,
     },
     {
       name: "Maria L.",
       image: "/assets/testimonial_maria.jpg",
       quote: "I'm living my authentic truth now",
-      title: "Creative Leader",
+      role: "Creative Leader",
       rating: 5,
     },
     {
       name: "Amanda R.",
       image: "/assets/testimonial_amanda.jpg",
       quote: "Best decision I ever made",
-      title: "Entrepreneur",
+      role: "Entrepreneur",
       rating: 5,
     },
     {
       name: "Lisa T.",
       image: "/assets/testimonial_lisa.jpg",
       quote: "I found my inner strength",
-      title: "Coach",
+      role: "Coach & Consultant",
       rating: 5,
     },
     {
       name: "Rachel D.",
       image: "/assets/testimonial_rachel.jpg",
       quote: "Life-changing experience",
-      title: "Consultant",
+      role: "Marketing Director",
       rating: 5,
     },
   ];
 
-  const visionPoints = [
-    {
-      title: "Heal subconscious patterns",
-      icon: <Brain className="w-8 h-8" />,
-      description: "Transform limiting beliefs at their root",
-    },
-    {
-      title: "Lead with elegant self-assurance",
-      icon: <Crown className="w-8 h-8" />,
-      description: "Embody confidence that feels natural and authentic",
-    },
-    {
-      title: "Embody intentional feminine power",
-      icon: <Sparkles className="w-8 h-8" />,
-      description: "Step into your power with grace and purpose",
-    },
-  ];
-
+  // 3 Pillars with elegant icons and descriptions
   const pillars = [
     {
       title: "Mindset Reset",
       description:
-        "Reprogram limiting beliefs and transform your inner narrative for lasting change and empowerment.",
+        "Transform limiting beliefs and negative thought patterns through evidence-based cognitive approaches tailored to your unique mental health journey.",
       icon: <Brain className="w-12 h-12" />,
-      color: "bg-rose-100",
     },
     {
       title: "Strategic Reinvention",
       description:
-        "Redesign your life with intention, aligning your choices with your authentic desires and values.",
+        "Redesign your life with intention and clinical insight, aligning your choices with your authentic self and mental wellness goals.",
       icon: <Crown className="w-12 h-12" />,
-      color: "bg-orange-100",
     },
     {
       title: "Lifestyle Curation",
       description:
-        "Create daily rituals and practices that support your highest self and elegant way of being.",
+        "Develop sustainable daily practices and healthy boundaries that support your mental health and overall well-being.",
       icon: <Sparkles className="w-12 h-12" />,
-      color: "bg-amber-100",
     },
   ];
 
-  const microShiftTechniques = [
-    "Practice the 5-minute morning intention ritual",
-    "Reframe one limiting thought daily using cognitive restructuring",
-    "Implement elegant boundary-setting in one relationship",
+  // New Wellness Resources section with 3 downloadable/embedded tools
+  const wellnessResources = content?.wellnessResources || [
+    {
+      title: "Meditation Guide",
+      description:
+        "A comprehensive PDF guide with 10 powerful meditation techniques for anxiety relief and mental clarity.",
+      type: "PDF",
+      action: "Download",
+      icon: <FileText className="w-8 h-8" />,
+      image: "/assets/meditation_guide_preview.jpg",
+      url: "/assets/Meditation_Guide.pdf",
+    },
+    {
+      title: "Curated Spotify Playlist",
+      description:
+        "Carefully selected calming music and guided meditations to support your mental health journey.",
+      type: "Playlist",
+      action: "Listen",
+      icon: <Music className="w-8 h-8" />,
+      image: "/assets/spotify_playlist_cover.jpg",
+      url: "https://open.spotify.com/playlist/your-wellness-playlist",
+    },
+    {
+      title: "Breathing Exercise Video",
+      description:
+        "Professional breathing techniques and grounding exercises for managing stress and anxiety in daily life.",
+      type: "Video",
+      action: "Watch",
+      icon: <Video className="w-8 h-8" />,
+      image: "/assets/breathing_exercise_preview.jpg",
+      url: "/assets/breathing_exercises_video.mp4",
+    },
   ];
 
   const practitionerBio =
     content?.practitioner?.bio ||
-    "As a Psychiatric and Mental Health Nurse Practitioner, I combine clinical expertise with transformational coaching to guide ambitious women into elegant self-leadership. My approach merges evidence-based psychiatric care with holistic feminine empowerment, creating lasting change that honors your whole being.";
-
-  const impactStats = [
-    { number: "1,000+", label: "Transformation Sessions" },
-    { number: "95%", label: "Client Success Rate" },
-  ];
-
-  const testimonialsList = [
-    {
-      name: "Jessica Chen",
-      image: "/assets/testimonial1.jpg",
-      quote:
-        "Working with her completely transformed my relationship with myself. I now lead with confidence and clarity I never knew I had.",
-      title: "Executive Director",
-    },
-    {
-      name: "Maria Rodriguez",
-      image: "/assets/testimonial2.jpg",
-      quote:
-        "The combination of clinical expertise and intuitive coaching helped me heal patterns I'd carried for decades.",
-      title: "Business Owner",
-    },
-    {
-      name: "Sarah Thompson",
-      image: "/assets/testimonial3.jpg",
-      quote:
-        "She helped me step into the leader I was meant to be. The mindset work was profound and transformational.",
-      title: "Creative Director",
-    },
-  ];
+    "As a Board-Certified Psychiatric and Mental Health Nurse Practitioner, I bring clinical expertise and compassionate care to help you navigate your mental health journey. My approach combines evidence-based psychiatric treatment with holistic wellness strategies, empowering you to own your power and shape your story with confidence and resilience.";
 
   return (
     <div className="min-h-screen">
       <SEO
-        title="High Agency Collective | Own your Power. Shape your Story."
-        description="At THE High Agency Collective, I help ambitious women stop playing small and step fully into elegant self-leadership through holistic mindset transformation and refined lifestyle curation."
+        title="Own your Power. Shape your Story. | Psychiatric & Mental Health Nurse Practitioner"
+        description="Transform your mental health journey with compassionate, evidence-based psychiatric care. Discover clarity, embrace healing, and step into your power with a Board-Certified Psychiatric & Mental Health Nurse Practitioner."
         canonicalUrl="/"
-        keywords="psychiatric nurse practitioner, mental health transformation, women's empowerment, elegant self-leadership, feminine power"
+        keywords="psychiatric nurse practitioner, mental health care, anxiety treatment, depression therapy, trauma-informed care, psychiatric medication management"
       />
       <Schema type="organization" />
       <Schema type="medicalBusiness" />
       <Schema type="website" />
 
-      {/* 1️⃣ Hero Banner */}
+      {/* Hero Section - Keep background video, minimal text, "Start Your Journey" button */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: content?.hero?.backgroundImage
-              ? `url('${content.hero.backgroundImage}')`
-              : "url('/assets/hero_woman_spa.jpg')",
-          }}
-        />
+        {/* Background Video */}
+        {content?.hero?.videoUrl && (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            onLoadedData={() => setIsVideoPlaying(true)}
+          >
+            <source src={content.hero.videoUrl} type="video/mp4" />
+          </video>
+        )}
+
+        {/* Fallback Background Image */}
+        {!content?.hero?.videoUrl && (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: content?.hero?.backgroundImage
+                ? `url('${content.hero.backgroundImage}')`
+                : "url('/assets/hero_woman_spa.jpg')",
+            }}
+          />
+        )}
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent" />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-left">
+        {/* Content - Short, powerful introductory statement */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h1
-            className="text-white mb-6 leading-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-lg"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              textShadow: "0 4px 16px rgba(0,0,0,0.7)",
-            }}
+            className="heading-hero text-white mb-6 leading-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+            style={{ textShadow: "0 4px 16px rgba(0,0,0,0.7)" }}
           >
-            Own your Power. Shape your Story.
+            Own your Power.
+            <br />
+            Shape your Story.
           </h1>
           <p
-            className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-8 max-w-3xl leading-relaxed drop-shadow-md"
-            style={{ fontFamily: "'Roboto Slab', serif" }}
+            className="body-text text-xl sm:text-2xl md:text-3xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed"
+            style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
           >
-            Transform your mental health journey with personalized psychiatric
-            care designed for women ready to step into their power.
+            Transform your mental health with compassionate, evidence-based
+            psychiatric care.
           </p>
+          {/* Round, soft button in deeper cream color */}
           <button
-            onClick={scrollToMicroShift}
-            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-            style={{
-              backgroundColor: "#B47A5A",
-              fontFamily: "'Raleway', sans-serif",
-              boxShadow: "0 6px 20px rgba(180, 122, 90, 0.4)",
-            }}
+            onClick={scrollToStartJourney}
+            className="btn-start-journey animate-fade-in"
+            aria-label="Start your mental health transformation journey"
           >
             Start Your Journey
           </button>
         </div>
+
+        {/* Video Controls */}
+        {content?.hero?.videoUrl && (
+          <button
+            onClick={toggleVideo}
+            className="absolute bottom-8 right-8 z-20 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all"
+            aria-label={isVideoPlaying ? "Pause video" : "Play video"}
+          >
+            {isVideoPlaying ? <Pause size={20} /> : <Play size={20} />}
+          </button>
+        )}
       </section>
 
-      {/* 2️⃣ Welcome & Vision Section */}
-      <section
-        className="py-16 px-4 sm:px-6 lg:px-8"
-        style={{
-          background: "linear-gradient(135deg, #faf5ef 0%, #f5c8c4 100%)",
-        }}
-      >
-        <div className="max-w-6xl mx-auto">
-          {/* Welcome Text */}
+      {/* The 3 Pillars Section - Darker creamy cards with soft shadows */}
+      <section className="section-padding bg-gradient-cream-light">
+        <div className="container-responsive">
           <div className="text-center mb-16">
-            <p
-              className="text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto mb-12"
-              style={{ color: "#1A1A1A", fontFamily: "'Roboto Slab', serif" }}
-            >
-              At THE High Agency Collective, I help ambitious women stop playing
-              small and step fully into elegant self-leadership. Through
-              holistic mindset transformation, strategic reinvention, and
-              refined lifestyle curation, I guide women in becoming the most
-              authentic, self-led version of themselves—inside and out.
+            <h2 className="heading-section text-4xl md:text-5xl font-bold mb-6">
+              The 3 Pillars of Mental Wellness
+            </h2>
+            <p className="subheading-clean text-xl max-w-3xl mx-auto">
+              A comprehensive, evidence-based approach to psychiatric care that
+              honors your whole being
             </p>
           </div>
-
-          {/* Vision Points */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {visionPoints.map((point, index) => (
-              <div
-                key={index}
-                className="text-center p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-                style={{
-                  backgroundColor: "#eed6c4",
-                  border: "1px solid rgba(180, 122, 90, 0.2)",
-                }}
-              >
-                <div
-                  className="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "#B47A5A", color: "white" }}
-                >
-                  {point.icon}
-                </div>
-                <h3
-                  className="text-xl font-semibold mb-4"
-                  style={{
-                    color: "#B47A5A",
-                    fontFamily: "'Raleway', sans-serif",
-                  }}
-                >
-                  {point.title}
-                </h3>
-                <p
-                  className="leading-relaxed"
-                  style={{
-                    color: "#444444",
-                    fontFamily: "'Roboto Slab', serif",
-                  }}
-                >
-                  {point.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3️⃣ Client Transformations Carousel */}
-      <section
-        className="py-16 px-4 sm:px-6 lg:px-8"
-        style={{ backgroundColor: "#fbeae3" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <h2
-            className="text-center mb-12 text-4xl md:text-5xl font-bold"
-            style={{
-              color: "#B47A5A",
-              fontFamily: "'Playfair Display', serif",
-            }}
-          >
-            Client Transformations
-          </h2>
-
-          <div className="relative overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-in-out gap-8"
-              style={{
-                transform: `translateX(-${activeTransformation * (280 + 32)}px)`,
-                width: `${transformations.length * (280 + 32)}px`,
-              }}
-            >
-              {transformations.map((story, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-[280px] rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300"
-                  style={{ backgroundColor: "#f5c8c4" }}
-                >
-                  <div className="h-48 bg-gradient-to-br from-rose-200 to-orange-200">
-                    {story.image && (
-                      <img
-                        src={story.image}
-                        alt={story.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <div className="flex mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={16}
-                          className="fill-yellow-400 text-yellow-400"
-                        />
-                      ))}
-                    </div>
-                    <p
-                      className="text-lg italic mb-4 leading-relaxed"
-                      style={{
-                        color: "#444444",
-                        fontFamily: "'Roboto Slab', serif",
-                      }}
-                    >
-                      "{story.quote}"
-                    </p>
-                    <div>
-                      <h4
-                        className="font-semibold text-lg"
-                        style={{
-                          color: "#1A1A1A",
-                          fontFamily: "'Raleway', sans-serif",
-                        }}
-                      >
-                        {story.name}
-                      </h4>
-                      <p
-                        className="text-sm"
-                        style={{
-                          color: "#666666",
-                          fontFamily: "'Roboto Slab', serif",
-                        }}
-                      >
-                        {story.title}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4️⃣ Elegant Self-Leadership Framework (3 Pillars) */}
-      <section
-        className="py-16 px-4 sm:px-6 lg:px-8"
-        style={{ backgroundColor: "#f5c8c4" }}
-      >
-        <div className="max-w-6xl mx-auto">
-          <h2
-            className="text-center mb-4 text-4xl md:text-5xl font-bold"
-            style={{
-              color: "#B47A5A",
-              fontFamily: "'Playfair Display', serif",
-            }}
-          >
-            The 3 Pillars of Elegant Self‑Leadership
-          </h2>
-          <p
-            className="text-center text-xl mb-16 max-w-3xl mx-auto"
-            style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
-          >
-            A comprehensive framework for transforming your relationship with
-            yourself and stepping into authentic feminine power.
-          </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {pillars.map((pillar, index) => (
               <div
                 key={index}
-                className={`p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${pillar.color}`}
+                className="card-pillar text-center animate-fade-in"
+                style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <div
-                  className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "#B47A5A", color: "white" }}
+                  className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center bg-gradient-cream-warm"
+                  style={{ color: "var(--accent-brown)" }}
                 >
                   {pillar.icon}
                 </div>
-                <h3
-                  className="text-2xl font-semibold mb-4 text-center"
-                  style={{
-                    color: "#B47A5A",
-                    fontFamily: "'Raleway', sans-serif",
-                  }}
-                >
+                <h3 className="subheading-clean text-2xl font-semibold mb-4">
                   {pillar.title}
                 </h3>
-                <p
-                  className="text-center leading-relaxed"
-                  style={{
-                    color: "#444444",
-                    fontFamily: "'Roboto Slab', serif",
-                  }}
-                >
+                <p className="body-text leading-relaxed">
                   {pillar.description}
                 </p>
               </div>
@@ -459,314 +292,259 @@ const NewHome = () => {
         </div>
       </section>
 
-      {/* 5️⃣ Micro-Shift & Free PDF Download */}
-      <section
-        ref={scrollToRef}
-        className="py-16 px-4 sm:px-6 lg:px-8"
-        style={{ backgroundColor: "#faf5ef" }}
-      >
-        <div className="max-w-6xl mx-auto">
+      {/* Client Transformations Section - 6 testimonials, horizontal auto-slider (3 at a time, 8 seconds) */}
+      <section className="section-padding bg-gradient-cream-warm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2
-              className="text-4xl md:text-5xl font-bold mb-6"
-              style={{
-                color: "#B47A5A",
-                fontFamily: "'Playfair Display', serif",
-              }}
-            >
-              Begin With a Micro Shift
+            <h2 className="heading-section text-4xl md:text-5xl font-bold mb-6">
+              Client Transformations
             </h2>
-            <p
-              className="text-xl max-w-3xl mx-auto mb-8"
-              style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
-            >
-              Transformation doesn't require dramatic gestures. Sometimes the
-              most profound changes begin with the smallest, most intentional
-              steps. Start where you are, with what you have.
+            <p className="subheading-clean text-xl">
+              Real stories of healing and empowerment from our mental health
+              community
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {microShiftTechniques.map((technique, index) => (
-              <div
-                key={index}
-                className="p-6 rounded-xl shadow-md"
-                style={{
-                  backgroundColor: "#eed6c4",
-                  border: "1px solid rgba(180, 122, 90, 0.2)",
-                }}
-              >
+          <div className="relative overflow-hidden">
+            <div
+              className="flex transition-transform duration-1000 ease-in-out gap-8"
+              style={{
+                transform: `translateX(-${Math.floor(activeTransformation / 3) * 100}%)`,
+                width: `${Math.ceil(transformations.length / 3) * 100}%`,
+              }}
+            >
+              {Array.from({
+                length: Math.ceil(transformations.length / 3),
+              }).map((_, groupIndex) => (
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto"
-                  style={{ backgroundColor: "#B47A5A", color: "white" }}
+                  key={groupIndex}
+                  className="w-full flex gap-8 flex-shrink-0"
                 >
-                  <span className="text-xl font-bold">{index + 1}</span>
+                  {transformations
+                    .slice(groupIndex * 3, (groupIndex + 1) * 3)
+                    .map((story, index) => (
+                      <div
+                        key={`${groupIndex}-${index}`}
+                        className="flex-1 card-testimonial hover:shadow-xl transition-all duration-300"
+                      >
+                        <div className="h-48 bg-gradient-cream-rich rounded-xl mb-4 overflow-hidden">
+                          {story.image && (
+                            <img
+                              src={story.image}
+                              alt={story.name}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          )}
+                        </div>
+                        <div className="flex mb-3">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={16}
+                              className="fill-yellow-400 text-yellow-400"
+                            />
+                          ))}
+                        </div>
+                        <p className="body-text text-lg italic mb-4 leading-relaxed">
+                          "{story.quote}"
+                        </p>
+                        <div>
+                          <h4 className="subheading-clean font-semibold text-lg">
+                            {story.name}
+                          </h4>
+                          <p className="body-text-alt text-sm opacity-75">
+                            {story.role}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                 </div>
-                <p
-                  className="text-center font-medium"
-                  style={{
-                    color: "#444444",
-                    fontFamily: "'Roboto Slab', serif",
-                  }}
-                >
-                  {technique}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          <div className="text-center">
-            <div
-              className="inline-block p-8 rounded-2xl shadow-lg mb-8"
-              style={{ backgroundColor: "#f5c8c4" }}
-            >
-              <h3
-                className="text-2xl font-semibold mb-4"
-                style={{
-                  color: "#B47A5A",
-                  fontFamily: "'Raleway', sans-serif",
-                }}
-              >
-                Free Clarity Journal
-              </h3>
-              <p
-                className="mb-6 text-lg"
-                style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
-              >
-                Download your free guided journal to begin your transformation
-                journey with powerful reflection exercises and clarity prompts.
-              </p>
-              <a
-                href="/assets/Clarity_Journal.pdf"
-                download
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105"
-                style={{
-                  backgroundColor: "#B47A5A",
-                  color: "white",
-                  fontFamily: "'Raleway', sans-serif",
-                  boxShadow: "0 6px 20px rgba(180, 122, 90, 0.3)",
-                }}
-              >
-                <Download size={20} />
-                Download Free Journal
-              </a>
-            </div>
+          {/* Navigation dots */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: Math.ceil(transformations.length / 3) }).map(
+              (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveTransformation(index * 3)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    Math.floor(activeTransformation / 3) === index
+                      ? "bg-[var(--accent-brown)]"
+                      : "bg-[var(--accent-cream)]"
+                  }`}
+                  aria-label={`Go to testimonial group ${index + 1}`}
+                />
+              ),
+            )}
           </div>
         </div>
       </section>
 
-      {/* 6️⃣ About the Practitioner */}
-      <section
-        className="py-16 px-4 sm:px-6 lg:px-8"
-        style={{ backgroundColor: "#fbeae3" }}
-      >
-        <div className="max-w-6xl mx-auto">
-          <h2
-            className="text-center text-4xl md:text-5xl font-bold mb-12"
-            style={{
-              color: "#B47A5A",
-              fontFamily: "'Playfair Display', serif",
-            }}
-          >
-            Meet Your Practitioner
-          </h2>
+      {/* NEW: Wellness Resources Section - 3 downloadable/embedded tools */}
+      <section className="section-padding bg-gradient-cream-rich">
+        <div className="container-responsive">
+          <div className="text-center mb-16">
+            <h2 className="heading-section text-4xl md:text-5xl font-bold mb-6">
+              Wellness Resources
+            </h2>
+            <p className="subheading-clean text-xl max-w-3xl mx-auto">
+              Complementary tools and resources to support your mental health
+              journey
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div
-              className="rounded-2xl overflow-hidden shadow-lg"
-              style={{ backgroundColor: "#eed6c4" }}
-            >
-              <img
-                src="/assets/guide_portrait.jpg"
-                alt="Your Practitioner"
-                className="w-full h-96 object-cover"
-                loading="lazy"
-              />
-            </div>
-
-            <div>
-              <p
-                className="text-lg leading-relaxed mb-6"
-                style={{ color: "#444444", fontFamily: "'Roboto Slab', serif" }}
-              >
-                {practitionerBio}
-              </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {wellnessResources.map((resource, index) => (
               <div
-                className="p-6 rounded-xl"
-                style={{ backgroundColor: "#f5c8c4" }}
+                key={index}
+                className="card-wellness text-center animate-fade-in"
+                style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <h4
-                  className="text-xl font-semibold mb-3"
-                  style={{
-                    color: "#B47A5A",
-                    fontFamily: "'Raleway', sans-serif",
-                  }}
+                <div className="h-48 bg-gradient-cream-warm rounded-xl mb-6 overflow-hidden">
+                  {resource.image && (
+                    <img
+                      src={resource.image}
+                      alt={resource.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  )}
+                </div>
+                <div
+                  className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center bg-gradient-cream-light"
+                  style={{ color: "var(--accent-brown)" }}
                 >
+                  {resource.icon}
+                </div>
+                <h3 className="subheading-clean text-xl font-semibold mb-4">
+                  {resource.title}
+                </h3>
+                <p className="body-text mb-6 leading-relaxed">
+                  {resource.description}
+                </p>
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary inline-flex items-center gap-3"
+                  aria-label={`${resource.action} ${resource.title}`}
+                >
+                  {resource.action === "Download" && <Download size={20} />}
+                  {resource.action === "Listen" && <Headphones size={20} />}
+                  {resource.action === "Watch" && <PlayCircle size={20} />}
+                  {resource.action}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About the Practitioner Section - Rounded square portrait, short bio, "Book a Clarity Session" button */}
+      <section
+        ref={scrollToRef}
+        className="section-padding bg-gradient-cream-light"
+      >
+        <div className="container-responsive">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <h2 className="heading-section text-4xl md:text-5xl font-bold mb-6">
+                Meet Your Practitioner
+              </h2>
+              <div className="body-text text-lg leading-relaxed mb-8">
+                <p>{practitionerBio}</p>
+              </div>
+              <div className="mb-8 p-6 bg-gradient-cream-warm rounded-xl border border-[var(--accent-cream)]">
+                <h4 className="subheading-clean text-xl font-semibold mb-3">
                   Professional Credentials
                 </h4>
-                <p
-                  className="font-medium"
-                  style={{
-                    color: "#444444",
-                    fontFamily: "'Roboto Slab', serif",
-                  }}
-                >
+                <p className="body-text font-medium">
                   Board-Certified Psychiatric & Mental Health Nurse Practitioner
+                  (PMHNP-BC)
                 </p>
+                <p className="body-text-alt text-sm opacity-75 mt-2">
+                  Licensed to provide comprehensive psychiatric care, medication
+                  management, and psychotherapy
+                </p>
+              </div>
+              <button
+                onClick={() =>
+                  window.open("https://calendly.com/tashaniyi/30min", "_blank")
+                }
+                className="btn-primary"
+                aria-label="Book a clarity session with our psychiatric nurse practitioner"
+              >
+                Book a Clarity Session
+              </button>
+            </div>
+
+            <div className="order-1 md:order-2">
+              <div className="portrait-frame max-w-md mx-auto">
+                <img
+                  src={
+                    content?.practitioner?.image || "/assets/guide_portrait.jpg"
+                  }
+                  alt="Psychiatric and Mental Health Nurse Practitioner"
+                  className="w-full h-auto"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 7️⃣ Testimonials & Impact Section */}
+      {/* Booking CTA Section - Updated background to booking_bg_dark.jpg, ensure text readability */}
       <section
-        className="py-16 px-4 sm:px-6 lg:px-8"
-        style={{ backgroundColor: "#faf5ef" }}
-      >
-        <div className="max-w-6xl mx-auto">
-          <h2
-            className="text-center text-4xl md:text-5xl font-bold mb-6"
-            style={{
-              color: "#B47A5A",
-              fontFamily: "'Playfair Display', serif",
-            }}
-          >
-            Proven Impact & Client Stories
-          </h2>
-
-          {/* Impact Stats */}
-          <div className="flex justify-center gap-16 mb-16">
-            {impactStats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div
-                  className="text-4xl md:text-5xl font-bold mb-2"
-                  style={{
-                    color: "#B47A5A",
-                    fontFamily: "'Playfair Display', serif",
-                  }}
-                >
-                  {stat.number}
-                </div>
-                <p
-                  className="text-lg font-medium"
-                  style={{
-                    color: "#444444",
-                    fontFamily: "'Raleway', sans-serif",
-                  }}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Testimonials */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonialsList.map((testimonial, index) => (
-              <div
-                key={index}
-                className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                style={{ backgroundColor: "#eed6c4" }}
-              >
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={16}
-                      className="fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-                <p
-                  className="italic mb-6 leading-relaxed"
-                  style={{
-                    color: "#444444",
-                    fontFamily: "'Roboto Slab', serif",
-                  }}
-                >
-                  "{testimonial.quote}"
-                </p>
-                <div className="flex items-center gap-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                    loading="lazy"
-                  />
-                  <div>
-                    <p
-                      className="font-semibold"
-                      style={{
-                        color: "#1A1A1A",
-                        fontFamily: "'Raleway', sans-serif",
-                      }}
-                    >
-                      {testimonial.name}
-                    </p>
-                    <p
-                      className="text-sm"
-                      style={{
-                        color: "#666666",
-                        fontFamily: "'Roboto Slab', serif",
-                      }}
-                    >
-                      {testimonial.title}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8️⃣ CTA Banner for Clarity Session */}
-      <section
-        className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+        className="relative section-padding overflow-hidden"
         style={{
-          backgroundImage: "url('/assets/compare_sessions_bg.jpg')",
+          backgroundImage: content?.finalCTA?.backgroundImage
+            ? `url('${content.finalCTA.backgroundImage}')`
+            : "url('/assets/booking_bg_dark.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
+          backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/60" />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h2
-            className="text-white mb-6 text-4xl md:text-5xl font-bold"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              textShadow: "0 4px 16px rgba(0,0,0,0.7)",
-            }}
+            className="heading-hero text-white mb-6 text-4xl md:text-5xl font-bold"
+            style={{ textShadow: "0 4px 16px rgba(0,0,0,0.8)" }}
           >
-            Take the First Step
+            Take the First Step Toward Healing
           </h2>
           <p
-            className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed"
-            style={{
-              fontFamily: "'Roboto Slab', serif",
-              textShadow: "0 2px 8px rgba(0,0,0,0.5)",
-            }}
+            className="body-text text-xl text-white/95 mb-10 max-w-2xl mx-auto leading-relaxed"
+            style={{ textShadow: "0 2px 8px rgba(0,0,0,0.7)" }}
           >
-            Your transformation begins with a single conversation. Let's explore
-            what's possible when you own your power and shape your story.
+            Your mental health journey begins with compassionate, professional
+            care. Let's explore how psychiatric treatment can help you own your
+            power and shape your story.
           </p>
           <a
             href="https://calendly.com/tashaniyi/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-full font-semibold text-xl transition-all duration-300 transform hover:scale-105"
+            className="btn-primary inline-flex items-center gap-3 text-xl px-12 py-5"
             style={{
-              backgroundColor: "#B47A5A",
-              color: "white",
-              fontFamily: "'Raleway', sans-serif",
-              boxShadow: "0 8px 24px rgba(180, 122, 90, 0.4)",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+              backgroundColor: "var(--accent-brown)",
+              border: "2px solid var(--accent-cream)",
             }}
+            aria-label="Schedule your initial psychiatric consultation"
           >
             <Calendar size={24} />
-            Book Your Clarity Session
+            Schedule Your Consultation
           </a>
+          <p className="body-text-alt text-white/80 mt-4 text-sm">
+            PMHNP-BC • Evidence-Based Care • Compassionate Treatment
+          </p>
         </div>
       </section>
     </div>
