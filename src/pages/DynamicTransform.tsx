@@ -188,7 +188,7 @@ const DynamicTransform = () => {
                 key={index}
                 className="text-center group hover:transform hover:scale-105 transition-all duration-300"
               >
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm group-hover:shadow-md border border-[#DCC5A8]/30">
+                <div className="w-16 h-16 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl border border-[#DCC5A8]/30 transition-all duration-300">
                   <span className="text-2xl">{tool.icon}</span>
                 </div>
                 <h3
