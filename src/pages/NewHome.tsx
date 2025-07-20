@@ -371,135 +371,115 @@ const NewHome = () => {
         </div>
       </section>
 
-      {/* Enhanced Client Transformations Section - 6 testimonials with improved slider */}
-      <section className="section-padding bg-gradient-cream-warm">
+      {/* Client Transformations Section - Auto-scrolling Horizontal Carousel */}
+      <section
+        className="section-padding-compact"
+        style={{
+          background: "linear-gradient(135deg, #EFE2D5, #F5C8C4, #EADCC4)",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="heading-section text-4xl md:text-5xl font-bold mb-6">
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-6"
+              style={{
+                fontFamily: "Raleway, sans-serif",
+                color: "var(--text-dark)",
+              }}
+            >
               Client Transformations
             </h2>
-            <p className="subheading-clean text-xl">
+            <p
+              className="text-xl max-w-3xl mx-auto"
+              style={{
+                fontFamily: "Roboto, sans-serif",
+                color: "var(--text-medium)",
+              }}
+            >
               Real stories of healing and empowerment from our mental health
               community
             </p>
           </div>
 
-          <div className="relative overflow-hidden">
-            {/* Enhanced Slider Container - Responsive */}
-            <div
-              ref={sliderRef}
-              className="flex transition-transform duration-1000 ease-in-out cursor-grab active:cursor-grabbing"
-              style={{
-                transform:
-                  window.innerWidth >= 1024
-                    ? `translateX(-${(activeTransformation * 100) / 3}%)`
-                    : window.innerWidth >= 768
-                      ? `translateX(-${(activeTransformation * 100) / 2}%)`
-                      : `translateX(-${activeTransformation * 100}%)`,
-                width:
-                  window.innerWidth >= 1024
-                    ? `${(transformations.length / 3) * 100}%`
-                    : window.innerWidth >= 768
-                      ? `${(transformations.length / 2) * 100}%`
-                      : `${transformations.length * 100}%`,
-              }}
-              onMouseDown={handleTouchStart}
-              onMouseMove={handleTouchMove}
-              onMouseUp={handleTouchEnd}
-              onMouseLeave={handleTouchEnd}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              {transformations.map((story, index) => (
+          {/* Auto-scrolling Carousel Container */}
+          <div className="carousel-container overflow-hidden relative">
+            <div className="flex animate-scroll-slow space-x-6">
+              {/* Duplicate the testimonials array to create seamless infinite scroll */}
+              {[...transformations, ...transformations].map((story, index) => (
                 <div
-                  key={index}
-                  className="w-full md:w-1/2 lg:w-1/3 px-2 md:px-4 flex-shrink-0"
+                  key={`testimonial-${index}`}
+                  className="min-w-[300px] max-w-md rounded-2xl shadow-lg p-6 flex-shrink-0"
+                  style={{
+                    backgroundColor: "#EFE2D5",
+                    boxShadow: "0 8px 25px rgba(180, 122, 90, 0.15)",
+                  }}
                 >
-                  <div className="card-testimonial hover:shadow-xl transition-all duration-300 h-full">
-                    <div className="h-48 bg-gradient-cream-rich rounded-xl mb-4 overflow-hidden">
-                      {story.image && (
-                        <img
-                          src={story.image}
-                          alt={story.name}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          draggable={false}
-                        />
-                      )}
-                    </div>
+                  {/* Client Image */}
+                  <div className="flex justify-center mb-4">
+                    <img
+                      src={story.image || "/assets/testimonial_placeholder.jpg"}
+                      alt={story.name}
+                      className="w-16 h-16 rounded-full object-cover shadow-md border-2 border-white/50"
+                      loading="lazy"
+                    />
+                  </div>
 
-                    {/* 5-star rating */}
-                    <div className="flex justify-center mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={18}
-                          className="fill-yellow-400 text-yellow-400 mx-0.5"
-                        />
-                      ))}
-                    </div>
+                  {/* 5-star Rating */}
+                  <div className="flex justify-center mb-4 text-yellow-500">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="text-lg">
+                        ⭐
+                      </span>
+                    ))}
+                  </div>
 
-                    {/* Testimonial quote */}
-                    <p className="body-text text-lg italic mb-4 leading-relaxed text-center px-2">
-                      "{story.quote}"
+                  {/* Testimonial Quote */}
+                  <p
+                    className="text-center text-base italic mb-4 leading-relaxed"
+                    style={{
+                      fontFamily: "Roboto, sans-serif",
+                      color: "var(--text-medium)",
+                    }}
+                  >
+                    "{story.quote}"
+                  </p>
+
+                  {/* Client Info */}
+                  <div className="text-center">
+                    <h4
+                      className="font-bold text-lg mb-1"
+                      style={{
+                        fontFamily: "Raleway, sans-serif",
+                        color: "var(--text-dark)",
+                      }}
+                    >
+                      {story.name}
+                    </h4>
+                    <p
+                      className="text-sm opacity-80"
+                      style={{
+                        fontFamily: "Roboto, sans-serif",
+                        color: "var(--text-medium)",
+                      }}
+                    >
+                      {story.role}
                     </p>
-
-                    {/* Client info */}
-                    <div className="text-center">
-                      <h4 className="subheading-clean font-semibold text-lg mb-1">
-                        {story.name}
-                      </h4>
-                      <p className="body-text-alt text-sm opacity-75">
-                        {story.role}
-                      </p>
-                    </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            {/* Navigation arrows */}
-            <button
-              onClick={() =>
-                setActiveTransformation(
-                  (prev) =>
-                    (prev - 1 + transformations.length) %
-                    transformations.length,
-                )
-              }
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[var(--accent-brown)] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button
-              onClick={() =>
-                setActiveTransformation(
-                  (prev) => (prev + 1) % transformations.length,
-                )
-              }
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[var(--accent-brown)] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight size={24} />
-            </button>
           </div>
 
-          {/* Enhanced Navigation dots */}
-          <div className="flex justify-center mt-8 space-x-3">
-            {transformations.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTransformation(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  activeTransformation === index
-                    ? "bg-[var(--accent-brown)] scale-125"
-                    : "bg-[var(--accent-cream)] hover:bg-[var(--accent-brown)]/50"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
+          {/* Optional: Scroll indicator */}
+          <div className="flex justify-center mt-8">
+            <div className="flex space-x-2">
+              {transformations.slice(0, 3).map((_, index) => (
+                <div
+                  key={index}
+                  className="w-2 h-2 rounded-full bg-[var(--accent-brown)]/40"
+                ></div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
