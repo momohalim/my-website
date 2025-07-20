@@ -54,9 +54,9 @@ const Navigation = () => {
                 to={item.path}
                 className={`font-medium transition-all duration-300 relative group ${
                   isScrolled
-                    ? "text-[var(--text-dark)] hover:text-[var(--brand-pink)]"
-                    : "text-[var(--text-light)] hover:text-[var(--brand-pink)]"
-                } ${isActive(item.path) ? "text-[var(--brand-pink)]" : ""}`}
+                    ? "text-[var(--text-dark)] hover:text-[var(--accent-brown)]"
+                    : "text-[var(--text-light)] hover:text-[var(--accent-cream)]"
+                } ${isActive(item.path) ? "text-[var(--accent-brown)]" : ""}`}
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--brand-pink)] transition-all duration-300 group-hover:w-full"></span>
