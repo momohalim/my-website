@@ -91,7 +91,7 @@ const Navigation = () => {
         {isOpen && (
           <div
             id="mobile-menu"
-            className="md:hidden py-4 border-t border-[var(--brand-pink)]/20 bg-[var(--bg-cream-light)] rounded-b-xl"
+            className="md:hidden py-4 border-t border-[var(--accent-cream)]/30 bg-[var(--bg-cream-lightest)] rounded-b-xl"
           >
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
