@@ -72,7 +72,7 @@ const Footer = () => {
             <h4
               className="text-lg font-semibold"
               style={{
-                fontFamily: "Cormorant Garamond, serif",
+                fontFamily: "Raleway, sans-serif",
                 color: "#F8F4EF",
               }}
             >
