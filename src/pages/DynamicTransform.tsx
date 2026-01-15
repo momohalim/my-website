@@ -11,16 +11,30 @@ const DynamicTransform = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{
+          background:
+            "linear-gradient(to bottom right, #F8F3ED, #EFE2D5, #EADCC4)",
+        }}
+      >
+        <Loader2 className="h-8 w-8 animate-spin text-[#8B7355]" />
       </div>
     );
   }
 
   if (!content) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Unable to load content. Please try again later.</p>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{
+          background:
+            "linear-gradient(to bottom right, #F8F3ED, #EFE2D5, #EADCC4)",
+        }}
+      >
+        <p className="text-[#2C2824]">
+          Unable to load content. Please try again later.
+        </p>
       </div>
     );
   }
@@ -31,7 +45,13 @@ const DynamicTransform = () => {
   const questions = content.innerStruggle?.questions || [];
 
   return (
-    <div className="min-h-screen bg-[#F8F4EF]">
+    <div
+      className="min-h-screen w-full"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #F8F3ED, #EFE2D5, #EADCC4)",
+      }}
+    >
       <SEO
         title="Transform | High Agency Collective"
         description="Experience a powerful transformation journey. Discover the 5-phase timeline from awakening to agency and unlock your inner power to create lasting change."
@@ -107,7 +127,7 @@ const DynamicTransform = () => {
       </section>
 
       {/* The Inner Struggle - Reflective Questions */}
-      <section className="py-12 bg-[#F8F4EF]">
+      <section className="py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2
@@ -129,7 +149,7 @@ const DynamicTransform = () => {
             {questions.map((question, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-[#E2CDB3]/30 hover:shadow-md transition-shadow duration-300"
+                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-[#E2CDB3]/30 hover:shadow-xl transition-all duration-300"
               >
                 <p
                   className="text-base font-medium text-[#1A1A1A] leading-relaxed"
@@ -144,7 +164,7 @@ const DynamicTransform = () => {
       </section>
 
       {/* Awakening Her Power - Tools Grid */}
-      <section className="py-12 bg-[#E2CDB3]/20">
+      <section className="py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2
@@ -168,7 +188,7 @@ const DynamicTransform = () => {
                 key={index}
                 className="text-center group hover:transform hover:scale-105 transition-all duration-300"
               >
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm group-hover:shadow-md border border-[#DCC5A8]/30">
+                <div className="w-16 h-16 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl border border-[#DCC5A8]/30 transition-all duration-300">
                   <span className="text-2xl">{tool.icon}</span>
                 </div>
                 <h3
@@ -190,7 +210,7 @@ const DynamicTransform = () => {
       </section>
 
       {/* The Shift - Interactive Timeline */}
-      <section className="py-12 bg-white">
+      <section className="py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2
@@ -245,7 +265,7 @@ const DynamicTransform = () => {
             {/* Phase description */}
             <div className="mt-8 min-h-[80px]">
               {phases[activePhase] && (
-                <div className="bg-[#F8F4EF] p-6 rounded-2xl border border-[#E2CDB3]/30">
+                <div className="bg-white/85 backdrop-blur-sm p-6 rounded-2xl border border-[#E2CDB3]/30 shadow-lg">
                   <h4
                     className="text-xl font-semibold text-[#1A1A1A] mb-3"
                     style={{ fontFamily: "Cormorant Garamond, serif" }}
@@ -266,7 +286,7 @@ const DynamicTransform = () => {
       </section>
 
       {/* Real Women, Real Change - Testimonials */}
-      <section className="py-12 bg-[#E2CDB3]/10">
+      <section className="py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2
@@ -288,7 +308,7 @@ const DynamicTransform = () => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-[#DCC5A8]/30 text-center hover:shadow-md transition-shadow duration-300"
+                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-[#DCC5A8]/30 text-center hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden shadow-sm border-2 border-[#E2CDB3]/30">
                   <img

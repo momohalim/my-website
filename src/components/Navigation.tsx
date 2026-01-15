@@ -8,6 +8,7 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
+    { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Transform", path: "/transform" },
     { name: "Contact", path: "/contact" },
@@ -28,21 +29,19 @@ const Navigation = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[var(--bg-cream-light)] backdrop-blur-sm shadow-lg"
+          ? "bg-[var(--bg-cream-lightest)] backdrop-blur-sm shadow-lg border-b border-[var(--accent-cream)]"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* Logo */}
+          {/* Logo - Clean with transparent background */}
           <Link to="/" className="flex items-center">
-            <div className="bg-[rgba(0,0,0,0.4)] rounded-xl p-1 shadow-lg">
-              <img
-                src="/assets/Gold HA negative background (1).svg"
-                alt="High Agency Collective"
-                className="w-[60px] h-[60px] rounded-xl object-contain"
-              />
-            </div>
+            <img
+              src="/assets/Gold HA negative background (1).svg"
+              alt="Psychiatric & Mental Health Nurse Practitioner"
+              className="w-[70px] h-[70px] object-contain transition-transform duration-300 hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -53,16 +52,16 @@ const Navigation = () => {
                 to={item.path}
                 className={`font-medium transition-all duration-300 relative group ${
                   isScrolled
-                    ? "text-[var(--text-dark)] hover:text-[var(--brand-pink)]"
-                    : "text-[var(--text-light)] hover:text-[var(--brand-pink)]"
-                } ${isActive(item.path) ? "text-[var(--brand-pink)]" : ""}`}
+                    ? "text-[var(--text-dark)] hover:text-[var(--accent-brown)]"
+                    : "text-[var(--text-light)] hover:text-[var(--accent-cream)]"
+                } ${isActive(item.path) ? "text-[var(--accent-brown)]" : ""}`}
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--brand-pink)] transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--accent-brown)] transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
             <Link to="/contact" className="btn-primary ml-4">
-              Book Your Call
+              Schedule Consultation
             </Link>
           </div>
 
@@ -72,8 +71,8 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
               className={`transition-colors ${
                 isScrolled
-                  ? "text-[var(--text-dark)] hover:text-[var(--brand-pink)]"
-                  : "text-[var(--text-light)] hover:text-[var(--brand-pink)]"
+                  ? "text-[var(--text-dark)] hover:text-[var(--accent-brown)]"
+                  : "text-[var(--text-light)] hover:text-[var(--accent-cream)]"
               }`}
               aria-label={
                 isOpen ? "Close navigation menu" : "Open navigation menu"
@@ -90,7 +89,7 @@ const Navigation = () => {
         {isOpen && (
           <div
             id="mobile-menu"
-            className="md:hidden py-4 border-t border-[var(--brand-pink)]/20 bg-[var(--bg-cream-light)] rounded-b-xl"
+            className="md:hidden py-4 border-t border-[var(--accent-cream)]/30 bg-[var(--bg-cream-lightest)] rounded-b-xl"
           >
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
@@ -98,8 +97,8 @@ const Navigation = () => {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
-                  className={`text-base font-medium transition-colors duration-200 text-[var(--text-dark)] hover:text-[var(--brand-pink)] ${
-                    isActive(item.path) ? "text-[var(--brand-pink)]" : ""
+                  className={`text-base font-medium transition-colors duration-200 text-[var(--text-dark)] hover:text-[var(--accent-brown)] ${
+                    isActive(item.path) ? "text-[var(--accent-brown)]" : ""
                   }`}
                 >
                   {item.name}
@@ -110,7 +109,7 @@ const Navigation = () => {
                 onClick={() => setIsOpen(false)}
                 className="btn-primary w-fit"
               >
-                Book Your Call
+                Schedule Consultation
               </Link>
             </div>
           </div>
